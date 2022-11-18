@@ -1,0 +1,60 @@
+<header class="main-nav pt-4">
+  <nav>
+    <div class="main-navbar">
+      <div id="mainnav">
+        <ul class="nav-menu custom-scrollbar">
+          <li class="back-btn">
+            <div class="mobile-back text-end">
+              <span>Back</span
+              ><i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a class="nav-link menu-title" href="{% url 'index'  %}"
+              ><i data-feather="home"></i><span>Dashboard</span></a
+            >
+          </li>
+
+          <li class="dropdown">
+            <a class="nav-link menu-title" href="#"
+              ><i data-feather="phone"></i><span>Vendors</span></a
+            >
+          </li>
+
+          <li class="dropdown">
+            <a class="nav-link menu-title" href="javascript:void(0)"
+              ><i data-feather="info"></i><span>General Information</span></a
+            >
+            <ul class="nav-submenu menu-content">
+              <li><a href="#">Show Information</a></li>
+              <li><a href="{% url 'stall_aminities' %}">Stall Amenities</a></li>
+              <li>
+                <a href="{% url 'rules_and_regulations' %}"
+                  >Rules and Regulation</a
+                >
+              </li>
+
+              <!-- add anather li as sub link -->
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a class="nav-link menu-title" href="javascript:void(0)"
+              ><i data-feather="file-text"></i><span>Exhibitor Forms</span></a
+            >
+            <ul class="nav-submenu menu-content">
+              <li>
+                <a href="{% url 'participation_form' %}">Participation Form</a>
+              </li>
+              <li><a href="#">1 Form</a></li>
+              <li><a href="#">2 Form</a></li>
+              <li><a href="#">3 Form</a></li>
+              <li><a href="#">4 Form</a></li>
+              <li><a href="#">5 Form</a></li>
+              <!-- add anather li as sub link -->
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
