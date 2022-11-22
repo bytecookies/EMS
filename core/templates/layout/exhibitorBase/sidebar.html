@@ -19,6 +19,10 @@
             <a class="nav-link menu-title" href="#"
               ><i data-feather="phone"></i><span>Vendors</span></a
             >
+            <ul class="nav-submenu menu-content">
+              <li><a href="{% url 'venders' %}">All Venders</a></li>
+              
+               </ul>
           </li>
 
           <li class="dropdown">
@@ -26,7 +30,7 @@
               ><i data-feather="info"></i><span>General Information</span></a
             >
             <ul class="nav-submenu menu-content">
-              <li><a href="#">Show Information</a></li>
+              <li><a href="{% url 'show_info' %}">Show Information</a></li>
               <li><a href="{% url 'stall_aminities' %}">Stall Amenities</a></li>
               <li>
                 <a href="{% url 'rules_and_regulations' %}"

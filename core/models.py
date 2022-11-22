@@ -4,6 +4,11 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
+from utility.models import *
+# from core.utility.constants import department, designation
+
+
+
 
 class User(AbstractUser):
     objects = customUserManager()
@@ -18,6 +23,7 @@ class User(AbstractUser):
     )
     t_n_d = models.BooleanField(
         default=False, verbose_name="Terms & Conditions")
+    participation_form = models.BooleanField(default=False,)
     isVisitor = models.BooleanField(
         _("Visitor status"),
         default=False,
@@ -26,31 +32,106 @@ class User(AbstractUser):
 
 
 class Exhibitor(models.Model):
-    DEPARTMENT = (
-        ("select", ""),
-        ("Admin", "Admin"),
-        ("Business Development / Sales", "Business Development / Sales"),
-        ("Consultant", "Consultant"),
-        ("Distribution", "Distribution"),
-    )
+   
     BOOTH_TYPE = (
         ("0", ""),
         ("1", "BARE SPACE"),
         ("2", "SHELL SCHEME")
     )
-    companyName = models.CharField(max_length=30)
-    contactPerson = models.CharField(max_length=30)
-    designation = models.CharField(max_length=30)
-    department = models.CharField(
-        max_length=30, choices=DEPARTMENT, default='select')
-    phone = models.CharField(max_length=12)
-    email = models.EmailField(unique=True)
-    boothNumber = models.CharField(max_length=30)
+   
+    # DEPARTMENT = department()
+    # DESIGNATION = designation()
+    
+    
+    # try:
+    #     DEPARTMENT = tuple([(str(d.name), d.name)
+    #                         for d in Department.objects.all()])
+    #     DESIGNATION = tuple([(str(d.name), d.name)
+    #                         for d in Designation.objects.all()])
+    # except:
+    #     DEPARTMENT = None
+    #     DESIGNATION = None
+    # DEPARTMENT = (
+    #     ("0", ""),
+    #     ("1", "BARE SPACE"),
+    #     ("2", "SHELL SCHEME"),
+    #     ("3", "SHELL SCHEME")
+    # )
+    # DESIGNATION = (
+    #     ("0", ""),
+    #     ("1", "BARE SPACE"),
+    #     ("2", "SHELL SCHEME")
+    # )
+    
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, primary_key=True)
+
+    # company detail
+    companyName = models.CharField(max_length=255)
+    address1=models.TextField(blank=True, null=True)
+    address2 = models.TextField(blank=True, null=True)
+    zip = models.CharField(max_length=255, blank=True, null=True)
+    city = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255, blank=True, null=True)
+    country = models.CharField(max_length=255, blank=True, null=True)
+    website = models.URLField(max_length=255, blank=True, null=True)
+    company_email=models.EmailField(blank=True, null=True)
+    
+    # company billing detail
+    billing_companyName = models.CharField(
+        max_length=255, blank=True, null=True)
+    billing_address1 = models.TextField(blank=True, null=True)
+    billing_address2 = models.TextField(blank=True, null=True)
+    billing_zip = models.CharField(max_length=255, blank=True, null=True)
+    billing_city = models.CharField(max_length=255, blank=True, null=True)
+    billing_state = models.CharField(max_length=255, blank=True, null=True)
+    billing_country = models.CharField(max_length=255, blank=True, null=True)
+    company_GST = models.CharField(max_length=255, blank=True, null=True)
+    company_PAN = models.CharField(max_length=255, blank=True, null=True)
+
+    # Key contact person
+    contact_person_first_name = models.CharField(max_length=255, blank=True, null=True)
+    contact_person_last_name = models.CharField(max_length=255, blank=True, null=True)
+    designation = models.ForeignKey(
+        Designation, on_delete=models.PROTECT, blank=True, null=True,)
+    department = models.ForeignKey(
+        Department, on_delete=models.PROTECT, blank=True, null=True,)
+   
+    phone = models.CharField(max_length=12, blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+
+    # Senior Person Details
+    senior_person_first_name = models.CharField(
+        max_length=255, blank=True, null=True)
+    senior_person_last_name = models.CharField(
+        max_length=255, blank=True, null=True)
+    # senior_designation = models.CharField(
+    #     max_length=200, blank=True, null=True, choices=DESIGNATION)
+    # senior_department = models.CharField(
+    #     max_length=200, blank=True, null=True, choices=DEPARTMENT)
+    senior_designation = models.ForeignKey(
+        Designation, on_delete=models.PROTECT, related_name="senior_designation")
+    senior_department = models.ForeignKey(
+        Department, on_delete=models.PROTECT, related_name="senior_department")
+        
+    senior_phone = models.CharField(max_length=12, blank=True, null=True)
+    senior_email = models.EmailField(blank=True, null=True)
+    
+
+
+    # Booth Details
+    boothNumber = models.CharField(max_length=255)
     boothSize = models.IntegerField()
     boothType = models.CharField(
-        max_length=30, choices=BOOTH_TYPE, default="0")
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
+        max_length=255, choices=BOOTH_TYPE, default="0")
+   
+    # Business Classification Details
+    nature_of_bussiness=models.ManyToManyField(NatureOfBusiness, blank=True)
+    product_catogory=models.ManyToManyField(ProductCatogory,  blank=True)
+    product_sub_catogory = models.ManyToManyField(
+        ProductSubCatogory, blank=True)
+    our_brand = models.ManyToManyField(Brand, blank=True)
+
 
     def __str__(self):
         return self.companyName
@@ -58,50 +139,56 @@ class Exhibitor(models.Model):
     def save(self, *args, **kwargs):
         if self._state.adding:
             print("adding new Exhibitor")
+            email=self.email if self.email!=None else self.senior_email
             password = customUserManager().make_random_password()
+            
             user = User.objects.create_exhibitor(
-                email=self.email, password=password)
+                email=email, password=password)
             self.user = user
-            print("this is password ", password)
+            print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
         super().save(*args, **kwargs)
 
 
+
 class Vender(models.Model):
-    PRODUCT_AND_SERVICEC_OFFER = (
-        ("0", ""),
-        ("1", "Exhibitions"),
-        ("2", "Conference"),
-        ("3", "Award Nights"),
-        ("4", "Weddings"),
-        ("5", "Birthday Parties"),
-        ("6", "Celebrations"),
-    )
+    
     companyName = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
     country = models.CharField(max_length=255)
     pinCode = models.CharField(max_length=255)
-    phone = models.IntegerField()
-    email = models.EmailField(unique=True)
-    website = models.URLField(max_length=200)
-    productAndServicecOffer = models.CharField(
-        max_length=200, choices=PRODUCT_AND_SERVICEC_OFFER, default="0")
-    briefProfile = models.TextField(max_length=400)
+    phone = models.CharField(max_length=255)
+    email = models.EmailField(unique=True, blank=True,null=True)
+    website = models.URLField(max_length=200, blank=True, null=True)
+    
+    briefProfile = models.TextField(max_length=400, blank=True, null=True)
+    product_and_services_offer=models.ManyToManyField(VenderProductAndService)
 
     def __str__(self):
         return self.companyName
 
 
 class VenderContact(models.Model):
-    Vender = models.ForeignKey(
-        Vender,
-        on_delete=models.CASCADE,
+    PERSON_TYPE = (
+        (1, "Key Person"),
+        (2, "Owner"), 
     )
-    type = models.CharField(max_length=200)
+  
+
+    designation = models.ForeignKey(Designation, on_delete=models.PROTECT)
+    department = models.ForeignKey(Department, on_delete=models.PROTECT)
+
+    Vender = models.ForeignKey(Vender, on_delete=models.CASCADE,related_name="vender_contact")
+    type = models.IntegerField(choices=PERSON_TYPE,)
     fname = models.CharField(max_length=200)
     lname = models.CharField(max_length=200)
-    designation = models.CharField(max_length=200)
-    department = models.CharField(max_length=200)
-    mobile = models.IntegerField()
+    mobile = models.CharField(max_length=255)
     email = models.EmailField(max_length=200)
+
+    
+    
+
+
+
+

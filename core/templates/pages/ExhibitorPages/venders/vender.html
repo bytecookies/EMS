@@ -1,0 +1,109 @@
+{% extends 'layout/exhibitorBase/base.html' %} {% load static %} 
+{% load sass_tags %} {% block css %}
+<!-- Plugins css start-->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% sass_src 'assets/scss/datatables.scss' %}"
+/>
+<!-- Plugins css Ends-->
+{% endblock %} {% block content %}
+
+<div class="page-body">
+  <!-- Multiple table control elements  Starts-->
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="mb-3">Vender contact list</h5>
+        
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="display" id="advance-5">
+            <thead>
+              <tr>
+                <th>Company</th>
+                <th>City</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Services</th>
+               
+              </tr>
+            </thead>
+            <tbody>
+              {% for vender in venders %}
+    <tr role="row" class="odd">
+    <td >
+        {{ vender.Vender.companyName}}
+        
+       
+      
+    </td>
+    <td >
+       
+        {{ vender.Vender.city}}
+        
+    </td>
+
+    <td >
+       
+         {{ vender.fname}}   {{ vender.lname}} 
+        
+    </td>
+
+    <td >
+       
+         {{ vender.designation}}  
+        
+    </td>
+
+    <td >
+       
+         {{ vender.mobile}}  
+        
+    </td>
+
+    <td >
+       
+         {{ vender.email}}  
+        
+    </td>
+
+      <td>
+          {% for services in vender.Vender.product_and_services_offer.all %}
+            <span class="badge rounded-pill badge-primary" >{{ services }}</span>
+          {% endfor %}
+      </td>
+    </tr>
+
+    {% endfor %}
+             
+            </tbody>
+            <tfoot>
+              <tr>
+                <th>Company</th>
+                <th>City</th>
+                <th>Name</th>
+                <th>Designation</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Services</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Multiple table control elements Ends-->
+</div>
+
+{% endblock content %} {% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/datatable/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'assets/js/datatable/datatables/datatable.custom.js'%}"></script>
+<script src="{% static 'assets/js/tooltip-init.js'%}"></script>
+<!-- Plugins JS Ends-->
+{% endblock %}

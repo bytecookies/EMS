@@ -25,6 +25,12 @@ from django.conf import settings
 
 import debug_toolbar
 
+
+admin.site.site_header = "INTIMASIA"
+admin.site.site_title = "INTIMASIA"
+admin.site.index_title = "Welcome to INTIMASIA"
+
+
 urlpatterns = [
     path('', include('core.urls')),
     path('admin/', admin.site.urls),

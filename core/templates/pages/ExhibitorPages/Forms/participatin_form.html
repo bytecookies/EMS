@@ -15,7 +15,15 @@
         <div class="card">
           <div class="card-header pb-0">
             <h5>Exhibitor Participation Form</h5>
-            <span>First step to Intimasia</span>
+            <div>
+              <span class="text-primary">NOTE:</span>
+              <span >The form can be saved and edited multiple times. But once you submit the form, the data will be freezed and submitted to the organisor. You won’t be able to make any modifications once the form is submitted.</span>
+              
+              <br>
+              <span  class="text-danger pt-4 disabled-form-msg"></span>
+
+             
+            </div>
           </div>
           <div class="card-body">
             <div class="stepwizard">
@@ -38,7 +46,7 @@
                 </div>
               </div>
             </div>
-            <form class="needs-validation" action="#" method="POST" novalidate>
+            <form class="needs-validation" action="#" method="POST" id="participation_form" novalidate>
               {% csrf_token %}
 
               <div class="setup-content" id="step-1">
@@ -46,150 +54,118 @@
                   <div class="col-md-12">
                     <div>
                       <h4>Senior Management</h4>
-                      <div class="row">
-                        <div class="col-md mb-3 form-group">
+                        <div class="row">
+                        <div class="col-md mb-3">
                           <label class="control-label">First Name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            placeholder="Johan"
-                            required="required"
-                          />
-                          <div class="valid-feedback">Looks good!</div>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.senior_person_first_name.errors }}</span>
+                          {{ form.senior_person_first_name }}
                         </div>
 
-                        <div class="col-md mb-3 form-group">
+                        <div class="col-md mb-3">
                           <label class="control-label">Last Name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            placeholder="Deo"
-                            required="required"
-                          />
-                          <div class="valid-feedback">Looks good!</div>
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.senior_person_last_name.errors }}</span>
+                          {{ form.senior_person_last_name }}
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md mb-3">
                           <label class="control-label">Designation</label>
-                          <select
-                            class="js-example-basic-single form-control"
-                            required="required"
-                          >
-                            <option selected disabled>select</option>
-                            <option>CEO</option>
-                            <option>Manager</option>
-                            <option>Accountent</option>
-                          </select>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.senior_designation.errors }}</span>
+                          {{ form.senior_designation }}
                         </div>
 
                         <div class="col-md mb-3">
                           <label class="control-label">Department</label>
-                          <select
-                            class="js-example-basic-single form-control"
-                            required="required"
-                          >
-                            <option selected disabled>select</option>
-                            <option>IT</option>
-                            <option>HR</option>
-                            <option>Management</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-md mb-3 form-group">
-                        <label class="control-label">Mobile</label>
-                        <input
-                          class="form-control"
-                          type="number"
-                          placeholder="+91-9182-786-897"
-                          required="required"
-                        />
-                      </div>
-
-                      <div class="col-md mb-3">
-                        <label class="control-label">Email</label>
-                        <input
-                          class="form-control"
-                          type="email"
-                          placeholder="Deo@gmail.com"
-                          required="required"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4>Key Contact Person</h4>
-
-                      <div class="row">
-                        <div class="col-md mb-3">
-                          <label class="control-label">First Name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            placeholder="Johan"
-                            required="required"
-                          />
-                        </div>
-
-                        <div class="col-md mb-3">
-                          <label class="control-label">Last Name</label>
-                          <input
-                            class="form-control"
-                            type="text"
-                            placeholder="Deo"
-                            required="required"
-                          />
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md mb-3">
-                          <label class="control-label">Designation</label>
-                          <select
-                            class="form-control js-example-basic-single"
-                            required="required"
-                          >
-                            <option selected disabled>select</option>
-                            <option>CEO</option>
-                            <option>Manager</option>
-                            <option>Accountent</option>
-                          </select>
-                        </div>
-
-                        <div class="col-md mb-3">
-                          <label class="control-label">Department</label>
-                          <select
-                            class="form-control js-example-basic-single"
-                            required="required"
-                          >
-                            <option selected disabled>select</option>
-                            <option>IT</option>
-                            <option>HR</option>
-                            <option>Management</option>
-                          </select>
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.senior_department.errors }}</span>
+                         {{ form.senior_department }}
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md mb-3">
                           <label class="control-label">Mobile</label>
-                          <input
-                            class="form-control"
-                            type="number"
-                            placeholder="+91-9182-786-897"
-                            required="required"
-                          />
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.senior_phone.errors }}</span>
+                          {{ form.senior_phone }}
                         </div>
 
                         <div class="col-md mb-3">
                           <label class="control-label">Email</label>
-                          <input
-                            class="form-control"
-                            type="email"
-                            placeholder="Deo@gmail.com"
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.senior_email.errors }}</span>
+                          {{ form.senior_email }}
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                   
+
+                    <div>
+                      <h4>Key Contact Person</h4>
+
+                    
+
+                      <div class="row">
+                        <div class="col-md mb-3 form-group">
+                          
+                          <label class="control-label">First Name</label>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.contact_person_first_name.errors }}</span>
+                           {{ form.contact_person_first_name }}
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+
+                        <div class="col-md mb-3 form-group">
+                          <label class="control-label">Last Name</label>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.contact_person_last_name.errors }}</span>
+                          {{ form.contact_person_last_name }}
+                          <div class="valid-feedback">Looks good!</div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md mb-3">
+                          <label class="control-label">Designation</label>
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.designation.errors }}</span>
+                          {{ form.designation }}
+                          {% comment %} <select
+                          class="js-example-basic-single form-control"
                             required="required"
-                          />
+                          >
+                            <option selected disabled>select</option>
+                            <option>CEO</option>
+                            <option>Manager</option>
+                            <option>Accountent</option>
+                          </select> {% endcomment %}
+                        </div>
+
+                        <div class="col-md mb-3">
+                          <label class="control-label">Department</label>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.department.errors }}</span>
+                          {{ form.department }}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md mb-3 form-group">
+                          <label class="control-label">Mobile</label>
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.phone.errors }}</span>
+                          {{ form.phone }}
+                        </div>
+
+                        <div class="col-md mb-3">
+                          <label class="control-label">Email</label>
+                            <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.email.errors }}</span>
+                          {{ form.email }}
                         </div>
                       </div>
                     </div>
@@ -210,54 +186,68 @@
                     <div class="row">
                       <div class="col-md mb-3">
                         <label class="control-label">Company Name</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="Peppermint Communicaiton Private Limited"
-                          required="required"
-                        />
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.companyName.errors }}</span>
+                        {{ form.companyName }}
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-md mb-3">
-                        <label for="" class="control-label">Address</label>
-                        <textarea
-                          name="address"
-                          class="form-control"
-                          cols="30"
-                          rows="2"
-                        ></textarea>
+                        <label for="" class="control-label">Address1</label>
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.address1.errors }}</span>
+                        {{ form.address1 }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md mb-3">
+                        <label for="" class="control-label">Address2</label>
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.address2.errors }}</span>
+                        {{ form.address2 }}
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-md-3 mb-3">
-                        <label for="" class="control-label">City</label>
-                        <input type="text" class="form-control" name="" />
+                        <label for="" class="control-label">Pin</label>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.zip.errors }}</span>
+                        {{ form.zip }}
                       </div>
                       <div class="col-md mb-3">
-                        <label for="" class="control-label">State</label>
-                        <input type="text" class="form-control" name="" />
+                        <label for="" class="control-label">City</label>
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.city.errors }}</span>
+                         {{ form.city }}
                       </div>
                       <div class="col-md-2 mb-3">
-                        <label for="" class="control-label">Pin</label>
-                        <input type="text" class="form-control" name="" />
+                        <label for="" class="control-label">State</label>
+                              <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.state.errors }}</span>
+                        {{ form.state }}
                       </div>
                       <div class="col-md mb-3">
                         <label for="" class="control-label">Country</label>
-                        <input type="text" class="form-control" name="" />
+                             <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.country.errors }}</span>
+                        {{ form.country }}
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-md mb-3">
                         <label for="" class="control-label">Website</label>
-                        <input type="url" class="form-control" name="" />
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{  form.website.errors }}</span>
+                        {{ form.website }}
                       </div>
                       <div class="col-md mb-3">
                         <label for="" class="control-label">Email</label>
-                        <input type="email" class="form-control" name="" />
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.company_email.errors }}</span>
+                        {{ form.company_email }}
                       </div>
                     </div>
 
@@ -266,16 +256,10 @@
                         <label for="" class="control-label"
                           >Nature Of Business</label
                         >
-                        <select
-                          class="js-example-basic-multiple col-sm-12"
-                          multiple="multiple"
-                        >
-                          <option value="AL">Alabama</option>
-                          <option value="WY">Wyoming</option>
-                          <option value="WY">Coming</option>
-                          <option value="WY">Hanry Die</option>
-                          <option value="WY">John Doe</option>
-                        </select>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.nature_of_bussiness.errors }}</span>
+                        {{ form.nature_of_bussiness }}
+                        
                       </div>
                     </div>
 
@@ -295,53 +279,69 @@
                     <div class="row">
                       <div class="col-md mb-3">
                         <label class="control-label">Billing Name</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          placeholder="Peppermint Communicaiton Private Limited"
-                          required="required"
-                        />
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.billing_companyName.errors }}</span>
+                        {{ form.billing_companyName }}
+
                       </div>
                     </div>
 
                     <div class="row">
                       <div class="col-md mb-3">
-                        <label for="" class="control-label">Address</label>
-                        <textarea
-                          name="address"
-                          class="form-control"
-                          cols="30"
-                          rows="2"
-                        ></textarea>
+                        <label for="" class="control-label">Address1</label>
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.billing_address1.errors }}</span>
+                            {{ form.billing_address1 }}
                       </div>
                     </div>
 
                     <div class="row">
+                      <div class="col-md mb-3">
+                        <label for="" class="control-label">Address2</label>
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.billing_address2.errors }}</span>
+                            {{ form.billing_address2 }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-2 mb-3">
+                        <label for="" class="control-label">Pin</label>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.billing_zip.errors }}</span>
+                         {{ form.billing_zip }}
+                      </div>
                       <div class="col-md-3 mb-3">
                         <label for="" class="control-label">City</label>
-                        <input type="text" class="form-control" name="" />
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.billing_city.errors }}</span>
+                        {{ form.billing_city }}
                       </div>
                       <div class="col-md mb-3">
                         <label for="" class="control-label">State</label>
-                        <input type="text" class="form-control" name="" />
-                      </div>
-                      <div class="col-md-2 mb-3">
-                        <label for="" class="control-label">Pin</label>
-                        <input type="text" class="form-control" name="" />
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.billing_state.errors }}</span>
+                        {{ form.billing_state }}
                       </div>
                       <div class="col-md mb-3">
                         <label for="" class="control-label">Country</label>
-                        <input type="text" class="form-control" name="" />
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.billing_country.errors }}</span>
+                        {{ form.billing_country }}
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md mb-3">
                         <label for="" class="control-label">GST</label>
-                        <input type="text" class="form-control" name="" />
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.company_GST.errors }}</span>
+                        {{ form.company_GST }}
                       </div>
                       <div class="col-md mb-3">
                         <label for="" class="control-label">PAN</label>
-                        <input type="text" class="form-control" name="" />
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.company_PAN.errors }}</span>
+                        {{ form.company_PAN }}
                       </div>
                     </div>
 
@@ -360,30 +360,21 @@
                     <div class="row">
                       <div class="col-md mb-3">
                         <label class="control-label">Booth Number</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          required="required"
-                        />
+                           <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.boothNumber.errors }}</span>
+                       {{ form.boothNumber }}
                       </div>
                       <div class="col-md mb-3">
                         <label class="control-label">Booth Size</label>
-                        <input
-                          class="form-control"
-                          type="text"
-                          required="required"
-                        />
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.boothSize.errors }}</span>
+                        {{ form.boothSize }}
                       </div>
                       <div class="col-md mb-3">
                         <label class="control-label">Booth Type</label>
-                        <select
-                          class="form-control"
-                          type="text"
-                          required="required"
-                        >
-                          <option value="1">Bare Space</option>
-                          <option value="2">Shell Scheme</option>
-                        </select>
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.boothType.errors }}</span>
+                         {{ form.boothType }}
                       </div>
                     </div>
                     <div class="row">
@@ -391,16 +382,9 @@
                         <label for="" class="control-label"
                           >Our Brnad (If Any)</label
                         >
-                        <select
-                          class="js-example-basic-multiple col-sm-12"
-                          multiple="multiple"
-                        >
-                          <option value="AL">Alabama</option>
-                          <option value="WY">Wyoming</option>
-                          <option value="WY">Coming</option>
-                          <option value="WY">Hanry Die</option>
-                          <option value="WY">John Doe</option>
-                        </select>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.our_brand.errors }}</span>
+                       {{ form.our_brand }}
                       </div>
                     </div>
                     <div class="row">
@@ -408,16 +392,9 @@
                         <label for="" class="control-label"
                           >Primary Product & Services</label
                         >
-                        <select
-                          class="js-example-basic-multiple col-sm-12"
-                          multiple="multiple"
-                        >
-                          <option value="AL">Alabama</option>
-                          <option value="WY">Wyoming</option>
-                          <option value="WY">Coming</option>
-                          <option value="WY">Hanry Die</option>
-                          <option value="WY">John Doe</option>
-                        </select>
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.product_catogory.errors }}</span>
+                        {{ form.product_catogory }}
                       </div>
                     </div>
                     <div class="row">
@@ -425,22 +402,16 @@
                         <label for="" class="control-label"
                           >Secondory Product & Services</label
                         >
-                        <select
-                          class="js-example-basic-multiple col-sm-12"
-                          multiple="multiple"
-                        >
-                          <option value="AL">Alabama</option>
-                          <option value="WY">Wyoming</option>
-                          <option value="WY">Coming</option>
-                          <option value="WY">Hanry Die</option>
-                          <option value="WY">John Doe</option>
-                        </select>
+                             <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.product_sub_catogory.errors }}</span>
+                        {{ form.product_sub_catogory }}
                       </div>
                     </div>
 
-                    <button class="btn btn-success pull-right" type="submit">
-                      Finish!
-                    </button>
+                    <input class="btn btn-success pull-right m-2" name="finish" value="submit" type="submit">
+                      
+                    <input class="btn btn-primary pull-right m-2"  name="save_and_edit" value="save" type="submit">
+                    
                   </div>
                 </div>
               </div>
@@ -453,6 +424,22 @@
 </div>
 
 {% endblock %} {% block scriptcontent %}
+
+
+<script>
+  
+  
+
+  $( document ).ready(function() {
+   
+    if ({{ status }}==0){
+   $("button[name='finish']").attr("disabled", true)
+   $("button[name='save_and_edit']").attr("disabled", true)
+   $(".disabled-form-msg")[0].innerHTML="This form has been submitted by you to the Organisor and hence cannot be edited."
+    }
+});
+
+</script>
 <!-- Plugins JS start-->
 <script src="{% static 'assets/js/form-wizard/form-wizard-two.js' %}"></script>
 <script src="{% static 'assets/js/form-validation-custom.js'%}"></script>
