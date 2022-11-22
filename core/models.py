@@ -3,10 +3,26 @@ from .managers import customUserManager
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.template.loader import get_template
+from django.core.mail import send_mail, EmailMultiAlternatives
+# from . import utility_func
 
 from utility.models import *
 # from core.utility.constants import department, designation
 
+
+def send_mail(email, password):
+   
+    htmly = get_template('pages/components/mail/exhibitor_credential.html')
+
+    d = {'email': email, "password": password}
+
+    subject, from_email = 'Your Login Credential', 'Intimasia <no-reply@intimasia.in>'
+    html_content = htmly.render(d)
+    msg = EmailMultiAlternatives(
+        subject=subject, from_email=from_email, to=[email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
 
 
 
@@ -145,6 +161,7 @@ class Exhibitor(models.Model):
             user = User.objects.create_exhibitor(
                 email=email, password=password)
             self.user = user
+            send_mail(password=password, email=email)
             print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
         super().save(*args, **kwargs)
 

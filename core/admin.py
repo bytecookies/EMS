@@ -129,6 +129,10 @@ class UserAdmin(BaseUserAdmin):
 class ExhibitorAdmin(admin.ModelAdmin):
 
     readonly_fields = ['user']
+   
+  
+    autocomplete_fields = ["nature_of_bussiness",
+                           "product_catogory", "product_sub_catogory", "our_brand"]
     list_display = ('companyName', 'contact_person_first_name',
                     'boothSize', 'boothType', 'boothNumber')
     # form = ExhibitorChangeForm

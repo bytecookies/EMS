@@ -46,7 +46,7 @@
                 </div>
               </div>
             </div>
-            <form class="needs-validation" action="#" method="POST" id="participation_form" novalidate>
+            <form class="needs-validation" action="#" method="POST" id="participation_form" data-product-subcatogory-url="{% url 'product_sub_catagories_Ajax' %}" novalidate>
               {% csrf_token %}
 
               <div class="setup-content" id="step-1">
@@ -428,16 +428,100 @@
 
 <script>
   
-  
 
-  $( document ).ready(function() {
+
+ const city=$('#id_city')
+  const state=$('#id_state')
+  const country=$('#id_country')
+  
+$("#id_zip").focusout(function(){
+  let zip=$("#id_zip").val()
+  $.ajax({                       // initialize an AJAX request
+            url: "https://app.zipcodebase.com/api/v1/search",                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'apikey': "a63fca90-6a80-11ed-8d10-e70b8d42005b" ,      // add the country id to the GET parameters
+                'codes': zip,      // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+               
+               console.log(data.results[zip][0])
+               zip_info=data.results[zip][0]
+               $('#id_city').val(zip_info.city)
+               $('#id_state').val(zip_info.state)
+               $('#id_country').val(zip_info.country_code)
+              }
+            });
+});
+$("#id_billing_zip").focusout(function(){
+  let zip=$("#id_billing_zip").val()
+  $.ajax({                       // initialize an AJAX request
+            url: "https://app.zipcodebase.com/api/v1/search",                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'apikey': "a63fca90-6a80-11ed-8d10-e70b8d42005b" ,      // add the country id to the GET parameters
+                'codes': zip,      // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+               
+               console.log(data.results[zip][0])
+               zip_info=data.results[zip][0]
+               $('#id_billing_city').val(zip_info.city)
+               $('#id_billing_state').val(zip_info.state)
+               $('#id_billing_country').val(zip_info.country_code)
+              }
+            });
+});
+
+
+
+$( document ).ready(function() {
    
-    if ({{ status }}==0){
-   $("button[name='finish']").attr("disabled", true)
-   $("button[name='save_and_edit']").attr("disabled", true)
+  if ({{ status }}==0){
+   $("input[name='finish']").attr("disabled", true)
+   $("input[name='save_and_edit']").attr("disabled", true)
    $(".disabled-form-msg")[0].innerHTML="This form has been submitted by you to the Organisor and hence cannot be edited."
     }
+
+
+
+    // Auto generated dropdown for sub product catogary
+
+    $("#id_product_catogory").change(function(){
+      const url=$("#participation_form").attr("data-product-subcatogory-url");
+      const product_id=$(this).val();
+      console.log(product_id)
+      console.log(url)
+      
+      $("#id_product_sub_catogory").html("<option value=''>-------</option>")
+      product_id.forEach(element => {
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+            data: {
+                'product_id': element       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                //$("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+            
+                {% comment %} console.log(data)
+                console.log(k) {% endcomment %}
+                 $("#id_product_sub_catogory").append(data)
+
+              }
+        });
+
+        //console.log(typeof element)
+        //console.log(element)
+        //k=k+"<option>"+element+"</option>"
+      });
+      
+
+    })
+
+
+
 });
+
+
+
 
 </script>
 <!-- Plugins JS start-->

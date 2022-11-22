@@ -7,12 +7,15 @@ from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import *
+from utility.models import *
 from . import forms
 from .models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from core.utility import UserUtility
+from core.utility import utility_func
+
+
 # Create your views here.
 
 
@@ -22,7 +25,7 @@ def index(request):
     print(request.user.id)
     if (request.user.t_n_d == False):
         firstLogin = True
-        UserUtility.accept_tnd(request.user.id)
+        utility_func.accept_tnd(request.user.id)
 
     return render(request, 'pages/ExhibitorPages/index.html', {"firstLogin": firstLogin})
 
@@ -60,26 +63,18 @@ def participation_form(request):
 
 @login_required(login_url="/login")
 def test(request):
-    exhibitor = Exhibitor.objects.filter(pk=request.user).first()
-  
+    # send_mail("Test Mail", "Hello This is Test Mail form Intimasia", 
+    #           "no-reply@intimasia.in", ["piyushrmishra143@gmail.com"],fail_silently=False,html_message="<h1>he</h1>")
+    
+    # subject, from_email, to = 'hello', 'Intimasia <no-reply@intimasia.in>', 'piyushrmishra143@gmail.com'
+    # text_content = 'This is an important message.'
+    # html_content = '<p>This is an <strong>important</strong> message.</p>'
+    # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    # msg.attach_alternative(html_content, "text/html")
+    # msg.send()
 
-    if request.method == 'POST':
-        form = forms.ExhibitorForm(request.POST, instance=exhibitor)
-        if form.is_valid():
-            form.save()
-            if request.POST.get('finish') == "submit":
-                print("form is freez now")
-                User.objects.filter(pk=request.user.id).update(
-                    participation_form=True)
-
-    else:
-        if request.user.participation_form:
-            form = forms.ExhibitorFormDisabled(instance=exhibitor)
-        else:
-            form=forms.ExhibitorForm(instance = exhibitor)
-      
-
-    return render(request, 'pages/test.html', {"form": form})
+ 
+    return render(request, 'pages/test.html')
 
 
 @login_required(login_url="/login")
@@ -102,6 +97,20 @@ def venders(request):
     venders = VenderContact.objects.filter(type=1).select_related()
 
     return render(request, 'pages/ExhibitorPages/venders/vender.html', {"venders": venders})
+
+
+
+
+def get_product_sub_catagory_ajax(request):
+    if request.method=="GET":
+        product_id=request.GET.get("product_id")
+        product_sub_catagories=ProductSubCatogory.objects.filter(product=product_id).all()
+    return render(request, 'pages/ExhibitorPages/components/Ajax/product_subcatagories.html', {"product_sub_catagories": product_sub_catagories})
+
+
+
+
+
 
 
 def loginview(request):

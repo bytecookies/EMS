@@ -165,3 +165,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Auth User
 AUTH_USER_MODEL = 'core.User'
+
+
+# Mail Config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='intimasia.in'
+EMAIL_PORT=465
+EMAIL_HOST_USER='no-reply@intimasia.in'
+EMAIL_HOST_PASSWORD = 'pepcom@123'
+EMAIL_USE_TLS=False
+EMAIL_USE_SSL=True

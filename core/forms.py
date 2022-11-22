@@ -167,7 +167,7 @@ class ExhibitorForm(ModelForm):
                                                 )
 
     designation = forms.ModelChoiceField(required=True,
-                                  queryset=Designation.objects.all(),
+                                         queryset=Designation.objects.all().order_by('name'),
 
                                                 widget=forms.Select(
                                                     attrs={
@@ -176,7 +176,7 @@ class ExhibitorForm(ModelForm):
                                                 )
                                                 )
     department = forms.ModelChoiceField(required=True,
-                                        queryset=Department.objects.all(),
+                                        queryset=Department.objects.all().order_by('name'),
                                                 widget=forms.Select(
                                                     attrs={
                                                         "class": "js-example-basic-single form-control",
@@ -215,7 +215,7 @@ class ExhibitorForm(ModelForm):
                                                 )
 
     senior_designation = forms.ModelChoiceField(required=True,
-                                  queryset=Designation.objects.all(),
+                                                queryset=Designation.objects.all().order_by('name'),
 
                                                 widget=forms.Select(
                                                     attrs={
@@ -224,7 +224,7 @@ class ExhibitorForm(ModelForm):
                                                 )
                                                 )
     senior_department = forms.ModelChoiceField(required=True,
-                                        queryset=Department.objects.all(),
+                                               queryset=Department.objects.all().order_by('name'),
                                                 widget=forms.Select(
                                                     attrs={
                                                         "class": "js-example-basic-single form-control",
@@ -285,7 +285,7 @@ class ExhibitorForm(ModelForm):
 
     # Business Classification Details
     nature_of_bussiness = forms.ModelMultipleChoiceField(required=True,
-                                                       queryset=NatureOfBusiness.objects.all(),
+                                                         queryset=NatureOfBusiness.objects.all().order_by('name'),
                                                                 widget=forms.SelectMultiple(
                                                                     attrs={
                                                                         "class":"js-example-basic-multiple form-control"
@@ -293,23 +293,23 @@ class ExhibitorForm(ModelForm):
                                                                 )
                                                 )
     product_catogory = forms.ModelMultipleChoiceField(required=True,
-                                                      queryset=ProductCatogory.objects.all(),
+                                                      queryset=ProductCatogory.objects.all().order_by('name'),
                                                                 widget=forms.SelectMultiple(
                                                                     attrs={
                                                                         "class":"js-example-basic-multiple form-control"
                                                                     }
                                                                 )
                                                 )
-    product_sub_catogory = forms.ModelMultipleChoiceField(required=True,
-                                                          queryset=ProductSubCatogory.objects.all(),
-                                                                widget=forms.SelectMultiple(
-                                                                    attrs={
-                                                                        "class":"js-example-basic-multiple form-control"
-                                                                    }
-                                                                )
-                                                )
+    # product_sub_catogory = forms.ModelMultipleChoiceField(required=True,
+    #                                                       queryset=ProductSubCatogory.objects.none(),
+    #                                                             widget=forms.SelectMultiple(
+    #                                                                 attrs={
+    #                                                                     "class":"js-example-basic-multiple form-control"
+    #                                                                 }
+    #                                                             )
+    #                                             )
     our_brand = forms.ModelMultipleChoiceField(required=True,
-                                               queryset=Brand.objects.all(),
+                                               queryset=Brand.objects.all().order_by('name'),
                                                                 widget=forms.SelectMultiple(
                                                                     attrs={
                                                                         "class":"js-example-basic-multiple form-control"
@@ -321,6 +321,24 @@ class ExhibitorForm(ModelForm):
         model = Exhibitor
         fields = '__all__'
         exclude = ('user', )
+
+
+        widgets = {
+            'product_sub_catogory': forms.SelectMultiple(attrs={'class': 'js-example-basic-multiple  form-control', }),
+        }
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['product_sub_catogory'].queryset = ProductSubCatogory.objects.none()
+
+            if 'product_catogory' in self.data:
+                try:
+                    product_id = int(self.data.get('product_catogory'))
+                    self.fields['product_sub_catogory'].queryset = ProductSubCatogory.objects.filter(
+                        product=product_id).order_by('name')
+                except (ValueError, TypeError):
+                    pass  # invalid input from the client; ignore and fallback to empty City queryset
+            elif self.instance.pk:
+                self.fields['product_sub_catogory'].queryset = self.instance.product_catogory.productsubcatogory_set.order_by('name')
 
 class ExhibitorFormDisabled(ModelForm):
     # Company Details

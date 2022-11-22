@@ -29,6 +29,9 @@ urlpatterns = [
     path('test/', views.test,
          name='test'),
 
+    path('product_sub_catagories/', views.get_product_sub_catagory_ajax,
+         name='product_sub_catagories_Ajax'),
+
     path('logout_view', views.logout_view, name="logout_view"),
 
 ]
