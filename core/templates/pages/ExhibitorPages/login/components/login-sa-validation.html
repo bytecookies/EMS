@@ -3,10 +3,21 @@
 <section>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-xl-7 order-1"><img class="bg-img-cover bg-center" src="{% static 'assets/images/login/1.jpg' %}"
+      <div class="col-xl-7 order-1"><img class="bg-img-cover bg-center" src="{% static 'assets/images/login/Login-PageCreative.jpg' %}"
           alt="looginpage"></div>
       <div class="col-xl-5 p-0">
-        <div class="login-card">
+        
+        <div class="login-card"  style="flex-direction: column;
+    border-right: 4px solid white;">
+          <div style="
+                    padding: 2rem;
+                    font-size: 1rem;
+                    font-weight: 900;
+                    color: #fc79a5;
+                ">
+              EXHIBITOR LOGIN
+          </div>
+          
           <form method="post" class="theme-form login-form needs-validation" novalidate="">
             <h4>Login</h4>
             
@@ -57,6 +68,13 @@
             </div> -->
             <!-- <p>Don't have account?<a class="ms-2" href="/sign_one">Create Account</a></p> -->
           </form>
+
+           <div class="logo-wrapper" style="width: 30vh;padding: 2rem;">
+             <img class="img-fluid" src="{% static 'assets/images/logo/dark-logo.png'%}" alt="">
+                <!-- <a href="/" class="img-fluid"><h2>Intimasia</h2> </a> -->
+            </div>
+
+
         </div>
       </div>
     </div>

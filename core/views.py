@@ -122,6 +122,12 @@ def loginview(request):
             print('user', user)
             login(request, user)
 
+            print(user.is_superuser)
+
+            if user.is_superuser or user.is_staff:
+                # print("you are admin")
+                return HttpResponseRedirect('/admin/')
+
             if 'next' in request.POST:
                 print("krupa", request.POST.get('next'))
                 return HttpResponseRedirect(request.POST.get('next'))

@@ -3,8 +3,8 @@ from django.forms import ModelForm
 from .models import *
 from utility.models import *
 from django.forms import modelformset_factory
-
-
+from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field.widgets import PhoneNumberPrefixWidget
 class ExhibitorForm(ModelForm):
     # Company Details
 
@@ -21,6 +21,7 @@ class ExhibitorForm(ModelForm):
             widget=forms.Textarea(
                 attrs={
                     "class": "form-control",
+                    "rows": "2",
                 }
             ) 
             )
@@ -29,6 +30,7 @@ class ExhibitorForm(ModelForm):
             widget=forms.Textarea(
                 attrs={
                     "class": "form-control",
+                    "rows": "2",
                 }
             ) 
             )
@@ -93,6 +95,7 @@ class ExhibitorForm(ModelForm):
             widget=forms.Textarea(
                 attrs={
                     "class": "form-control",
+                    "rows":"2",
                 }
             ) 
             )
@@ -100,6 +103,7 @@ class ExhibitorForm(ModelForm):
             widget=forms.Textarea(
                 attrs={
                     "class": "form-control",
+                    "rows": "2",
                 }
             ) 
             )
@@ -191,13 +195,21 @@ class ExhibitorForm(ModelForm):
                                                 )
                                                 )
     
-    phone = forms.CharField(required=True,
-                                               widget=forms.TextInput(
+    # phone = forms.CharField(required=True,
+    #                                            widget=forms.TextInput(
+    #                                                attrs={
+    #                                                    "class": "form-control",
+    #                                                }
+    #                                            )
+    #                                            )
+    phone = PhoneNumberField(required=True,
+                             widget=PhoneNumberPrefixWidget(initial="IN", 
                                                    attrs={
-                                                       "class": "form-control",
+                                                       "class": "form-control kk",
                                                    }
                                                )
                                                )
+
     email = forms.EmailField(required=True,
                                                widget=forms.EmailInput(
                                                    attrs={
@@ -246,13 +258,13 @@ class ExhibitorForm(ModelForm):
                                                 )
                                                 )
     
-    senior_phone = forms.CharField(required=True,
-                                               widget=forms.TextInput(
-                                                   attrs={
-                                                       "class": "form-control",
-                                                   }
-                                               )
-                                               )
+    senior_phone = PhoneNumberField(required=True,
+                                    widget=PhoneNumberPrefixWidget(initial="IN",
+                                                                   attrs={
+                                                                       "class": "form-control kk",
+                                                                   }
+                                                                   )
+                                    )
     senior_email = forms.EmailField(required=True,
                                                widget=forms.EmailInput(
                                                    attrs={

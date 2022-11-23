@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.template.loader import get_template
 from django.core.mail import send_mail, EmailMultiAlternatives
 # from . import utility_func
+from phonenumber_field.modelfields import PhoneNumberField
 
 from utility.models import *
 # from core.utility.constants import department, designation
@@ -114,7 +115,8 @@ class Exhibitor(models.Model):
     department = models.ForeignKey(
         Department, on_delete=models.PROTECT, blank=True, null=True,)
    
-    phone = models.CharField(max_length=12, blank=True, null=True)
+    # phone = models.CharField(max_length=12, blank=True, null=True)
+    phone = PhoneNumberField( blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
     # Senior Person Details
@@ -133,7 +135,7 @@ class Exhibitor(models.Model):
     senior_department = models.ForeignKey(
         Department, on_delete=models.PROTECT, related_name="senior_department")
         
-    senior_phone = models.CharField(max_length=12, blank=True, null=True)
+    senior_phone = PhoneNumberField(blank=True, null=True)
     senior_email = models.EmailField(blank=True, null=True)
     
 
