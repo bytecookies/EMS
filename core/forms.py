@@ -166,15 +166,22 @@ class ExhibitorForm(ModelForm):
                                                 )
                                                 )
 
-    designation = forms.ModelChoiceField(required=True,
-                                         queryset=Designation.objects.all().order_by('name'),
+    designation = forms.CharField(required=True,
+                                   widget=forms.TextInput(
+                                       attrs={
+                                           "class": "form-control",
+                                       }
+                                   )
+                                   )
+    # designation = forms.ModelChoiceField(required=True,
+    #                                      queryset=Designation.objects.all().order_by('name'),
 
-                                                widget=forms.Select(
-                                                    attrs={
-                                                        "class": "js-example-basic-single form-control",
-                                                    }
-                                                )
-                                                )
+    #                                             widget=forms.Select(
+    #                                                 attrs={
+    #                                                     "class": "js-example-basic-single form-control",
+    #                                                 }
+    #                                             )
+    #                                             )
     department = forms.ModelChoiceField(required=True,
                                         queryset=Department.objects.all().order_by('name'),
                                                 widget=forms.Select(
@@ -214,15 +221,22 @@ class ExhibitorForm(ModelForm):
                                                 )
                                                 )
 
-    senior_designation = forms.ModelChoiceField(required=True,
-                                                queryset=Designation.objects.all().order_by('name'),
+    senior_designation = forms.CharField(required=True,
+                                         widget=forms.TextInput(
+                                             attrs={
+                                                 "class": "form-control",
+                                             }
+                                         )
+                                         )
+    # senior_designation = forms.ModelChoiceField(required=True,
+    #                                             queryset=Designation.objects.all().order_by('name'),
 
-                                                widget=forms.Select(
-                                                    attrs={
-                                                        "class": "js-example-basic-single form-control",
-                                                    }
-                                                )
-                                                )
+    #                                             widget=forms.Select(
+    #                                                 attrs={
+    #                                                     "class": "js-example-basic-single form-control",
+    #                                                 }
+    #                                             )
+    #                                             )
     senior_department = forms.ModelChoiceField(required=True,
                                                queryset=Department.objects.all().order_by('name'),
                                                 widget=forms.Select(
@@ -501,16 +515,13 @@ class ExhibitorFormDisabled(ModelForm):
                                                 )
                                                 )
 
-    designation = forms.ModelChoiceField(required=True, disabled=True,
-                                  
-                                  queryset=Designation.objects.all(),
-
-                                                widget=forms.Select(
-                                                    attrs={
-                                                        "class": "js-example-basic-single form-control",
-                                                    }
-                                                )
-                                                )
+    designation = forms.CharField(required=True, disabled=True,
+                                  widget=forms.TextInput(
+                                      attrs={
+                                          "class": "form-control",
+                                      }
+                                  )
+                                  )
     department = forms.ModelChoiceField(required=True, disabled=True,
                                         queryset=Department.objects.all(),
                                         
@@ -552,16 +563,13 @@ class ExhibitorFormDisabled(ModelForm):
                                                 )
                                                 )
 
-    senior_designation = forms.ModelChoiceField(required=True, disabled=True,
-                                  queryset=Designation.objects.all(),
-                                                # queryset=None,
-
-                                                widget=forms.Select(
-                                                    attrs={
-                                                        "class": "js-example-basic-single form-control",
-                                                    }
-                                                )
-                                                )
+    senior_designation = forms.CharField(required=True, disabled=True,
+                                         widget=forms.TextInput(
+                                             attrs={
+                                                 "class": "form-control",
+                                             }
+                                         )
+                                         )
     senior_department = forms.ModelChoiceField(required=True, disabled=True,
                                         queryset=Department.objects.all(),
                                             #    queryset=None,

@@ -12,6 +12,9 @@
             
             <h6>Welcome back! Log in to your account.</h6>
             {% csrf_token %}
+    
+            </ul>
+           
             {{ form }}
             {% if request.GET.next%}
             <input type="hidden" name="next" value="{{request.GET.next}}">

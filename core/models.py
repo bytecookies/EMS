@@ -110,6 +110,7 @@ class Exhibitor(models.Model):
     contact_person_last_name = models.CharField(max_length=255, blank=True, null=True)
     designation = models.ForeignKey(
         Designation, on_delete=models.PROTECT, blank=True, null=True,)
+    designation = models.CharField(max_length=200, blank=True, null=True,)
     department = models.ForeignKey(
         Department, on_delete=models.PROTECT, blank=True, null=True,)
    
@@ -125,8 +126,10 @@ class Exhibitor(models.Model):
     #     max_length=200, blank=True, null=True, choices=DESIGNATION)
     # senior_department = models.CharField(
     #     max_length=200, blank=True, null=True, choices=DEPARTMENT)
-    senior_designation = models.ForeignKey(
-        Designation, on_delete=models.PROTECT, related_name="senior_designation")
+    # senior_designation = models.ForeignKey(
+    #     Designation, on_delete=models.PROTECT, related_name="senior_designation")
+    senior_designation = models.CharField(
+        max_length=200, blank=True, null=True,)
     senior_department = models.ForeignKey(
         Department, on_delete=models.PROTECT, related_name="senior_department")
         
@@ -157,12 +160,13 @@ class Exhibitor(models.Model):
             print("adding new Exhibitor")
             email=self.email if self.email!=None else self.senior_email
             password = customUserManager().make_random_password()
-            
+            k = password
+            print(k)
+            print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
             user = User.objects.create_exhibitor(
                 email=email, password=password)
             self.user = user
             send_mail(password=password, email=email)
-            print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
         super().save(*args, **kwargs)
 
 
@@ -193,7 +197,8 @@ class VenderContact(models.Model):
     )
   
 
-    designation = models.ForeignKey(Designation, on_delete=models.PROTECT)
+    # designation = models.ForeignKey(Designation, on_delete=models.PROTECT)
+    designation = models.CharField(max_length=200)
     department = models.ForeignKey(Department, on_delete=models.PROTECT)
 
     Vender = models.ForeignKey(Vender, on_delete=models.CASCADE,related_name="vender_contact")
@@ -203,8 +208,9 @@ class VenderContact(models.Model):
     mobile = models.CharField(max_length=255)
     email = models.EmailField(max_length=200)
 
-    
-    
+
+
+
 
 
 
