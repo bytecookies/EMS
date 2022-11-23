@@ -9,29 +9,36 @@ class ProductSubCatogoryINline(admin.TabularInline):
 
 
 
+
 class ProductCatogoryAdmin(admin.ModelAdmin):
     inlines = [ProductSubCatogoryINline]
-    search_fields = ["product_catogory"]
+    search_fields = ["name"]
 
 
+
+class DesignationAdmin(admin.ModelAdmin):
+    search_fields = ["name"]
 
 class NatureOfBusinessAdmin(admin.ModelAdmin):
-    search_fields = ["nature_of_bussiness"]
+    search_fields = ["name"]
 
 
 class BrandAdmin(admin.ModelAdmin):
-    search_fields = ["our_brand"]
+    search_fields = ["name"]
 
 
 class ProductSubCatogoryAdmin(admin.ModelAdmin):
-    search_fields = ["product_sub_catogory"]
+    search_fields = ["name"]
+
+class VenderProductAndServiceAdmin(admin.ModelAdmin):
+    search_fields = ["name"]
 
 
-
-admin.site.register(models.Designation)
+admin.site.register(models.Designation, DesignationAdmin)
 admin.site.register(models.Department)
 admin.site.register(models.NatureOfBusiness, NatureOfBusinessAdmin)
 admin.site.register(models.Brand, BrandAdmin)
-admin.site.register(models.VenderProductAndService)
+admin.site.register(models.VenderProductAndService,
+                    VenderProductAndServiceAdmin)
 admin.site.register(models.ProductCatogory, ProductCatogoryAdmin)
 admin.site.register(models.ProductSubCatogory, ProductSubCatogoryAdmin)
