@@ -8,11 +8,224 @@
   </head>
   <body>
 
-<h1>Mail Sent</h1>
 
 
-   
-  
+{% load static %} {% load sass_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="viho admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+  <meta name="keywords"
+    content="admin template, viho admin template, dashboard template, flat admin template, responsive admin template, web app">
+  <meta name="author" content="pixelstrap">
+  <link rel="icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+  <title>Intimasia</title>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+  <style>
+    body {
+      width: 650px;
+      font-family: work-Sans, sans-serif;
+      background-color: #f6f7fb;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    span {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 13px;
+      line-height: 1.7;
+      letter-spacing: 0.7px;
+      margin-top: 0;
+    }
+    li{
+      list-style:none;
+      margin:0;
+    }
+    h5{
+      margin:5px;
+    }
+
+    .text-center {
+      text-align: center
+    }
+
+    @media (max-width: 767px) {
+      body {
+        width: unset !important;
+        padding: 0 12px;
+      }
+
+      table {
+        width: 100% !important;
+      }
+    }
+  </style>
+</head>
+
+<body style="margin: 30px auto;">
+  <table style="width: 100%">
+    <tbody>
+      <tr>
+        <td>
+          <table style="background-color: #f6f7fb; width: 100%">
+            <tbody>
+              <tr>
+                <td>
+                  <table style="width: 650px; margin: 0 auto; margin-bottom: 30px">
+                    <tbody>
+                      <tr>
+                        <td colspan="2"> <center><img src="{{ request.scheme }}://{{ request.get_host }}{% static 'assets/images/logo/dark-logo.png'%}" alt="" style="width: 18vh;"></center></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <table style="width: 650px; margin: 0 auto; background-color: #fff; border-radius: 8px">
+                    <tbody>
+                      <tr>
+                        <td style="padding: 30px">
+                          <p>Dear Exhibitor,</p>
+                          <p>Greetings from INTIMASIA!</p>
+                          <p>Thank you for Participating at <strong style="color:#fb79a1">INTIMASIA 2023 (Mumbai)</strong></p>
+                          
+                          <p>We're excited to have you on board! Please find below the credential to INTIMASIA 2023 - Exhibitor
+                            Dashboard. This dashboard has important information and instructions that are required as part of your
+                            participation in INTIMASIA 2023. You would also be able to get resourceful contacts to various
+                            Nominated Vendors that would help you with your additional requirements at the show.</p>
+                            <p>It’s important that responsible person from your team is managing this dashboard and providing required
+                                information to us on time. There are various important forms that are required to be filled by you on time,
+                                failing which you shall not receive certain services.</p>
+                              
+                              
+                               <h4 style="color:#fb79a1">Please note your login details are as follows:</h4>
+                              <table >
+                                <tbody>
+                                  <tr>
+                                    <td>
+                                      <strong> DASHBOARD URL </strong>
+        
+                                    </td>
+                                    <td><strong></strong> <a href="https://ems.intimasia.in/"
+                            style="padding: 7px; margin-left:5px; margin-top:14px; width:70%; text-align:center; background-color: #fc79a5; color: #ffffff; display: inline-block; border-radius: 3px; margin-bottom: 18px">Click Here </a></td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>
+                                      <strong> USER ID </strong>
+        
+                                    </td>
+                                    <td><p style="margin-left:5px;"> {{ email }}</p></td>
+                                  </tr>
+
+                                  <tr >
+                                    <td style="margin-top:10px">
+                                      <strong> PASSWORD </strong>
+                                    </td style="margin-top:10px">
+                                    <td> <p style="margin-left:5px;">{{ password }}</p></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                             
+
+                          <p>Please note down your username and password and do not share your password with anyone. The password provided is an auto-generated password. You can change your password in the
+                                        dashboard.
+                                        </p>
+                            <div style="color:#333333">
+                            <h4 style="color:#fb79a1">INSTRUCTIONS</h4>
+                            <li>
+                              <p>Click on the link and use the provided username and password to login into your account.</p>
+                            </li>
+                            <li>
+                              <p>On the left of your dashboard, you will find important information, vendor contacts, mandatory and optional forms, additional furniture and service request.</p>
+                            </li>
+                            <li>
+                              <p>Make sure you fill and submit the mandatory forms on or before the due date. Post the due date, the form will be disabled, and you shall not receive certain services.</p>
+                            </li>
+                            <li>
+                              <p>You can Save, Edit the forms multiple times, but once you submit the form, the same shall be disabled and you will not be able to make any further changes to the form.</p>
+                            </li>
+                            <li>
+                              <p>Please contact following team members incase you need further assistance:</p>
+                              <table >
+                                <thead>
+                                  <tr>
+                                  <th style="padding:2px"><p style="font-size: 0.6rem;" >Bare Space</p></th>
+                                  <th style="padding:2px"><p style="font-size:  0.6rem;" >Shell Scheme - Brands</p></th>
+                                  <th style="padding:2px"><p style="font-size:  0.6rem;" >Shell Scheme - Suppliers</p></th>
+                                  </tr>
+                                </thead>
+                            <tbody>
+                                  
+                                  <tr>
+                                    <td style="padding:2px"><p style="font-size:  0.6rem;" >Ms. Snehal Barve</p></td>
+                                    <td style="padding:2px"><p style="font-size: 0.6rem;" >Shell Scheme – Brands</p></td>
+                                    <td style="padding:2px"><p style="font-size: 0.6rem;" >Shell Scheme - Suppliers</p></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:2px">  <p style="font-size: 0.6rem;" >M: +91-9820504040</p></td>
+                                    <td style="padding:2px">  <p style="font-size: 0.6rem;" >Shell Scheme – Brands</p></td>
+                                    <td style="padding:2px">  <p style="font-size: 0.6rem;" >Shell Scheme - Suppliers</p></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:2px"><p  style="font-size: 0.6rem;" >E: snehal@peppermint.co.in</p></td>
+                                    <td style="padding:2px"><p  style="font-size: 0.6rem;" >Shell Scheme – Brands</p></td>
+                                    <td style="padding:2px"><p  style="font-size: 0.6rem;" >Shell Scheme - Suppliers</p></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </li>
+                          </div>
+
+                          
+                        </br>
+                          <p style="margin-bottom: 0 ;  ">Warm Regards,</p>
+                      </br>
+                          <p style="margin-bottom: 0">Team INTIMASIA</p>
+                        </td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                  {% comment %} <table style="width: 650px; margin: 0 auto; margin-top: 30px">
+                    <tbody>
+                      <tr style="text-align: center">
+                        <td >
+                          <p style="color: #999; margin-bottom: 0">333 Woodland Rd. Baldwinsville, NY 13027</p>
+                          <p style="color: #999; margin-bottom: 0">Don't Like These Emails?<a href="javascript:void(0)"
+                              style="color: #24695c">Unsubscribe</a></p>
+                          <p style="color: #999; margin-bottom: 0">Powered By viho Admin</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table> {% endcomment %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+
+</html>
    
 
 

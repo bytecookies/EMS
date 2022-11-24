@@ -16,6 +16,11 @@ urlpatterns = [
     path('stall_aminities/', views.stall_aminities,
          name='stall_aminities'),
 
+    path('move_in_move_out/', views.move_in_move_out,
+         name='move_in_move_out'),
+    path('key_contacts/', views.key_contacts,
+         name='key_contacts'),
+
     path('rules_and_regulations/', views.rules_and_regulations,
          name='rules_and_regulations'),
 

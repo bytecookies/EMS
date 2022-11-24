@@ -14,9 +14,24 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from core.utility import utility_func
+from django.core.mail import send_mail, EmailMultiAlternatives
 
 
 # Create your views here.
+def send_mail(email, password):
+
+    htmly = get_template('pages/test.html')
+
+    d = {'email': email, "password": password}
+
+    subject, from_email = 'Your Login Credential', 'Intimasia <no-reply@intimasia.in>'
+    html_content = htmly.render(d)
+    msg = EmailMultiAlternatives(
+        subject=subject, from_email=from_email, to=[email])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
 
 
 @login_required(login_url="/login")
@@ -63,23 +78,17 @@ def participation_form(request):
 
 @login_required(login_url="/login")
 def test(request):
-    # send_mail("Test Mail", "Hello This is Test Mail form Intimasia", 
-    #           "no-reply@intimasia.in", ["piyushrmishra143@gmail.com"],fail_silently=False,html_message="<h1>he</h1>")
-    
-    # subject, from_email, to = 'hello', 'Intimasia <no-reply@intimasia.in>', 'piyushrmishra143@gmail.com'
-    # text_content = 'This is an important message.'
-    # html_content = '<p>This is an <strong>important</strong> message.</p>'
-    # msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
-    # msg.attach_alternative(html_content, "text/html")
-    # msg.send()
-
- 
+    # send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
     return render(request, 'pages/test.html')
 
 
 @login_required(login_url="/login")
 def stall_aminities(request):
     return render(request, 'pages/ExhibitorPages/general_info/stall_aminities.html')
+
+@login_required(login_url="/login")
+def move_in_move_out(request):
+    return render(request, 'pages/ExhibitorPages/general_info/move_in_move_out.html')
 
 
 @login_required(login_url="/login")
@@ -90,6 +99,10 @@ def rules_and_regulations(request):
 @login_required(login_url="/login")
 def show_info(request):
     return render(request, 'pages/ExhibitorPages/general_info/show_information.html')
+
+@login_required(login_url="/login")
+def key_contacts(request):
+    return render(request, 'pages/ExhibitorPages/general_info/key_contact.html')
 
 
 @login_required(login_url="/login")

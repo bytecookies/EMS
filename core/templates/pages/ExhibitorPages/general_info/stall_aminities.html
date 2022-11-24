@@ -1,322 +1,407 @@
-{% extends 'layout/exhibitorBase/base.html' %} {% load static %} {% load sass_tags %}
-{% block content %}
+{% extends 'layout/exhibitorBase/base.html' %} {% load static %} {% load
+sass_tags %} {% block content %}
 <div class="page-body">
-   
- <div class="main-content">
-
-        <div class="page-content">
-            <div class="container-fluid">
-
-                <!-- start page title -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                            <!-- <h4 class="mb-sm-0 font-size-18">Starter Page</h4> -->
-
-                            <div class="page-title-right">
-                                <!-- <ol class="breadcrumb m-0">
-                                    <li class="breadcrumb-item"><a href="javascript: void(0);">Utility</a></li>
-                                    <li class="breadcrumb-item active">Starter Page</li>
-                                </ol> -->
-                            </div>
-
-                            <div class="container">
-                                <h2 class="text-center">Stall Amenities</h2>
-                              <div class="mb-5">
-                                    <table class="table table--bordered text-center">
-                  <tr>
-                    <th>Area<br />(Sq.Mtr)</th>
-                    <th>Facia</th>
-                    <th>Spot Lights</th>
-                    <th>Rec. Table</th>
-                    <th>Chairs</th>
-                    <th>Round<br />Table</th>
-                    <th>Hanging<br />Rail</th>
-                    <th>Waste Bin</th>
-                  </tr>
-                  <tr>
-                    <td>9</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>12</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>15</td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-
-                  <tr>
-                    <td>16</td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>1</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                  </tr>
-
-                  <tr>
-                    <td>18</td>
-                    <td>1</td>
-                    <td>6</td>
-                    <td>2</td>
-                    <td>6</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>1</td>
-                  </tr>
-
-                  <tr>
-                    <td>20</td>
-                    <td>1</td>
-                    <td>7</td>
-                    <td>2</td>
-                    <td>6</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>1</td>
-                  </tr>
-                  <tr>
-                    <td>24</td>
-                    <td>1</td>
-                    <td>7</td>
-                    <td>2</td>
-                    <td>8</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>1</td>
-                  </tr>
-                </table>
-                                </div>
-
-
-
-
-                                <div>
-                                    <p>
-                                        <a class="" style="background-color:#fc79a5; color:white; width: 100%; display: block; padding: 8px; border-radius: 5px;" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">9 Area(Sq.Mtr) View</a>
-
-                                    </p>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                                <div class="card card-body text-center">
-                                                    <img src="assets/images/reintimasiaexhibitormanual/9-1.jpg" alt="">
-                                                    <h6 class="pt-3">Front View<br> Technical Size: 9sqm</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                                <div class="card card-body text-center">
-                                                    <img src="assets/images/reintimasiaexhibitormanual/9-2.jpg" alt="">
-                                                    <h6 class="pt-3">Top View<br> Technical Size: 9sqm</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
-                                </div>
-
-
-
-
-
-                                <div>
-                                    <p>
-                                        <a class="" style="background-color:#fc79a5; color:white; width: 100%;
-    display: block;
-    padding: 8px;
-    border-radius: 5px;" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">12 Area(Sq.Mtr) View</a>
-
-                                    </p>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                                <div class="card card-body text-center">
-                                                    <img src="assets/images/reintimasiaexhibitormanual/12-1.jpg" alt="">
-                                                    <h6 class="pt-3">Front View<br> Technical Size: 12sqm</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                                <div class="card card-body text-center">
-                                                    <img src="assets/images/reintimasiaexhibitormanual/12-2.jpg" alt="">
-                                                    <h6 class="pt-3">Top View<br> Technical Size: 12sqm</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
-                                </div>
-
-
-
-
-
-
-
-
-                                <div>
-                                    <p>
-                                        <a class="" style="background-color:#fc79a5; color:white; width: 100%;
-    display: block;
-    padding: 8px;
-    border-radius: 5px;" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">16 Area(Sq.Mtr) View</a>
-
-                                    </p>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample3">
-                                                <div class="card card-body text-center">
-                                                    <img src="assets/images/reintimasiaexhibitormanual/16-1.jpg" alt="">
-                                                    <h6 class="pt-3">Front View<br> Technical Size: 16sqm</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample3">
-                                                <div class="card card-body text-center">
-                                                    <img src="assets/images/reintimasiaexhibitormanual/16-2.jpg" alt="">
-                                                    <h6 class="pt-3">Top View<br> Technical Size: 16sqm</h6>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
-
-
-
-                                    <div>
-                                        <p>
-                                            <a class="" style="background-color:#fc79a5; color:white; width: 100%;
-    display: block;
-    padding: 8px;
-    border-radius: 5px;" data-bs-toggle="collapse" href="#multiCollapseExample4" role="button" aria-expanded="false" aria-controls="multiCollapseExample4">18 Area(Sq.Mtr) View</a>
-
-                                        </p>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="collapse multi-collapse" id="multiCollapseExample4">
-                                                    <div class="card card-body text-center">
-                                                        <img src="assets/images/reintimasiaexhibitormanual/18-1.jpg" alt="">
-                                                        <h6 class="pt-3">Front View<br> Technical Size: 18sqm</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="collapse multi-collapse" id="multiCollapseExample4">
-                                                    <div class="card card-body text-center">
-                                                        <img src="assets/images/reintimasiaexhibitormanual/18-2.jpg" alt="">
-                                                        <h6 class="pt-3">Top View<br> Technical Size: 18sqm</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                        </div>
-
-
-
-
-                                        <div>
-                                            <p>
-                                                <a class="" style="background-color:#fc79a5; color:white; width: 100%;
-    display: block;
-    padding: 8px;
-    border-radius: 5px;" data-bs-toggle="collapse" href="#multiCollapseExample5" role="button" aria-expanded="false" aria-controls="multiCollapseExample5">24 Area(Sq.Mtr) View</a>
-
-                                            </p>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="collapse multi-collapse" id="multiCollapseExample5">
-                                                        <div class="card card-body text-center">
-                                                            <img src="assets/images/reintimasiaexhibitormanual/24-1.jpg" alt="">
-                                                            <h6 class="pt-3">Front View<br> Technical Size: 24sqm</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <div class="collapse multi-collapse" id="multiCollapseExample5">
-                                                        <div class="card card-body text-center">
-                                                            <img src="assets/images/reintimasiaexhibitormanual/24-2.jpg" alt="">
-                                                            <h6 class="pt-3">Top View<br> Technical Size: 24sqm</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-
-
-                                            </div>
-                                        </div>
-
-
-
-
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                       
-
-                    </div> 
+  <div class="main-content">
+    <div class="page-content">
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-md-12">
+            
+
+              <div class="card card-body">
+                <h2 class="text-center">Stall Amenities</h2>
+                <div class="mb-5 table-responsive">
+                  <table class="table table--bordered text-center">
+                    <tr>
+                      <th>Area<br />(Sq.Mtr)</th>
+                      <th>Facia</th>
+                      <th>Spot Lights</th>
+                      <th>Rec. Table</th>
+                      <th>Chairs</th>
+                      <th>Round<br />Table</th>
+                      <th>Hanging<br />Rail</th>
+                      <th>Waste Bin</th>
+                    </tr>
+                    <tr>
+                      <td>9</td>
+                      <td>1</td>
+                      <td>3</td>
+                      <td>1</td>
+                      <td>3</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <td>12</td>
+                      <td>1</td>
+                      <td>4</td>
+                      <td>1</td>
+                      <td>3</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <td>15</td>
+                      <td>1</td>
+                      <td>5</td>
+                      <td>1</td>
+                      <td>3</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+
+                    <tr>
+                      <td>16</td>
+                      <td>1</td>
+                      <td>5</td>
+                      <td>1</td>
+                      <td>3</td>
+                      <td>1</td>
+                      <td>1</td>
+                      <td>1</td>
+                    </tr>
+
+                    <tr>
+                      <td>18</td>
+                      <td>1</td>
+                      <td>6</td>
+                      <td>2</td>
+                      <td>6</td>
+                      <td>2</td>
+                      <td>2</td>
+                      <td>1</td>
+                    </tr>
+
+                    <tr>
+                      <td>20</td>
+                      <td>1</td>
+                      <td>7</td>
+                      <td>2</td>
+                      <td>6</td>
+                      <td>2</td>
+                      <td>2</td>
+                      <td>1</td>
+                    </tr>
+                    <tr>
+                      <td>24</td>
+                      <td>1</td>
+                      <td>7</td>
+                      <td>2</td>
+                      <td>8</td>
+                      <td>2</td>
+                      <td>2</td>
+                      <td>1</td>
+                    </tr>
+                  </table>
                 </div>
-               
 
-               
-            </div>
-           
+                <div>
+                  <p>
+                    <a
+                      class=""
+                      style="
+                        background-color: #fc79a5;
+                        color: white;
+                        width: 100%;
+                        display: block;
+                        padding: 8px;
+                        border-radius: 5px;
+                      "
+                      data-bs-toggle="collapse"
+                      href="#multiCollapseExample1"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="multiCollapseExample1"
+                      >9 Area(Sq.Mtr) View</a
+                    >
+                  </p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div
+                        class="collapse multi-collapse"
+                        id="multiCollapseExample1"
+                      >
+                        <div class="card card-body text-center">
+                          <img
+                            src="assets/images/reintimasiaexhibitormanual/9-1.jpg"
+                            alt=""
+                          />
+                          <h6 class="pt-3">
+                            Front View<br />
+                            Technical Size: 9sqm
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
 
+                    <div class="col-md-6">
+                      <div
+                        class="collapse multi-collapse"
+                        id="multiCollapseExample1"
+                      >
+                        <div class="card card-body text-center">
+                          <img
+                            src="assets/images/reintimasiaexhibitormanual/9-2.jpg"
+                            alt=""
+                          />
+                          <h6 class="pt-3">
+                            Top View<br />
+                            Technical Size: 9sqm
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <p>
+                    <a
+                      class=""
+                      style="
+                        background-color: #fc79a5;
+                        color: white;
+                        width: 100%;
+                        display: block;
+                        padding: 8px;
+                        border-radius: 5px;
+                      "
+                      data-bs-toggle="collapse"
+                      href="#multiCollapseExample2"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="multiCollapseExample2"
+                      >12 Area(Sq.Mtr) View</a
+                    >
+                  </p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div
+                        class="collapse multi-collapse"
+                        id="multiCollapseExample2"
+                      >
+                        <div class="card card-body text-center">
+                          <img
+                            src="assets/images/reintimasiaexhibitormanual/12-1.jpg"
+                            alt=""
+                          />
+                          <h6 class="pt-3">
+                            Front View<br />
+                            Technical Size: 12sqm
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div
+                        class="collapse multi-collapse"
+                        id="multiCollapseExample2"
+                      >
+                        <div class="card card-body text-center">
+                          <img
+                            src="assets/images/reintimasiaexhibitormanual/12-2.jpg"
+                            alt=""
+                          />
+                          <h6 class="pt-3">
+                            Top View<br />
+                            Technical Size: 12sqm
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <p>
+                    <a
+                      class=""
+                      style="
+                        background-color: #fc79a5;
+                        color: white;
+                        width: 100%;
+                        display: block;
+                        padding: 8px;
+                        border-radius: 5px;
+                      "
+                      data-bs-toggle="collapse"
+                      href="#multiCollapseExample3"
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="multiCollapseExample3"
+                      >16 Area(Sq.Mtr) View</a
+                    >
+                  </p>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div
+                        class="collapse multi-collapse"
+                        id="multiCollapseExample3"
+                      >
+                        <div class="card card-body text-center">
+                          <img
+                            src="assets/images/reintimasiaexhibitormanual/16-1.jpg"
+                            alt=""
+                          />
+                          <h6 class="pt-3">
+                            Front View<br />
+                            Technical Size: 16sqm
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div
+                        class="collapse multi-collapse"
+                        id="multiCollapseExample3"
+                      >
+                        <div class="card card-body text-center">
+                          <img
+                            src="assets/images/reintimasiaexhibitormanual/16-2.jpg"
+                            alt=""
+                          />
+                          <h6 class="pt-3">
+                            Top View<br />
+                            Technical Size: 16sqm
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p>
+                      <a
+                        class=""
+                        style="
+                          background-color: #fc79a5;
+                          color: white;
+                          width: 100%;
+                          display: block;
+                          padding: 8px;
+                          border-radius: 5px;
+                        "
+                        data-bs-toggle="collapse"
+                        href="#multiCollapseExample4"
+                        role="button"
+                        aria-expanded="false"
+                        aria-controls="multiCollapseExample4"
+                        >18 Area(Sq.Mtr) View</a
+                      >
+                    </p>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div
+                          class="collapse multi-collapse"
+                          id="multiCollapseExample4"
+                        >
+                          <div class="card card-body text-center">
+                            <img
+                              src="assets/images/reintimasiaexhibitormanual/18-1.jpg"
+                              alt=""
+                            />
+                            <h6 class="pt-3">
+                              Front View<br />
+                              Technical Size: 18sqm
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div
+                          class="collapse multi-collapse"
+                          id="multiCollapseExample4"
+                        >
+                          <div class="card card-body text-center">
+                            <img
+                              src="assets/images/reintimasiaexhibitormanual/18-2.jpg"
+                              alt=""
+                            />
+                            <h6 class="pt-3">
+                              Top View<br />
+                              Technical Size: 18sqm
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <p>
+                        <a
+                          class=""
+                          style="
+                            background-color: #fc79a5;
+                            color: white;
+                            width: 100%;
+                            display: block;
+                            padding: 8px;
+                            border-radius: 5px;
+                          "
+                          data-bs-toggle="collapse"
+                          href="#multiCollapseExample5"
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="multiCollapseExample5"
+                          >24 Area(Sq.Mtr) View</a
+                        >
+                      </p>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div
+                            class="collapse multi-collapse"
+                            id="multiCollapseExample5"
+                          >
+                            <div class="card card-body text-center">
+                              <img
+                                src="assets/images/reintimasiaexhibitormanual/24-1.jpg"
+                                alt=""
+                              />
+                              <h6 class="pt-3">
+                                Front View<br />
+                                Technical Size: 24sqm
+                              </h6>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div
+                            class="collapse multi-collapse"
+                            id="multiCollapseExample5"
+                          >
+                            <div class="card card-body text-center">
+                              <img
+                                src="assets/images/reintimasiaexhibitormanual/24-2.jpg"
+                                alt=""
+                              />
+                              <h6 class="pt-3">
+                                Top View<br />
+                                Technical Size: 24sqm
+                              </h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            
+
+          </div>
         </div>
-        </div>
-      
-
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock content %}
-
-
-
-
