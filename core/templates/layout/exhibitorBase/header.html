@@ -4,7 +4,7 @@
     <div class="main-header-right row m-0">
         <div class="main-header-left">
             <div class="logo-wrapper">
-                <a href="/"><img class="img-fluid" src="{% static 'assets/images/logo/dark-logo.png'%}" alt=""></a>
+                <a href="/"><img class="img-fluid" src="{{ request.scheme }}://{{ request.get_host }}{% static 'assets/images/logo/dark-logo.png'%}" alt=""></a>
                 <!-- <a href="/" class="img-fluid"><h2>Intimasia</h2> </a> -->
             </div>
             <div class="dark-logo-wrapper">
