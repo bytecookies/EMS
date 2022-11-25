@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["ems.intimasia.in", 'localhost', '127.0.0.1']
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 
 # Application definition
 
