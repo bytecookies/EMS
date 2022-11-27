@@ -663,6 +663,7 @@ class ExhibitorFormDisabled(ModelForm):
                                                 )
     product_sub_catogory = forms.ModelMultipleChoiceField(required=True, disabled=True,
                                                           queryset=ProductSubCatogory.objects.all(),
+                                                        
                                                                 widget=forms.SelectMultiple(
                                                                     attrs={
                                                                         "class":"js-example-basic-multiple form-control"

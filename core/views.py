@@ -17,7 +17,13 @@ from core.utility import utility_func
 from django.core.mail import send_mail, EmailMultiAlternatives
 
 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
 # Create your views here.
+
+
 def send_mail(email, password):
 
     htmly = get_template('pages/test.html')
@@ -30,8 +36,6 @@ def send_mail(email, password):
         subject=subject, from_email=from_email, to=[email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-
-
 
 
 @login_required(login_url="/login")
@@ -57,34 +61,72 @@ def participation_form(request):
         if form.is_valid():
             print("form is valid __------------------------------------")
             form.save()
-            
-            print(request.POST.get('finish'),'dslkjflksdjflksdjflkdsjfjldsjlkfjdsjljfljds')
-            print(request.POST.get('save_and_edit'),'dslkjflksdjflksdjflkdsjfjldsjlkfjdsjljfljds')
+
+            print(request.POST.get('finish'),
+                  'dslkjflksdjflksdjflkdsjfjldsjlkfjdsjljfljds')
+            print(request.POST.get('save_and_edit'),
+                  'dslkjflksdjflksdjflkdsjfjldsjlkfjdsjljfljds')
             if request.POST.get('finish') == "submit":
-                User.objects.filter(pk=request.user.id).update(participation_form=True)
+                User.objects.filter(pk=request.user.id).update(
+                    participation_form=True)
             return redirect('participation_form')
         # return render(request, 'pages/ExhibitorPages/Forms/participatin_form.html',  {'form': form})
 
     else:
-    
+
         if request.user.participation_form:
-            form=forms.ExhibitorFormDisabled(instance = exhibitor)
-            disable_form=0
+            form = forms.ExhibitorFormDisabled(instance=exhibitor)
+            disable_form = 0
         else:
-            form=forms.ExhibitorForm(instance = exhibitor)
-        
+            form = forms.ExhibitorForm(instance=exhibitor)
+
     return render(request, 'pages/ExhibitorPages/Forms/participatin_form.html',  {'form': form, "status": disable_form})
 
 
 @login_required(login_url="/login")
 def test(request):
     # send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
-    return render(request, 'pages/test.html')
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(
+                request, 'Your password was successfully updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'pages/ExhibitorPages/reset-password/reset-password.html', {
+        'form': form
+    })
+
+
+@login_required(login_url="/login")
+def change_password(request):
+    # send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(
+                request, 'Your password was successfully updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'pages/ExhibitorPages/reset-password/reset-password.html', {
+        'form': form
+    })
 
 
 @login_required(login_url="/login")
 def stall_aminities(request):
     return render(request, 'pages/ExhibitorPages/general_info/stall_aminities.html')
+
 
 @login_required(login_url="/login")
 def move_in_move_out(request):
@@ -100,6 +142,7 @@ def rules_and_regulations(request):
 def show_info(request):
     return render(request, 'pages/ExhibitorPages/general_info/show_information.html')
 
+
 @login_required(login_url="/login")
 def key_contacts(request):
     return render(request, 'pages/ExhibitorPages/general_info/key_contact.html')
@@ -112,18 +155,12 @@ def venders(request):
     return render(request, 'pages/ExhibitorPages/venders/vender.html', {"venders": venders})
 
 
-
-
 def get_product_sub_catagory_ajax(request):
-    if request.method=="GET":
-        product_id=request.GET.get("product_id")
-        product_sub_catagories=ProductSubCatogory.objects.filter(product=product_id).all()
+    if request.method == "GET":
+        product_id = request.GET.get("product_id")
+        product_sub_catagories = ProductSubCatogory.objects.filter(
+            product=product_id).all()
     return render(request, 'pages/ExhibitorPages/components/Ajax/product_subcatagories.html', {"product_sub_catagories": product_sub_catagories})
-
-
-
-
-
 
 
 def loginview(request):
@@ -134,7 +171,7 @@ def loginview(request):
             user = form.get_user()
             print('user', user)
             login(request, user)
-
+            request.session.set_expiry(0)
             print(user.is_superuser)
 
             if user.is_superuser or user.is_staff:

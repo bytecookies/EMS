@@ -32,9 +32,13 @@
                 <!-- <li><a class="text-dark" href="#!" onclick="toggleFullScreen()"><i data-feather="maximize"></i></a></li> -->
 
 
-                <!-- <li>
+                {% comment %} <li>
                     <div class="mode"><i class="fa fa-moon-o"></i></div>
-                </li> -->
+                </li>  {% endcomment %}
+
+                <li>
+                    <div class="feather "> <a href="{% url 'change_password' %}" title="Chage Password"><i class="fa fa-key primary-color "></i> </a></div>
+                </li> 
 
                  <li class="dropdown p-0">
           <form method="post" action="/logout_view">

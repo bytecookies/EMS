@@ -40,5 +40,6 @@ urlpatterns = [
          name='product_sub_catagories_Ajax'),
 
     path('logout_view', views.logout_view, name="logout_view"),
+    path('change_password', views.change_password, name="change_password"),
 
 ]
