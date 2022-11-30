@@ -25,39 +25,55 @@
                                     <table style="width: 100%" class="table-bordered border-dark">
                                         <tr>
                                             <th style="padding: 4px;">Company Name</th>
-                                            <td style="padding: 4px;">INTICEDE BSD Private Limited</td>
+                                            <td style="padding: 4px;">{{ welcome_details.companyName }}</td>
                                         </tr>
 
                                         <tr>
                                             <th style="padding: 4px;">Key Contact Name</th>
-                                            <td style="padding: 4px;">Ms. Kajol Bisht</td>
+                                            {% if welcome_details.contact_person_first_name is not None %}
+                                            <td style="padding: 4px;">{{ welcome_details.contact_person_first_name }} {{ welcome_details.contact_person_last_name }}</td>
+                                            {% else %}
+                    
+                                            <td style="padding: 4px;">{{ welcome_details.senior_person_first_name }} {{ welcome_details.senior_person_last_name }}</td>
+                                            {% endif %}
                                         </tr>
 
                                         <tr>
                                             <th style="padding: 4px;">Key Contact Mobile</th>
-                                            <td style="padding: 4px;">+91-7506399950</td>
+                                            {% if welcome_details.contact_person_first_name is not None %}
+                                            <td style="padding: 4px;">{{ welcome_details.phone }} </td>
+                                            {% else %}
+                    
+                                            <td style="padding: 4px;">{{ welcome_details.senior_phone }} </td>
+                                            {% endif %}
                                         </tr>
 
 
                                         <tr>
                                             <th style="padding: 4px;">Key Contact Email</th>
-                                            <td style="padding: 4px;">kajol.bisht@inticede.com</td>
+                                            {% if welcome_details.contact_person_first_name is not None %}
+                                            <td style="padding: 4px;">{{ welcome_details.email }} </td>
+                                            {% else %}
+                    
+                                            <td style="padding: 4px;">{{ welcome_details.senior_email }} </td>
+                                            {% endif %}
                                         </tr>
 
                                         <tr>
                                             <th style="padding: 4px;">Booth Number</th>
-                                            <td style="padding: 4px;">V1+W1</td>
+                                            <td style="padding: 4px;">{{ welcome_details.boothNumber }} </td>
                                         </tr>
 
                                         <tr>
                                             <th style="padding: 4px;">Booth Size</th>
-                                            <td style="padding: 4px;">36 SQM</td>
+                                            <td style="padding: 4px;">{{ welcome_details.boothSize }} SQ.M </td>
                                         </tr>
 
 
                                         <tr>
                                             <th style="padding: 4px;">Type of Booth</th>
-                                            <td style="padding: 4px;">Bare Space / Shell Scheme</td>
+                                          
+                                            <td style="padding: 4px;">{% if welcome_details.boothType == '1' %} BARE SPACE {% elif welcome_details.boothType == '2' %} SHELL SCHEME{% endif %}</td>
                                         </tr>
                                     </table><br>
 

@@ -41,11 +41,21 @@ def send_mail(email, password):
 def index(request):
     firstLogin = False
     print(request.user.id)
+    welcome_message_details=None
     if (request.user.t_n_d == False):
         firstLogin = True
+        
+        if request.user.isExhibitor:
+            try:
+                welcome_message_details=Exhibitor.objects.filter(user=request.user.id).get()
+            except(Exception):
+                welcome_message_details=None
+
         utility_func.accept_tnd(request.user.id)
 
-    return render(request, 'pages/ExhibitorPages/index.html', {"firstLogin": firstLogin})
+    
+
+    return render(request, 'pages/ExhibitorPages/index.html', {"firstLogin": firstLogin,"welcome_details":welcome_message_details})
 
 
 @login_required(login_url="/login")
@@ -85,8 +95,17 @@ def participation_form(request):
 
 @login_required(login_url="/login")
 def test(request):
-    send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
-   
+    k=None
+    if request.user.isExhibitor:
+        try:
+            k=Exhibitor.objects.filter(user=request.user.id).get()
+        except(Exception):
+            k=None
+
+    print(request.user.id)
+    if k is not None:
+        print(k.user)
+
     return render(request, 'pages/components/mail/exhibitor_credential.html',{"email":"piyush@sdkf.com","password":'lkdsjfsdlkhf'})
 
 
