@@ -258,7 +258,7 @@
 
                     <div class="row">
                       <div class="col-md mb-3">
-                        <label for="" class="control-label">Website</label>
+                        <label for="" class="control-label">Website (eg: 'https://intimasia.in')</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{  form.website.errors }}</span>
                         {{ form.website }}
@@ -445,36 +445,66 @@
 
 {% endblock %} {% block scriptcontent %}
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCrm3QzMrbB5bvfUhd2iAOnAt5aKO4sEfk&address"></script>
+<script type="text/javascript">
 
-<script>
+{% comment %} const city=$('#id_city')
+const state=$('#id_state')
+const country=$('#id_country') {% endcomment %}
+
+  let k;
+  function GetDetails(pzip, pcity, pstate,pcountry) {
+      var geocoder = new google.maps.Geocoder();
+      var postalCode = document.getElementById(`${pzip}`).value;
+      geocoder.geocode({ 'address': postalCode }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+              console.log(results[0])
+              k=results[0]
+              var address = results[0].formatted_address;
+              var pin = results[0].address_components[results[0].address_components.length-4].long_name;
+             
+              var country = results[0].address_components[results[0].address_components.length - 1].long_name;
+              var state = results[0].address_components[results[0].address_components.length - 2].long_name;
+              var city = results[0].address_components[results[0].address_components.length - 3].long_name;
+              // var city = results[0].address_components[1].long_name
+              
+              document.getElementById(`${pcountry}`).value = country;
+              document.getElementById(`${pstate}`).value = state;
+              document.getElementById(`${pcity}`).value = city;
+          }
+      });
+  };
+
   
 
 
- const city=$('#id_city')
-  const state=$('#id_state')
-  const country=$('#id_country')
+
   
   $("#id_zip").focusout(function(){
     let zip=$("#id_zip").val()
-    $.ajax({                       // initialize an AJAX request
-              url: "https://app.zipcodebase.com/api/v1/search",                    // set the url of the request (= /persons/ajax/load-cities/ )
-              data: {
-                  'apikey': "a63fca90-6a80-11ed-8d10-e70b8d42005b" ,      // add the country id to the GET parameters
-                  'codes': zip,      // add the country id to the GET parameters
-              },
-              success: function (data) {   // `data` is the return of the `load_cities` view function
-                
-                console.log(data.results[zip][0])
-                zip_info=data.results[zip][0]
-                $('#id_city').val(zip_info.city)
-                $('#id_state').val(zip_info.state)
-                $('#id_country').val(zip_info.country_code)
-                }
-              });
+    GetDetails('id_zip','id_city','id_state','id_country')
+      
+    {% comment %} $.ajax({                       // initialize an AJAX request
+                url: "https://app.zipcodebase.com/api/v1/search",                    // set the url of the request (= /persons/ajax/load-cities/ )
+                data: {
+                    'apikey': "a63fca90-6a80-11ed-8d10-e70b8d42005b" ,      // add the country id to the GET parameters
+                    'codes': zip,      // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                  
+                  console.log(data.results[zip][0])
+                  zip_info=data.results[zip][0]
+                  $('#id_city').val(zip_info.city)
+                  $('#id_state').val(zip_info.state)
+                  $('#id_country').val(zip_info.country_code)
+                  }
+        }); {% endcomment %}
   });
+  
   $("#id_billing_zip").focusout(function(){
     let zip=$("#id_billing_zip").val()
-    $.ajax({                       // initialize an AJAX request
+    GetDetails('id_billing_zip','id_billing_city','id_billing_state','id_billing_country')
+    {% comment %} $.ajax({                       // initialize an AJAX request
               url: "https://app.zipcodebase.com/api/v1/search",                    // set the url of the request (= /persons/ajax/load-cities/ )
               data: {
                   'apikey': "a63fca90-6a80-11ed-8d10-e70b8d42005b" ,      // add the country id to the GET parameters
@@ -488,7 +518,7 @@
                 $('#id_billing_state').val(zip_info.state)
                 $('#id_billing_country').val(zip_info.country_code)
                 }
-              });
+              }); {% endcomment %}
   });
 
 

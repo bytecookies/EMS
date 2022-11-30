@@ -350,7 +350,7 @@ class ExhibitorForm(ModelForm):
 
 
         widgets = {
-            'product_sub_catogory': forms.SelectMultiple(attrs={'class': 'js-example-basic-multiple  form-control', }),
+            'product_sub_catogory': forms.SelectMultiple(attrs={'class': 'js-example-basic-multiple  form-control'}),
         }
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -365,6 +365,7 @@ class ExhibitorForm(ModelForm):
                     pass  # invalid input from the client; ignore and fallback to empty City queryset
             elif self.instance.pk:
                 self.fields['product_sub_catogory'].queryset = self.instance.product_catogory.productsubcatogory_set.order_by('name')
+
 
 class ExhibitorFormDisabled(ModelForm):
     # Company Details

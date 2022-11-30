@@ -168,8 +168,9 @@ class Exhibitor(models.Model):
             user = User.objects.create_exhibitor(
                 email=email, password=password)
             self.user = user
+            send_mail(password=password, email=email)
         super().save(*args, **kwargs)
-        send_mail(password=password, email=email)
+        
 
 
 
