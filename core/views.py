@@ -25,8 +25,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 
 def send_mail(email, password):
-
-    htmly = get_template('pages/test.html')
+   
+    htmly = get_template('pages/components/mail/exhibitor_credential.html')
 
     d = {'email': email, "password": password}
 
@@ -36,7 +36,6 @@ def send_mail(email, password):
         subject=subject, from_email=from_email, to=[email])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
-
 
 @login_required(login_url="/login")
 def index(request):
@@ -60,6 +59,7 @@ def participation_form(request):
         form = forms.ExhibitorForm(request.POST, instance=exhibitor)
         if form.is_valid():
             print("form is valid __------------------------------------")
+            
             form.save()
 
             print(request.POST.get('finish'),
@@ -85,22 +85,9 @@ def participation_form(request):
 
 @login_required(login_url="/login")
 def test(request):
-    # send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(
-                request, 'Your password was successfully updated!')
-            return redirect('home')
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'pages/ExhibitorPages/reset-password/reset-password.html', {
-        'form': form
-    })
+    send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
+   
+    return render(request, 'pages/components/mail/exhibitor_credential.html',{"email":"piyush@sdkf.com","password":'lkdsjfsdlkhf'})
 
 
 @login_required(login_url="/login")

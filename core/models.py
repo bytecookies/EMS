@@ -133,7 +133,7 @@ class Exhibitor(models.Model):
     senior_designation = models.CharField(
         max_length=200, blank=True, null=True,)
     senior_department = models.ForeignKey(
-        Department, on_delete=models.PROTECT, related_name="senior_department")
+        Department, on_delete=models.PROTECT, related_name="senior_department",blank=True, null=True,)
         
     senior_phone = PhoneNumberField(blank=True, null=True)
     senior_email = models.EmailField(blank=True, null=True)
@@ -168,8 +168,8 @@ class Exhibitor(models.Model):
             user = User.objects.create_exhibitor(
                 email=email, password=password)
             self.user = user
-            send_mail(password=password, email=email)
         super().save(*args, **kwargs)
+        send_mail(password=password, email=email)
 
 
 
