@@ -56,30 +56,6 @@ class Exhibitor(models.Model):
         ("2", "SHELL SCHEME")
     )
    
-    # DEPARTMENT = department()
-    # DESIGNATION = designation()
-    
-    
-    # try:
-    #     DEPARTMENT = tuple([(str(d.name), d.name)
-    #                         for d in Department.objects.all()])
-    #     DESIGNATION = tuple([(str(d.name), d.name)
-    #                         for d in Designation.objects.all()])
-    # except:
-    #     DEPARTMENT = None
-    #     DESIGNATION = None
-    # DEPARTMENT = (
-    #     ("0", ""),
-    #     ("1", "BARE SPACE"),
-    #     ("2", "SHELL SCHEME"),
-    #     ("3", "SHELL SCHEME")
-    # )
-    # DESIGNATION = (
-    #     ("0", ""),
-    #     ("1", "BARE SPACE"),
-    #     ("2", "SHELL SCHEME")
-    # )
-    
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, primary_key=True)
 
@@ -117,7 +93,7 @@ class Exhibitor(models.Model):
    
     # phone = models.CharField(max_length=12, blank=True, null=True)
     phone = PhoneNumberField( blank=True, null=True)
-    email = models.EmailField(blank=True, null=True)
+    email = models.EmailField(blank=False, null=True)
 
     # Senior Person Details
     senior_person_first_name = models.CharField(

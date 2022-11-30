@@ -25,7 +25,7 @@ class ExhibitorCreateForm(ModelForm):
         model = models.Exhibitor
         fields = ('user', 'companyName', 'contact_person_type', 'contact_person_first_name', 'contact_person_last_name', 'designation',
                   'department', 'phone', 'email', 'boothNumber', 'boothSize', 'boothType')
-       
+        required = ('email')
 
     def save(self, commit=True):
         obj = super().save(commit=False)
