@@ -81,6 +81,8 @@ class UserAdmin(BaseUserAdmin):
     ordering = ['email']
     readonly_fields = ['date_joined']
     list_display = ("email", "isExhibitor", "is_active", "is_staff")
+    search_fields = ('email',)
+    list_filter = ('is_staff', 'isExhibitor','isVisitor','is_superuser','is_active')
 
     fieldsets = (
         (None, {"fields": ("email", "password")}),
