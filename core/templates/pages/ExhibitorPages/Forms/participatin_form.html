@@ -19,6 +19,34 @@
   #id_senior_phone_1 , #id_phone_1{
        padding-left: 23%;
   }
+  .error ~ .select2-container--default .select2-selection--single {
+    border-color: red !important ;
+}
+.valid ~ .select2-container--default .select2-selection--single {
+  border-color: green !important;
+}
+  .error ~ .select2-container--default .select2-selection--multiple {
+    border-color: red !important;
+}
+  .valid ~ .select2-container--default .select2-selection--multiple {
+    border-color: green !important;
+}
+
+
+label.error {
+  color: red;
+  font-size: 0.6rem;
+  display: block;
+  margin-top: 5px;
+}
+
+.form-control.valid{
+  border:1px solid green !important;
+}
+
+.form-control.error{
+  border:1px solid red !important;
+}
 
 </style>
 {% endblock %} {% block content %}
@@ -39,7 +67,8 @@
                {% if form.errors %}
             <p  class="text-danger pt-4 disabled-form-msg">Something is Wrong Please check all Entries.</p>
             {% endif %}
-             
+
+            
             </div>
           </div>
           <div class="card-body">
@@ -78,10 +107,18 @@
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.senior_person_first_name.errors }}</span>
                           {{ form.senior_person_first_name }}
+                          <!--
+                            <div class="valid-feedback">
+                            Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                              Please chooese valid input.
+                            </div>
+                          -->
                           
                         </div>
 
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Last Name</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.senior_person_last_name.errors }}</span>
@@ -89,36 +126,43 @@
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Designation</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.senior_designation.errors }}</span>
                           {{ form.senior_designation }}
                         </div>
 
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Department</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.senior_department.errors }}</span>
                          {{ form.senior_department }}
+                         <!--
+                            <div class="valid-feedback">
+                            Looks good!
+                            </div>
+                            <div class="invalid-feedback">
+                              Please chooese valid input.
+                            </div>
+                          -->
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Mobile</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.senior_phone.errors }}</span>
                           {{ form.senior_phone }}
                         </div>
 
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Email</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.senior_email.errors }}</span>
                           {{ form.senior_email }}
                         </div>
                       </div>
-
 
                     </div>
 
@@ -131,13 +175,13 @@
                     
 
                       <div class="row">
-                        <div class="col-md mb-3 form-group">
+                        <div class="col-md mb-3 form-group form-group">
                           
                           <label class="control-label">First Name</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.contact_person_first_name.errors }}</span>
                            {{ form.contact_person_first_name }}
-                          <div class="valid-feedback">Looks good!</div>
+                          
                         </div>
 
                         <div class="col-md mb-3 form-group">
@@ -145,11 +189,11 @@
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.contact_person_last_name.errors }}</span>
                           {{ form.contact_person_last_name }}
-                          <div class="valid-feedback">Looks good!</div>
+                          
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Designation</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.designation.errors }}</span>
@@ -165,7 +209,7 @@
                           </select> {% endcomment %}
                         </div>
 
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Department</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.department.errors }}</span>
@@ -181,7 +225,7 @@
                           {{ form.phone }}
                         </div>
 
-                        <div class="col-md mb-3">
+                        <div class="col-md mb-3 form-group">
                           <label class="control-label">Email</label>
                             <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.email.errors }}</span>
@@ -204,7 +248,7 @@
                 <div class="col-xs-12">
                   <div class="col-md-12">
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label class="control-label">Company Name</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.companyName.errors }}</span>
@@ -213,7 +257,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Apartment, Unit, Building, Floor, etc.</label>
                         <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.address1.errors }}</span>
@@ -221,7 +265,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Street Address </label>
                         <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.address2.errors }}</span>
@@ -230,25 +274,25 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md-3 mb-3">
+                      <div class="col-md-3 mb-3 form-group">
                         <label for="" class="control-label">Pin</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.zip.errors }}</span>
                         {{ form.zip }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">City</label>
                         <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.city.errors }}</span>
                          {{ form.city }}
                       </div>
-                      <div class="col-md-2 mb-3">
+                      <div class="col-md-2 mb-3 form-group">
                         <label for="" class="control-label">State</label>
                               <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.state.errors }}</span>
                         {{ form.state }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Country</label>
                              <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.country.errors }}</span>
@@ -257,13 +301,13 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Website (eg: 'https://intimasia.in')</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{  form.website.errors }}</span>
                         {{ form.website }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Email</label>
                          <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.company_email.errors }}</span>
@@ -272,7 +316,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label"
                           >Nature Of Business</label
                         >
@@ -297,7 +341,7 @@
                 <div class="col-xs-12">
                   <div class="col-md-12">
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label class="control-label">Billing Name</label>
                          <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.billing_companyName.errors }}</span>
@@ -307,7 +351,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Apartment, Unit, Building, Floor, etc.</label>
                          <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.billing_address1.errors }}</span>
@@ -316,7 +360,7 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Street Address </label>
                         <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.billing_address2.errors }}</span>
@@ -325,25 +369,25 @@
                     </div>
 
                     <div class="row">
-                      <div class="col-md-2 mb-3">
+                      <div class="col-md-2 mb-3 form-group">
                         <label for="" class="control-label">Pin</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.billing_zip.errors }}</span>
                          {{ form.billing_zip }}
                       </div>
-                      <div class="col-md-3 mb-3">
+                      <div class="col-md-3 mb-3 form-group">
                         <label for="" class="control-label">City</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.billing_city.errors }}</span>
                         {{ form.billing_city }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">State</label>
                         <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.billing_state.errors }}</span>
                         {{ form.billing_state }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">Country</label>
                          <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.billing_country.errors }}</span>
@@ -351,13 +395,13 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">GST</label>
                          <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.company_GST.errors }}</span>
                         {{ form.company_GST }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label">PAN</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.company_PAN.errors }}</span>
@@ -378,19 +422,19 @@
                 <div class="col-xs-12">
                   <div class="col-md-12">
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label class="control-label">Booth Number</label>
                            <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.boothNumber.errors }}</span>
                        {{ form.boothNumber }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label class="control-label">Booth Size (IN SQ.M)</label>
                           <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.boothSize.errors }}</span>
                         {{ form.boothSize }}
                       </div>
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label class="control-label">Booth Type</label>
                          <span class="text-danger">*</span>
                           <span class="text-danger block"> {{ form.boothType.errors }}</span>
@@ -398,7 +442,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label"
                           >Our Brand (If Any)</label
                         >
@@ -408,7 +452,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label"
                           >Primary Product & Services</label
                         >
@@ -418,7 +462,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md mb-3">
+                      <div class="col-md mb-3 form-group">
                         <label for="" class="control-label"
                           >Secondory Product & Services</label
                         >
@@ -427,7 +471,7 @@
                         {{ form.product_sub_catogory }}
                       </div>
                     </div>
-
+                    <p class="text-danger front-error pt-4 disabled-form-msg"> </p>
                     <input class="btn btn-success pull-right m-2" name="finish" value="submit" type="submit">
                       
                     <input class="btn btn-primary pull-right m-2"  name="save_and_edit" value="save" type="submit">
@@ -572,15 +616,23 @@ const country=$('#id_country') {% endcomment %}
 
 
 
-
 </script>
+
+
+
+
 <!-- Plugins JS start-->
+
+<script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+
+
 <script src="{% static 'assets/js/form-wizard/form-wizard-two.js' %}"></script>
 <script src="{% static 'assets/js/form-validation-custom.js'%}"></script>
-<!-- Plugins JS start-->
+
 <script src="{% static 'assets/js/select2/select2.full.min.js'%}"></script>
 <script src="{% static 'assets/js/select2/select2-custom.js'%}"></script>
 
 <!-- Plugins JS Ends-->
-<!-- Plugins JS Ends-->
+
+
 {% endblock %}

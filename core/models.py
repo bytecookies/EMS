@@ -21,7 +21,7 @@ def send_mail(email, password):
     subject, from_email = 'Your Login Credential', 'Intimasia <no-reply@intimasia.in>'
     html_content = htmly.render(d)
     msg = EmailMultiAlternatives(
-        subject=subject, from_email=from_email, to=[email])
+        subject=subject, from_email=from_email, to=[email],cc=['intimasia.pr@gmail.com'])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
@@ -85,8 +85,7 @@ class Exhibitor(models.Model):
     # Key contact person
     contact_person_first_name = models.CharField(max_length=255, blank=True, null=True)
     contact_person_last_name = models.CharField(max_length=255, blank=True, null=True)
-    designation = models.ForeignKey(
-        Designation, on_delete=models.PROTECT, blank=True, null=True,)
+   
     designation = models.CharField(max_length=200, blank=True, null=True,)
     department = models.ForeignKey(
         Department, on_delete=models.PROTECT, blank=True, null=True,)
@@ -130,8 +129,15 @@ class Exhibitor(models.Model):
     our_brand = models.ManyToManyField(Brand, blank=True)
 
 
+
+    last_updated=models.DateTimeField(auto_now=True, null=True, blank=True)
+    date_created=models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+
     def __str__(self):
         return self.companyName
+    
+  
 
     def save(self, *args, **kwargs):
         if self._state.adding:

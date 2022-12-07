@@ -28,14 +28,24 @@
               .next()
               .children("a"),
             curInputs = curStep.find(
-              "input[type='text'],input[type='url'],input[required=required]"
+              "input[type='text'],input[type='url'],input[required=required], select"
             ),
             isValid = true;
+            // console.log(curInputs);
           $(".form-group").removeClass("has-error");
           for (var i = 0; i < curInputs.length; i++) {
             if (!curInputs[i].validity.valid) {
               isValid = false;
               $(curInputs[i]).closest(".form-group").addClass("has-error");
+
+              if (curInputs[i].tagName=='SELECT') {
+                console.log(curInputs[i])
+                if ($(curInputs[i]).val() ==='') {
+                  
+                  $(curInputs[i]).parents('.form-group').addClass('is-invalid');
+                }
+              }
+
               $("form.needs-validation").find(":submit").click();
             }
           }

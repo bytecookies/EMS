@@ -19,3 +19,5 @@ django-debug-toolbar == 3.7.0
 django-phonenumber-field
 django-phonenumbers
 Babel
+
+django-forms-fieldset

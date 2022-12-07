@@ -71,6 +71,7 @@ class ExhibitorForm(ModelForm):
             widget=forms.URLInput(
                 attrs={
                     "class": "form-control",
+                    "pattern":"[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
                 }
             ) 
             )
@@ -334,7 +335,7 @@ class ExhibitorForm(ModelForm):
     #                                                                 }
     #                                                             )
     #                                             )
-    our_brand = forms.ModelMultipleChoiceField(required=True,
+    our_brand = forms.ModelMultipleChoiceField(required=False,
                                                queryset=Brand.objects.all().order_by('name'),
                                                                 widget=forms.SelectMultiple(
                                                                     attrs={
@@ -350,7 +351,7 @@ class ExhibitorForm(ModelForm):
 
 
         widgets = {
-            'product_sub_catogory': forms.SelectMultiple(attrs={'class': 'js-example-basic-multiple  form-control'}),
+            'product_sub_catogory': forms.SelectMultiple(attrs={'class': 'js-example-basic-multiple  form-control','required':""}),
         }
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -678,11 +679,13 @@ class ExhibitorFormDisabled(ModelForm):
                                                                         "class":"js-example-basic-multiple form-control"
                                                                     }
                                                                 )
-                                                )
+                                              )
 
     class Meta:
+        
         model = Exhibitor
         fields = '__all__'
+      
         exclude = ('user', )
 
 

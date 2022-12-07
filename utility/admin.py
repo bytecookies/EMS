@@ -16,8 +16,7 @@ class ProductCatogoryAdmin(admin.ModelAdmin):
 
 
 
-class DesignationAdmin(admin.ModelAdmin):
-    search_fields = ["name"]
+
 
 class NatureOfBusinessAdmin(admin.ModelAdmin):
     search_fields = ["name"]
@@ -34,7 +33,7 @@ class VenderProductAndServiceAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
 
-admin.site.register(models.Designation, DesignationAdmin)
+
 admin.site.register(models.Department)
 admin.site.register(models.NatureOfBusiness, NatureOfBusinessAdmin)
 admin.site.register(models.Brand, BrandAdmin)
