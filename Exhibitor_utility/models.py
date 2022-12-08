@@ -9,4 +9,6 @@ class ExhibitorDownload(models.Model):
     description=models.TextField()
     file=models.FileField(upload_to='images/exhibitor/downloads')
 
+    def __str__(self) -> str:
+        return self.exhibitor
     

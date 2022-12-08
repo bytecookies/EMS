@@ -101,9 +101,8 @@ def test(request):
 
 @login_required(login_url="/login")
 def exhibitor_downloads(request):
-    print(request.user)
+   
     exhibitor_download=ExhibitorDownload.objects.filter(exhibitor=request.user.id)
-    print(exhibitor_download[1].file)
     return render(request, 'pages/ExhibitorPages/downloads/index.html',{'downloads':exhibitor_download})
 
 
