@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'utility',
+    'Exhibitor_utility',
     'debug_toolbar',
-     'forms_fieldset',
     'sass_processor',
+     'forms_fieldset',
     'phonenumber_field',
 ]
 

@@ -62,3 +62,15 @@ class VenderProductAndService(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+
+class Nationality(models.Model):
+    name=models.CharField(max_length=255)
+    
+class Organization(models.Model):
+    name=models.CharField(max_length=255)
+
+   
+class HowDidYouGetToKnowAboutINTIMASIA(models.Model):
+    name=models.CharField(max_length=255)

@@ -10,6 +10,7 @@ from .models import *
 from utility.models import *
 from . import forms
 from .models import User
+from Exhibitor_utility.models import  ExhibitorDownload
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -95,18 +96,61 @@ def participation_form(request):
 
 @login_required(login_url="/login")
 def test(request):
-    k=None
-    if request.user.isExhibitor:
-        try:
-            k=Exhibitor.objects.filter(user=request.user.id).get()
-        except(Exception):
-            k=None
+    
+    return render(request, 'pages/VisitorPages/auth/registration.html')
 
-    print(request.user.id)
-    if k is not None:
-        print(k.user)
+@login_required(login_url="/login")
+def exhibitor_downloads(request):
+    print(request.user)
+    exhibitor_download=ExhibitorDownload.objects.filter(exhibitor=request.user.id)
+    print(exhibitor_download[1].file)
+    return render(request, 'pages/ExhibitorPages/downloads/index.html',{'downloads':exhibitor_download})
 
-    return render(request, 'pages/components/mail/exhibitor_credential.html',{"email":"piyush@sdkf.com","password":'lkdsjfsdlkhf'})
+
+def visitors_registration(request):
+
+    if request.method == 'POST':
+        form = forms.VisitorForm(request.POST)
+        if form.is_valid():
+            print(form)
+            
+            email=form.cleaned_data['email']
+            _
+            visitor = form.save()
+            print(visitor)
+            # Define the user's first and last name
+            first_name=form.cleaned_data['first_name']
+            last_name=form.cleaned_data['first_name']
+
+            
+
+
+            # Concatenate the user's name, birthdate, and random number to create a unique ID
+            unique_id = email
+
+            # Use the SHA-256 hashing algorithm to create a password based on the unique ID
+            password = hashlib.sha256(unique_id.encode()).hexdigest()
+
+            # Print the generated ID and password
+            print("Unique ID:", unique_id)
+            print("Password:", password)
+          
+
+            # Create the email message
+            to_email=email
+            message = EmailMessage(
+                subject='Your generated ID and password',
+                body=f'Your generated ID is {unique_id} and your password is {password}',
+                from_email='no-reply@intimasia.in',
+                to=[to_email],
+            )
+
+            # Send the email
+            message.send()     
+    else:
+        form = forms.VisitorForm()
+    return render(request,'pages/VisitorPages/auth/registration.html',{'form':form})
+
 
 
 @login_required(login_url="/login")

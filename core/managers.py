@@ -28,6 +28,12 @@ class customUserManager(BaseUserManager):
         extra_fields.setdefault('isExhibitor', True)
         return self._create_user(email, password, **extra_fields)
 
+    def create_visitor(self,  email=None, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault('isVisitor', True)
+        return self._create_user(email, password, **extra_fields)
+
     def create_superuser(self,  email=None, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)

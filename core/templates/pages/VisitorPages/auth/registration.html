@@ -1,0 +1,389 @@
+{% extends 'layout/other-base.html' %}
+
+
+{% load static %} {% load sass_tags %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% sass_src 'assets/scss/select2.scss' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-body">
+
+  <div class="container-fluid">
+
+    {% load static %} {% load sass_tags %}
+    <!-- Container-fluid starts-->
+    
+    <style>
+        label{
+          color:#999989;
+        }
+        h5{
+        background-color: #d63384;
+        color: whitesmoke;
+        padding: 10px;
+        border-radius: 5px
+        }
+      </style>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <!-- <h5>Form Wizard with icon</h5> -->
+          </div>
+          <div class="card-body">
+            <div class='row'>
+            <form class="f1 col-md-8" method="POST" >
+              {% csrf_token %}
+    
+              <div class="f1-steps">
+                <div class="f1-progress">
+                  <div class="f1-progress-line" data-now-value="50" data-number-of-steps="2"></div>
+                </div>
+                 <!--<div class="f1-step active">
+                    <div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                    <p>Email</p>
+                  </div> -->
+                <div class="f1-step active">
+                  <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                  <p>Registration Page 1</p>
+                </div>
+               
+                <div class="f1-step">
+                  <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                  <p>Registration Page 2</p>
+                </div>
+              </div>
+           
+                <!-- <fieldset>
+                <div class="mb-2">
+                    <label  for="f1-email">Email</label>
+                                        
+                    
+                    <span class="text-danger">*</span>
+                    {% comment %} <input class="f2-email form-control" id="f2-email" type="text" name="f1-email" placeholder="Email..."> {% endcomment %}
+                </div>
+                
+                <div class="f1-buttons">
+                  <button class="btn btn-primary btn-next" type="button">Next</button>
+                </div>
+              </fieldset>  -->
+              
+              
+              <fieldset>
+                {% for errors in form.errors %}
+                    {{ errors }}
+                {% endfor %}
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">First Name</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.first_name.errors }}</span>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label for="f1-last-name">Last name</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.last_name.errors }}</span>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">Gender</label>
+                        <span class="text-danger block"> {{ form.gender.errors }}</span>
+                        {{ form.gender }}
+                    </div>
+                    <div class="mb-2 col-md-4">
+                        <label for="f1-last-name">Nationality </label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.nationality.errors }}</span>
+                        {{ form.nationality }}
+                    </div>
+                    <div class="mb-2 col-md-6">
+                        <label for="f1-last-name">Organization Name </label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.organization_name.errors }}</span>
+                        {{ form.organization_name }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">Job title</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.job_title.errors }}</span>
+                        {{ form.job_title }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label for="f1-last-name">Department</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.department.errors }}</span>
+                        {{ form.department }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">Apartment, Unit, Building, Floor, etc.</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.apartment_unit_building_floor_etc.errors }}</span>
+                        {{ form.apartment_unit_building_floor_etc }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">Street Address</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.street_address.errors }}</span>
+                        {{ form.street_address }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-last-name">Zip code</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.zip_code.errors }}</span>
+                        {{ form.zip_code }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label for="f1-last-name">Country</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.country.errors }}</span>
+                        {{ form.country }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">State </label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.state.errors }}</span>
+                        {{ form.state }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">Town/City/District </label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.town_city_district.errors }}</span>
+                        {{ form.town_city_district }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label  for="f2-email">Email</label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.email.errors }}</span>
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label for="cc-email">CC Email</label>
+                        <span class="text-danger block"> {{ form.cc_email.errors }}</span>
+                       
+                        {{ form.cc_email }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label for="f1-first-name">Mobile </label>
+                        <span class="text-danger">*</span>
+                        
+                        <span class="text-danger block"> {{ form.mobile.errors }}</span>
+                        {{ form.mobile }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label for="f1-last-name">WhatsApp</label>
+                        <span class="text-danger block"> {{ form.whatsapp.errors }}</span>
+                        
+                        {{ form.whatsapp }}
+                    </div>
+                </div>
+                <div class="f1-buttons">
+                  <button class="btn btn-primary btn-previous" type="button">Previous</button>
+                  <button class="btn btn-primary btn-next" type="button">Next</button>
+                </div>
+              </fieldset>
+    
+              <fieldset>
+                <div class="row">
+                    <h5>Business Details</h5>
+                    <div class="mb-2 col-md">
+                        <label >Nature of your business? (Please select all that apply)</label>
+                        <span class="text-danger">*</span>
+                            <span class="text-danger block"> {{ form.nature_of_business.errors }}</span>
+                            {{ form.nature_of_business }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label >Please Specify</label>
+                        <span class="text-danger">*</span>
+                            <span class="text-danger block"> {{ form.nature_of_business_others.errors }}</span>
+                            {{ form.nature_of_business_others }}
+                    </div>
+                </div>
+    
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label >Product categories you deal in Please Select all that apply) </label>
+                        <span class="text-danger">*</span>
+                            
+                        <span class="text-danger block"> {{ form.product_category.errors }}</span>
+                        {{ form.product_category }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label >Please Specify</label>
+                        <span class="text-danger">*</span>
+                            <span class="text-danger block"> {{ form.product_category_others.errors }}</span>
+                            {{ form.product_category_others }}
+                    </div>
+    
+                    <div class="mb-2 col-md">
+                        <label >Product sub categories you deal in Please Select all that apply)
+
+
+                        </label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block">{{ form.product_sub_category.errors }}</span>
+                        {{ form.product_sub_category }}
+    
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label >Please Specify</label>
+                        <span class="text-danger">*</span>
+                            <span class="text-danger block"> {{ form.product_sub_category_others.errors }}</span>
+                            {{ form.product_sub_category_others }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-2 col-md">
+                        <label >Your Brand Name </label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block">{{ form.brand.errors }}</span>
+                        {{ form.brand }}
+    
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label >Please Specify</label>
+                        <span class="text-danger">*</span>
+                            <span class="text-danger block"> {{ form.product_brand_otherssub_category_others.errors }}</span>
+                            {{ form.brand_others }}
+                    </div>
+                </div>
+                <div class="row">
+                    <h5>Additional Information</h5>
+                    <div class="mb-2 col-md">
+                        <label >How did you get to know about INTIMASIA </label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block">{{ form.how_did_you_get_to_know_about_INTIMASIA.errors }}</span>
+                        {{ form.how_did_you_get_to_know_about_INTIMASIA }}
+                    </div>
+                    
+    
+                    <div class="mb-2 col-md">
+                        <label >Products of interest at INTIMASIA</label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block">{{ form.product_category_interest.errors }}</span>
+                        {{ form.product_category_interest }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label >Please Specify</label>
+                        <span class="text-danger">*</span>
+                            <span class="text-danger block"> {{ form.product_category_interest_others.errors }}</span>
+                            {{ form.product_category_interest_others }}
+                    </div>
+                    <div class="mb-2 col-md">
+                        <label >Sub Products of interest at INTIMASIA</label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block">{{ form.product_sub_category_interest.errors }}</span>
+                        {{ form.product_sub_category_interest }}
+                    </div>
+                    <div class="mb-2 col-md">
+                            <label >Please Specify</label>
+                            <span class="text-danger">*</span>
+                            <span class="text-danger block"> {{ form.product_sub_category_interest_others.errors }}</span>
+                            {{ form.product_sub_category_interest_others }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <label> Would you like to subscribe to 'Inner Secrets' Magazine & Upgrade to VIP visitor</label>
+                            {% for choices in form.subscribe_to_inner_secrets %}
+                            
+                            <div class='col'>
+                                
+                               {{ choices }}
+                         
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <div class="col">
+                        
+                        <div class="row">
+                            <label>Is this your first time to INTIMASIA </label>
+                            {% for choices in form.is_first_time_to_intimasia %}
+                            <div class="col">
+                                {{ choices }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="row">
+                    <h5>Badge Preview</h5>
+                    <div class="mb-2 col-md">
+                        <P>Sometimes your name, organization or job title will not fit into the pre-printed badges. To avoid this problem, you can preview your badge below and change the way your details are printed on it. Please do not enter the details of somebody else, this is designed to customize how your badge will look</P>
+                        <input type="text" class="form-control mb-4" placeholder="Badge Name">
+                        <input type="text" class="form-control mb-4" placeholder="Badge Job Title">
+                        <input type="text" class="form-control" placeholder="Badge Company">
+                        
+                    </div>
+                    <div class="mb-2 col-md">
+    
+                    </div>
+                </div>
+                
+                <div class="f1-buttons">
+                    <button class="btn btn-primary btn-previous" type="button">Previous</button>
+                    <input class="btn btn-primary " type="submit" value='Submit' >
+                  </div>
+
+              </fieldset>
+    
+             
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Container-fluid Ends-->
+
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scriptcontent %}
+<!-- Plugins JS start-->
+<script src="{% static 'assets/js/form-wizard/form-wizard-three.js'%}"></script>
+<script src="{% static 'assets/js/form-wizard/jquery.backstretch.min.js'%}"></script>
+
+<script src="{% static 'assets/js/select2/select2.full.min.js'%}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js'%}"></script>
+<!-- Plugins JS Ends-->
+{% endblock %}

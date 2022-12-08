@@ -29,15 +29,31 @@ urlpatterns = [
 
     path('show_info/', views.show_info,
          name='show_info'),
+    path('exhibitor_downloads/', views.exhibitor_downloads,
+         name='exhibitor_downloads'),
 
     path('login/', views.loginview,
          name='login'),
 
+     # Visitors urls
+    path('registration/', views.visitors_registration,
+         name='visitors_registration'),
+
+
+
+
+
+
+
     path('test/', views.test,
          name='test'),
 
+
+
+
     path('product_sub_catagories/', views.get_product_sub_catagory_ajax,
          name='product_sub_catagories_Ajax'),
+
 
     path('logout_view', views.logout_view, name="logout_view"),
     path('change_password', views.change_password, name="change_password"),

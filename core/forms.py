@@ -692,3 +692,271 @@ class ExhibitorFormDisabled(ModelForm):
 
 
 # ExhibitorFormSet = modelformset_factory(ExhibitorForm)
+
+
+
+# visitors forms
+
+class VisitorForm(ModelForm):
+    first_name = forms.CharField(required=True,
+                                                widget=forms.TextInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"First Name...",
+                                                    }
+                                                )
+                                                )
+    last_name = forms.CharField(required=True,
+                                                widget=forms.TextInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Last Name...",
+                                                    }
+                                                )
+                                                )
+    
+    gender_choice=(
+    ('Male','Male'),
+    ('Female','Female'),
+    ('Other','Other'),
+)                                          
+    gender = forms.ChoiceField(required=True,choices=gender_choice,widget=forms.Select(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"gender...",
+                                                    }
+                                                )
+                                                )
+    nationality = forms.ModelChoiceField(required=True,
+                                                 queryset=Nationality.objects.all(),
+                                                widget=forms.Select(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Nationalityv...",
+                                                    }
+                                                )
+                                                )
+    organization_name = forms.ModelChoiceField(required=True,
+                                                queryset=Organization.objects.all(),
+                                                widget=forms.Select(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Organization Name...",
+                                                    }
+                                                )
+                                                )
+    department = forms.ModelChoiceField(required=True, 
+                                        queryset=Department.objects.all(),
+                                                widget=forms.Select(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Department...",
+                                                    }
+                                                )
+                                                )
+                                        
+
+    job_title = forms.CharField(required=True,
+                                                widget=forms.TextInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Job Title...",
+                                                    }
+                                                )
+                                                )
+    apartment_unit_building_floor_etc = forms.CharField(required=True,
+                                                widget=forms.TextInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Apartment unit building floor etc...",
+                                                    }
+                                                )
+                                                )
+    street_address = forms.CharField(required=True,
+                                                widget=forms.TextInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Street Address...",
+                                                    }
+                                                )
+                                                )
+    zip_code = forms.CharField(required=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ) 
+            )
+    country = forms.CharField(required=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ) 
+            )
+    state = forms.CharField(required=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ) 
+            )
+    town_city_district = forms.CharField(required=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder":"Town City Districts...",
+                }
+            ) 
+            )
+    email = forms.EmailField(required=True,
+                                                widget=forms.EmailInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"Email...",
+                                                    }
+                                                )
+                                                )
+    cc_email = forms.EmailField(required=True,
+                                                widget=forms.EmailInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                        "placeholder":"CC Email...",
+                                                    }
+                                                )
+                                                )
+
+    mobile = PhoneNumberField(required=True,
+                             widget=PhoneNumberPrefixWidget(initial="IN", 
+                                                   attrs={
+                                                       "class": "form-control",
+                                                   }
+                                               )
+                                               )
+    whatsapp = PhoneNumberField(required=True,
+                             widget=PhoneNumberPrefixWidget(initial="IN", 
+                                                   attrs={
+                                                       "class": "form-control",
+                                                   }
+                                               )
+                                               )
+    nature_of_business = forms.ModelMultipleChoiceField(required=True,
+                                                         queryset=NatureOfBusiness.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    nature_of_business_others = forms.CharField(required=True,
+                                                                widget=forms.TextInput(
+                                                                    attrs={
+                                                                        "class":"form-control"
+                                                                    }
+                                                                )
+                                                )
+    product_category = forms.ModelMultipleChoiceField(required=True,
+                                                         queryset=ProductCatogory.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    product_category_others = forms.CharField(required=True,
+                                                                widget=forms.TextInput(
+                                                                    attrs={
+                                                                        "class":"form-control"
+                                                                    }
+                                                                )
+                                                )                                                                                            
+    product_sub_category = forms.ModelMultipleChoiceField(required=True,
+                                                         queryset=ProductSubCatogory.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    product_sub_category_others = forms.CharField(required=True,
+                                                                widget=forms.TextInput(
+                                                                    attrs={
+                                                                        "class":"form-control"
+                                                                    }
+                                                                )
+                                                )                                                                                            
+    brand = forms.ModelMultipleChoiceField(required=True,
+                                                         queryset=Brand.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    brand_others = forms.CharField(required=True,
+                                                                widget=forms.TextInput(
+                                                                    attrs={
+                                                                        "class":"form-control"
+                                                                    }
+                                                                )
+                                                )                                                                                            
+    how_did_you_get_to_know_about_INTIMASIA = forms.ModelMultipleChoiceField(required=True,
+                                                         queryset=HowDidYouGetToKnowAboutINTIMASIA.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )                                                                                 
+    product_category_interest = forms.ModelMultipleChoiceField(required=True,
+                                                         queryset=ProductCatogory.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    product_category_interest_others = forms.CharField(required=True,
+                                                                widget=forms.TextInput(
+                                                                    attrs={
+                                                                        "class":"form-control"
+                                                                    }
+                                                                )
+                                                )                                                                
+    product_sub_category_interest = forms.ModelMultipleChoiceField(required=True,
+                                                         queryset=ProductSubCatogory.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    product_sub_category_interest_others = forms.CharField(required=True,
+                                                                widget=forms.TextInput(
+                                                                    attrs={
+                                                                        "class":"form-control"
+                                                                    }
+                                                                )
+                                                )             
+    SUBSCRIBE_TO_INNER_SECRETS=(
+        ('Yes','Yes'),
+        ('No','No'),
+    )
+    IS_FIRST_TIME_TO_INTIMASIA=(
+        ('Yes','Yes'),
+        ('No','No'),
+    )
+    
+    subscribe_to_inner_secrets = forms.ChoiceField(choices=SUBSCRIBE_TO_INNER_SECRETS, widget=forms.RadioSelect(attrs={
+                                                                        "class":"form-check-input"
+                                                                    }))
+
+    is_first_time_to_intimasia = forms.ChoiceField(choices=IS_FIRST_TIME_TO_INTIMASIA, widget=forms.RadioSelect(attrs={
+                                                                        "class":"form-check-input"
+                                                                    }))
+                                                  
+                                                            
+    class Meta:
+         model = Visitor
+         fields = '__all__'
+

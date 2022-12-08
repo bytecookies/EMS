@@ -152,7 +152,60 @@ class Exhibitor(models.Model):
             self.user = user
             send_mail(password=password, email=email)
         super().save(*args, **kwargs)
-        
+
+
+class Visitor(models.Model):
+    GENDER_CHOICE=(
+        ('Male','Male'),
+        ('Female','Female'),
+        ('Other','Other'),
+    )
+    SUBSCRIBE_TO_INNER_SECRETS=(
+        ('Yes','Yes'),
+        ('No','No'),
+    )
+    IS_FIRST_TIME_TO_INTIMASIA=(
+        ('Yes','Yes'),
+        ('No','No'),
+    )
+       
+
+    #First Page Start of Visitor Form
+    first_name=models.CharField(max_length=49)
+    last_name=models.CharField(max_length=49)
+    gender=models.CharField(choices=GENDER_CHOICE,max_length=49)
+    nationality=models.ForeignKey(Nationality,on_delete=models.PROTECT)
+    organization_name=models.ForeignKey(Organization,on_delete=models.PROTECT)
+    department=models.ForeignKey(Department,on_delete=models.PROTECT)
+    job_title=models.CharField(max_length=49)
+    apartment_unit_building_floor_etc=models.TextField()
+    street_address=models.TextField()
+    zip_code=models.CharField(max_length=49)
+    country=models.CharField(max_length=49)
+    state=models.CharField(max_length=49)
+    town_city_district=models.CharField(max_length=49)
+    email=models.EmailField(unique=True)
+    cc_email=models.EmailField(unique=True,blank=True,null=True)
+    mobile=PhoneNumberField()
+    whatsapp=PhoneNumberField(blank=True, null=True)
+
+    #Second page of visitor form
+    nature_of_business=models.ManyToManyField(NatureOfBusiness)
+    nature_of_business_others=models.TextField(blank=True,null=True)
+    product_category=models.ManyToManyField(ProductCatogory,related_name='product_category')
+    product_category_others=models.TextField(blank=True,null=True)
+    product_sub_category=models.ManyToManyField(ProductSubCatogory,related_name='product_sub_category')
+    product_sub_category_others=models.TextField(blank=True,null=True)
+    brand=models.ManyToManyField(Brand)
+    brand_others=models.TextField(blank=True,null=True)
+    how_did_you_get_to_know_about_INTIMASIA=models.ManyToManyField(HowDidYouGetToKnowAboutINTIMASIA)
+   
+    product_category_interest=models.ManyToManyField(ProductCatogory, related_name='product_category_interest')
+    product_category_interest_others=models.TextField(blank=True,null=True)
+    product_sub_category_interest=models.ManyToManyField(ProductSubCatogory,related_name='product_sub_category_interest')
+    product_sub_category_interest_others=models.TextField(blank=True,null=True)
+    subscribe_to_inner_secrets = models.CharField(choices=SUBSCRIBE_TO_INNER_SECRETS, max_length=128)
+    is_first_time_to_intimasia = models.CharField(choices=IS_FIRST_TIME_TO_INTIMASIA, max_length=128)
 
 
 
@@ -173,7 +226,6 @@ class Vender(models.Model):
 
     def __str__(self):
         return self.companyName
-
 
 class VenderContact(models.Model):
     PERSON_TYPE = (
