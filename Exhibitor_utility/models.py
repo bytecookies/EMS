@@ -10,5 +10,5 @@ class ExhibitorDownload(models.Model):
     file=models.FileField(upload_to='images/exhibitor/downloads')
 
     def __str__(self) -> str:
-        return self.exhibitor
+        return self.exhibitor.companyName
     
