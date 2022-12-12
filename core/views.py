@@ -21,6 +21,8 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+import hashlib
+from django.core.mail import EmailMessage
 
 # Create your views here.
 

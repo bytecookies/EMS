@@ -34,6 +34,9 @@ class VenderProductAndServiceAdmin(admin.ModelAdmin):
 
 
 
+admin.site.register(models.Nationality)
+admin.site.register(models.Organization)
+admin.site.register(models.HowDidYouGetToKnowAboutINTIMASIA)
 admin.site.register(models.Department)
 admin.site.register(models.NatureOfBusiness, NatureOfBusinessAdmin)
 admin.site.register(models.Brand, BrandAdmin)

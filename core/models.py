@@ -45,6 +45,7 @@ class User(AbstractUser):
         _("Visitor status"),
         default=False,
     )
+    registration_id=models.CharField(max_length=12, blank=True, null=True)
     REQUIRED_FIELDS = []
 
 
@@ -169,6 +170,8 @@ class Visitor(models.Model):
         ('No','No'),
     )
        
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, primary_key=True)
 
     #First Page Start of Visitor Form
     first_name=models.CharField(max_length=49)

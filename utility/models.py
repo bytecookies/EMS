@@ -67,10 +67,16 @@ class VenderProductAndService(models.Model):
 
 class Nationality(models.Model):
     name=models.CharField(max_length=255)
-    
+    def __str__(self) -> str:
+        return self.name
+        
 class Organization(models.Model):
     name=models.CharField(max_length=255)
-
+    def __str__(self) -> str:
+        return self.name
    
 class HowDidYouGetToKnowAboutINTIMASIA(models.Model):
     name=models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.name
