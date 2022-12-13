@@ -1,0 +1,40 @@
+<header class="main-nav pt-4">
+  <nav>
+    <div class="main-navbar">
+      <div id="mainnav">
+        <ul class="nav-menu custom-scrollbar">
+          <li class="back-btn">
+            <div class="mobile-back text-end">
+              <span>Back</span
+              ><i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+            </div>
+          </li>
+          <li class="dropdown">
+            <a class="nav-link menu-title" href="{% url 'visitor_dashboard'  %}"
+              ><i data-feather="home"></i><span>Dashboard</span></a
+            >
+          </li>
+
+          <li class="dropdown">
+            <a class="nav-link menu-title" href="{% url 'venders'  %}"
+              ><i data-feather="user"></i><span>Exhibitors</span></a
+            >
+          </li>
+
+          {% comment %} <li class="dropdown">
+            <a class="nav-link menu-title" href="#"
+              ><i data-feather="phone"></i><span>Vendors</span></a
+            >
+            <ul class="nav-submenu menu-content">
+              <li><a href="{% url 'venders' %}">All Venders</a></li>
+              
+               </ul>
+          </li> {% endcomment %}
+
+         
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

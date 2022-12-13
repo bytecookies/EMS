@@ -17,8 +17,58 @@
     <!-- Container-fluid starts-->
     
     <style>
+
+        .badge {
+            background: url(https://intimasia.in/visiterRegistration19th/Visitors_ID.jpg);
+            width: 269px;
+            height: 354px;
+            background-repeat: no-repeat;
+        }
+
+        .badge .badgeName {
+            margin-top: 36%;
+        }
+
+        .qrbarcode {
+            background: url(https://intimasia.in/visiterRegistration19th/barcode.png);
+            width: 50px;
+            height: 50px;
+            background-size: 100% 100%;
+        }
+        .barcode {
+            background: url(https://intimasia.in/visiterRegistration19th/barcode.gif);
+            width: 100px;
+            height: 60px;
+            background-repeat: no-repeat;
+            background-size: 90px 60px;
+            margin-top: 10px;
+        }
+
+        #id_mobile_0 , #id_phone_0{
+            position: absolute;
+            width: 20%;
+          }
+          
+          #id_mobile_1 , #id_phone_1{
+               padding-left: 23%;
+          }
+
+        #id_whatsapp_0 , #id_phone_0{
+            position: absolute;
+            width: 20%;
+          }
+          
+          #id_whatsapp_1 , #id_phone_1{
+               padding-left: 23%;
+          }
+
+        body{
+            font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        }
+
         label{
-          color:#999989;
+          color:#171b2a;
+          font-weight: 400;
         }
         h5{
         background-color: #d63384;
@@ -32,6 +82,9 @@
         <div class="card">
           <div class="card-header pb-0">
             <!-- <h5>Form Wizard with icon</h5> -->
+            <div class="">
+            <img width="100%" src="{% static 'assets/images/banner/visitors-registration-banner.jpg' %}">
+            </div>
           </div>
           <div class="card-body">
             <div class='row'>
@@ -42,11 +95,8 @@
                 <div class="f1-progress">
                   <div class="f1-progress-line" data-now-value="50" data-number-of-steps="2"></div>
                 </div>
-                 <!--<div class="f1-step active">
-                    <div class="f1-step-icon"><i class="fa fa-key"></i></div>
-                    <p>Email</p>
-                  </div> -->
-                <div class="f1-step active">
+               
+                <div class="f1-step active ">
                   <div class="f1-step-icon"><i class="fa fa-user"></i></div>
                   <p>Registration Page 1</p>
                 </div>
@@ -55,26 +105,12 @@
                   <div class="f1-step-icon"><i class="fa fa-user"></i></div>
                   <p>Registration Page 2</p>
                 </div>
+
               </div>
-           
-                <!-- <fieldset>
-                <div class="mb-2">
-                    <label  for="f1-email">Email</label>
-                                        
-                    
-                    <span class="text-danger">*</span>
-                    {% comment %} <input class="f2-email form-control" id="f2-email" type="text" name="f1-email" placeholder="Email..."> {% endcomment %}
-                </div>
-                
-                <div class="f1-buttons">
-                  <button class="btn btn-primary btn-next" type="button">Next</button>
-                </div>
-              </fieldset>  -->
-              
-              
+             
               <fieldset>
                 {% for errors in form.errors %}
-                    {{ errors }}
+                    <span>{{ errors }}</span>
                 {% endfor %}
                 <div class="row">
                     <div class="mb-2 col-md">
@@ -210,40 +246,42 @@
                         {{ form.whatsapp }}
                     </div>
                 </div>
-                <div class="f1-buttons">
-                  <button class="btn btn-primary btn-previous" type="button">Previous</button>
+                <div class="f1-buttons mt-2">
+                
                   <button class="btn btn-primary btn-next" type="button">Next</button>
                 </div>
               </fieldset>
     
               <fieldset>
-                <div class="row">
+                <div class="row flex-column">
                     <h5>Business Details</h5>
                     <div class="mb-2 col-md">
                         <label >Nature of your business? (Please select all that apply)</label>
-                        <span class="text-danger">*</span>
+                     
                             <span class="text-danger block"> {{ form.nature_of_business.errors }}</span>
                             {{ form.nature_of_business }}
                     </div>
                     <div class="mb-2 col-md">
-                        <label >Please Specify</label>
-                        <span class="text-danger">*</span>
+                       
+                       
                             <span class="text-danger block"> {{ form.nature_of_business_others.errors }}</span>
                             {{ form.nature_of_business_others }}
                     </div>
                 </div>
     
-                <div class="row">
+                <div class="row flex-column">
                     <div class="mb-2 col-md">
                         <label >Product categories you deal in Please Select all that apply) </label>
-                        <span class="text-danger">*</span>
+                        
                             
                         <span class="text-danger block"> {{ form.product_category.errors }}</span>
                         {{ form.product_category }}
                     </div>
                     <div class="mb-2 col-md">
-                        <label >Please Specify</label>
-                        <span class="text-danger">*</span>
+                       
+                        
+
+                     
                             <span class="text-danger block"> {{ form.product_category_others.errors }}</span>
                             {{ form.product_category_others }}
                     </div>
@@ -253,64 +291,72 @@
 
 
                         </label>
-                        <span class="text-danger">*</span>
+                      
                         <span class="text-danger block">{{ form.product_sub_category.errors }}</span>
                         {{ form.product_sub_category }}
     
                     </div>
                     <div class="mb-2 col-md">
-                        <label >Please Specify</label>
-                        <span class="text-danger">*</span>
+                       
+                     
                             <span class="text-danger block"> {{ form.product_sub_category_others.errors }}</span>
                             {{ form.product_sub_category_others }}
                     </div>
                 </div>
-                <div class="row">
+                <div class="row flex-column">
                     <div class="mb-2 col-md">
                         <label >Your Brand Name </label>
-                        <span class="text-danger">*</span>
+                      
                         <span class="text-danger block">{{ form.brand.errors }}</span>
                         {{ form.brand }}
     
                     </div>
                     <div class="mb-2 col-md">
-                        <label >Please Specify</label>
-                        <span class="text-danger">*</span>
+                       
+                       
                             <span class="text-danger block"> {{ form.product_brand_otherssub_category_others.errors }}</span>
                             {{ form.brand_others }}
                     </div>
                 </div>
-                <div class="row">
+                <div class="row flex-column">
                     <h5>Additional Information</h5>
                     <div class="mb-2 col-md">
                         <label >How did you get to know about INTIMASIA </label>
-                        <span class="text-danger">*</span>
+                       
                         <span class="text-danger block">{{ form.how_did_you_get_to_know_about_INTIMASIA.errors }}</span>
                         {{ form.how_did_you_get_to_know_about_INTIMASIA }}
+                        
+                        
                     </div>
-                    
+                    <div class="mb-2 col-md">
+                      
+                       
+                        <span class="text-danger block"> {{  form.how_did_you_get_to_know_about_INTIMASIA_others.errors }}</span>
+                        {{ form.how_did_you_get_to_know_about_INTIMASIA_others }}  
+                </div>
     
                     <div class="mb-2 col-md">
                         <label >Products of interest at INTIMASIA</label>
-                        <span class="text-danger">*</span>
+                      
                         <span class="text-danger block">{{ form.product_category_interest.errors }}</span>
                         {{ form.product_category_interest }}
                     </div>
                     <div class="mb-2 col-md">
-                        <label >Please Specify</label>
-                        <span class="text-danger">*</span>
+                      
+                       
                             <span class="text-danger block"> {{ form.product_category_interest_others.errors }}</span>
                             {{ form.product_category_interest_others }}
                     </div>
                     <div class="mb-2 col-md">
                         <label >Sub Products of interest at INTIMASIA</label>
-                        <span class="text-danger">*</span>
+                       
                         <span class="text-danger block">{{ form.product_sub_category_interest.errors }}</span>
                         {{ form.product_sub_category_interest }}
                     </div>
                     <div class="mb-2 col-md">
-                            <label >Please Specify</label>
-                            <span class="text-danger">*</span>
+                          
+                        
+                          
                             <span class="text-danger block"> {{ form.product_sub_category_interest_others.errors }}</span>
                             {{ form.product_sub_category_interest_others }}
                     </div>
@@ -352,12 +398,29 @@
                         <input type="text" class="form-control" placeholder="Badge Company">
                         
                     </div>
-                    <div class="mb-2 col-md">
-    
+
+                    <div class="col-md d-flex justify-content-center">
+                        <div class="badge mt-3">
+                            <h6 class="text-dark badgeName badgeStyle ">sdklfj lkdsjf</h6>
+                            <h6 class="text-dark badgejobTitle badgeStyle">lkdsj</h6>
+                            <h6 class="text-dark badgecompany badgeStyle">slkdjf</h6>
+
+                            <div class="col-md d-flex flex-column align-items-center">
+
+                                <div class="qrbarcode">
+
+                                </div>
+                                <div class="barcode">
+
+                                </div>
+
+                            </div>
+                            <h4 class="text-dark mt-2">VISITOR</h4>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="f1-buttons">
+                <div class="f1-buttons mt-2">
                     <button class="btn btn-primary btn-previous" type="button">Previous</button>
                     <input class="btn btn-primary " type="submit" value='Submit' >
                   </div>
@@ -366,6 +429,9 @@
     
              
             </form>
+            <div class=" mt-4 pt-4 mx-2 col-md">
+                <video src="https://intimasia.in/assets/video/Registration_Page_Banner_01.mp4" width="100%"   muted="" loop="" autoplay=""></video>
+            </div>
             </div>
           </div>
         </div>

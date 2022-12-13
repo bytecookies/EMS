@@ -28,7 +28,7 @@ function bar_progress(progress_line_object, direction) {
     });
     $('.f1 fieldset:first').fadeIn('slow');
     
-    $('.f1 input[type="text"], .f1 input[type="password"], .f1 textarea').on('focus', function() {
+    $('.f1 input[type="text"], .f1 input[required],.f1 select[required], .f1 input[type="password"], .f1 textarea').on('focus', function() {
     	$(this).removeClass('input-error');
     });
     $('.f1 .btn-next').on('click', function() {
@@ -36,7 +36,7 @@ function bar_progress(progress_line_object, direction) {
     	var next_step = true;
         var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-    	parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
+    	parent_fieldset.find(' textarea, input[required],select[required]').each(function() {
     		if( $(this).val() == "" ) {
     			$(this).addClass('input-error');
     			next_step = false;
@@ -65,7 +65,7 @@ function bar_progress(progress_line_object, direction) {
     	});
     });
     $('.f1').on('submit', function(e) {
-    	$(this).find('input[type="text"], input[type="password"], textarea').each(function() {
+    	$(this).find('textarea ,input[required],select[required]').each(function() {
     		if( $(this).val() == "" ) {
     			e.preventDefault();
     			$(this).addClass('input-error');

@@ -112,44 +112,14 @@ def visitors_registration(request):
 
     if request.method == 'POST':
         form = forms.VisitorForm(request.POST)
+
         if form.is_valid():
             print(form)
-            
-            email=form.cleaned_data['email']
-            _
-            visitor = form.save()
-            print(visitor)
-            # Define the user's first and last name
-            first_name=form.cleaned_data['first_name']
-            last_name=form.cleaned_data['first_name']
-
-            
-
-
-            # Concatenate the user's name, birthdate, and random number to create a unique ID
-            unique_id = email
-
-            # Use the SHA-256 hashing algorithm to create a password based on the unique ID
-            password = hashlib.sha256(unique_id.encode()).hexdigest()
-
-            # Print the generated ID and password
-            print("Unique ID:", unique_id)
-            print("Password:", password)
-          
-
-            # Create the email message
-            to_email=email
-            message = EmailMessage(
-                subject='Your generated ID and password',
-                body=f'Your generated ID is {unique_id} and your password is {password}',
-                from_email='no-reply@intimasia.in',
-                to=[to_email],
-            )
-
-            # Send the email
-            message.send()     
+            form.save()
+            return redirect('visitors_registration')
     else:
         form = forms.VisitorForm()
+    # return render(request,'pages/test.html',{'form':form})
     return render(request,'pages/VisitorPages/auth/registration.html',{'form':form})
 
 

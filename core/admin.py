@@ -184,6 +184,10 @@ class ExhibitorAdmin(admin.ModelAdmin):
     def contact_person(self, exhibitor):
          return f" {exhibitor.senior_person_first_name} {exhibitor.senior_person_last_name}"
 
+@admin.register(models.Visitor)
+class ExhibitorAdmin(admin.ModelAdmin):
+    pass
+    
 
 @admin.register(models.Vender)
 class VenderAdmin(admin.ModelAdmin):

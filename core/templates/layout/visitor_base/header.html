@@ -1,0 +1,74 @@
+{% load static %} {% load sass_tags %}
+<!-- Page Header Start-->
+<div class="page-main-header">
+    <div class="main-header-right row m-0">
+        <div class="main-header-left">
+            <div class="logo-wrapper">
+                <a href="/"><img class="img-fluid" src="{{ request.scheme }}://{{ request.get_host }}{% static 'assets/images/logo/dark-logo.png'%}" alt=""></a>
+                <!-- <a href="/" class="img-fluid"><h2>Intimasia</h2> </a> -->
+            </div>
+            <div class="dark-logo-wrapper">
+                <a href="/"><img class="img-fluid" src="{% static 'assets/images/logo/logo.png'%}" alt=""></a>
+                <!-- <a href="/" class="img-fluid" ><h2>Intimasia</h2></a> -->
+                
+
+            </div>
+            <div class="toggle-sidebar"><i class="status_toggle middle" data-feather="align-center"
+                    id="sidebar-toggle"></i></div>
+        </div>
+        <!-- <div class="left-menu-header col">
+            <ul>
+                <li>
+                    <form class="form-inline search-form">
+                        <div class="search-bg"><i class="fa fa-search"></i>
+                            <input class="form-control-plaintext" placeholder="Search here.....">
+                        </div>
+                    </form><span class="d-sm-none mobile-search search-bg"><i class="fa fa-search"></i></span>
+                </li>
+            </ul>
+        </div> -->
+        <div class="nav-right col pull-right right-menu p-0">
+            <ul class="nav-menus">
+                <!-- <li><a class="text-dark" href="#!" onclick="toggleFullScreen()"><i data-feather="maximize"></i></a></li> -->
+
+
+                {% comment %} <li>
+                    <div class="mode"><i class="fa fa-moon-o"></i></div>
+                </li>  {% endcomment %}
+
+                <li>
+                    <div class="feather "> <a href="{% url 'change_password' %}" title="Chage Password"><i class="fa fa-key primary-color "></i> </a></div>
+                </li> 
+
+                 <li class="dropdown p-0">
+          <form method="post" action="/logout_view">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary-light" value="Log out">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="feather feather-log-out"
+              >
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line></svg
+              >Log Out
+            </button>
+            <!-- <button class="btn btn-primary-light" type="submit"><a href="/logout_view"><i data-feather="log-out"></i>Log out</a></button> -->
+          </form>
+        </li>
+
+
+            </ul>
+        </div>
+        <div class="d-lg-none mobile-toggle pull-right w-auto"><i data-feather="more-horizontal"></i></div>
+    </div>
+</div>
+<!-- Page Header Ends -->

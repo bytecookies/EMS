@@ -698,6 +698,14 @@ class ExhibitorFormDisabled(ModelForm):
 # visitors forms
 
 class VisitorForm(ModelForm):
+
+    GENDER_CHOICE=(
+    ('','-----'),
+    ('Male','Male'),
+    ('Female','Female'),
+    ('Other','Other'),
+    )    
+
     first_name = forms.CharField(required=True,
                                                 widget=forms.TextInput(
                                                     attrs={
@@ -715,12 +723,8 @@ class VisitorForm(ModelForm):
                                                 )
                                                 )
     
-    gender_choice=(
-    ('Male','Male'),
-    ('Female','Female'),
-    ('Other','Other'),
-)                                          
-    gender = forms.ChoiceField(required=True,choices=gender_choice,widget=forms.Select(
+                                      
+    gender = forms.ChoiceField(required=True,choices=GENDER_CHOICE,widget=forms.Select(
                                                     attrs={
                                                         "class": "form-control",
                                                         "placeholder":"gender...",
@@ -765,18 +769,20 @@ class VisitorForm(ModelForm):
                                                 )
                                                 )
     apartment_unit_building_floor_etc = forms.CharField(required=True,
-                                                widget=forms.TextInput(
+                                                widget=forms.Textarea(
                                                     attrs={
                                                         "class": "form-control",
                                                         "placeholder":"Apartment unit building floor etc...",
+                                                        "rows":"2"
                                                     }
                                                 )
                                                 )
     street_address = forms.CharField(required=True,
-                                                widget=forms.TextInput(
+                                                widget=forms.Textarea(
                                                     attrs={
                                                         "class": "form-control",
                                                         "placeholder":"Street Address...",
+                                                        "rows":"2"
                                                     }
                                                 )
                                                 )
@@ -817,7 +823,7 @@ class VisitorForm(ModelForm):
                                                     }
                                                 )
                                                 )
-    cc_email = forms.EmailField(required=True,
+    cc_email = forms.EmailField(required=False,
                                                 widget=forms.EmailInput(
                                                     attrs={
                                                         "class": "form-control",
@@ -833,7 +839,7 @@ class VisitorForm(ModelForm):
                                                    }
                                                )
                                                )
-    whatsapp = PhoneNumberField(required=True,
+    whatsapp = PhoneNumberField(required=False,
                              widget=PhoneNumberPrefixWidget(initial="IN", 
                                                    attrs={
                                                        "class": "form-control",
@@ -848,10 +854,11 @@ class VisitorForm(ModelForm):
                                                                     }
                                                                 )
                                                 )
-    nature_of_business_others = forms.CharField(required=True,
+    nature_of_business_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control"
+                                                                        "class":"form-control",
+                                                                        "hidden":"True"
                                                                     }
                                                                 )
                                                 )
@@ -863,10 +870,11 @@ class VisitorForm(ModelForm):
                                                                     }
                                                                 )
                                                 )
-    product_category_others = forms.CharField(required=True,
+    product_category_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control"
+                                                                        "class":"form-control",
+                                                                        "hidden":"True"
                                                                     }
                                                                 )
                                                 )                                                                                            
@@ -878,14 +886,15 @@ class VisitorForm(ModelForm):
                                                                     }
                                                                 )
                                                 )
-    product_sub_category_others = forms.CharField(required=True,
+    product_sub_category_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control"
+                                                                        "class":"form-control",
+                                                                        "hidden":"True"
                                                                     }
                                                                 )
                                                 )                                                                                            
-    brand = forms.ModelMultipleChoiceField(required=True,
+    brand = forms.ModelMultipleChoiceField(required=False,
                                                          queryset=Brand.objects.all().order_by('name'),
                                                                 widget=forms.SelectMultiple(
                                                                     attrs={
@@ -893,10 +902,11 @@ class VisitorForm(ModelForm):
                                                                     }
                                                                 )
                                                 )
-    brand_others = forms.CharField(required=True,
+    brand_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control"
+                                                                        "class":"form-control",
+                                                                        "hidden":"True"
                                                                     }
                                                                 )
                                                 )                                                                                            
@@ -907,7 +917,16 @@ class VisitorForm(ModelForm):
                                                                         "class":"js-example-basic-multiple form-control"
                                                                     }
                                                                 )
-                                                )                                                                                 
+                                                )  
+
+    how_did_you_get_to_know_about_INTIMASIA_others = forms.CharField(required=False,
+                                                                widget=forms.TextInput(
+                                                                    attrs={
+                                                                        "class":"form-control",
+                                                                        "hidden":"True"
+                                                                    }
+                                                                )
+                                                )                                                                                  
     product_category_interest = forms.ModelMultipleChoiceField(required=True,
                                                          queryset=ProductCatogory.objects.all().order_by('name'),
                                                                 widget=forms.SelectMultiple(
@@ -916,10 +935,11 @@ class VisitorForm(ModelForm):
                                                                     }
                                                                 )
                                                 )
-    product_category_interest_others = forms.CharField(required=True,
+    product_category_interest_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control"
+                                                                        "class":"form-control",
+                                                                        "hidden":'True',
                                                                     }
                                                                 )
                                                 )                                                                
@@ -931,10 +951,11 @@ class VisitorForm(ModelForm):
                                                                     }
                                                                 )
                                                 )
-    product_sub_category_interest_others = forms.CharField(required=True,
+    product_sub_category_interest_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control"
+                                                                        "class":"form-control",
+                                                                        "hidden":'True',
                                                                     }
                                                                 )
                                                 )             
@@ -959,4 +980,5 @@ class VisitorForm(ModelForm):
     class Meta:
          model = Visitor
          fields = '__all__'
+         exclude = ['user']
 
