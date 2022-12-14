@@ -71,7 +71,7 @@ class User(AbstractUser):
         _("Visitor status"),
         default=False,
     )
-    registration_id=models.CharField(max_length=12, unique=True, default=unique_id)
+    registration_id=models.CharField(max_length=12, unique=True)
     REQUIRED_FIELDS = []
 
 
@@ -174,8 +174,9 @@ class Exhibitor(models.Model):
             k = password
             print(k)
             print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
+            registration_id=unique_id()
             user = User.objects.create_exhibitor(
-                email=email, password=password)
+                email=email, password=password,registration_id=registration_id)
             self.user = user
             send_mail(password=password, email=email)
         super().save(*args, **kwargs)
@@ -258,9 +259,9 @@ class Visitor(models.Model):
             password = customUserManager().make_random_password()
         
             print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
-         
+            registration_id=unique_id()
             user = User.objects.create_visitor(
-                    email=email, password=password)
+                    email=email, password=password,registration_id=registration_id)
             print("lksdfjldsk1----")
            
 
