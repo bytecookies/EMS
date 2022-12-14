@@ -740,12 +740,11 @@ class VisitorForm(ModelForm):
                                                     }
                                                 )
                                                 )
-    organization_name = forms.ModelChoiceField(required=True,
-                                                queryset=Organization.objects.all(),
-                                                widget=forms.Select(
+    organization_name = forms.CharField(required=True,
+                                                widget=forms.TextInput(
                                                     attrs={
                                                         "class": "form-control",
-                                                        "placeholder":"Organization Name...",
+                                                        "placeholder":"Organisation...",
                                                     }
                                                 )
                                                 )
@@ -846,6 +845,24 @@ class VisitorForm(ModelForm):
                                                    }
                                                )
                                                )
+
+    whatsapp_same_as_mobile_or_no_wp = forms.BooleanField(required=False,
+                                            
+                             widget=forms.RadioSelect(
+                                                     choices=((True,"Same as Mobile"),(False,"Don't use WhatsApp")),
+                                                   attrs={
+                                                       "class": "form-check-input",
+                                                        
+                                                   }
+                             ),
+                            
+                            
+                             
+                                               )
+
+   
+    
+                                               
     nature_of_business = forms.ModelMultipleChoiceField(required=True,
                                                          queryset=NatureOfBusiness.objects.all().order_by('name'),
                                                                 widget=forms.SelectMultiple(
@@ -857,8 +874,8 @@ class VisitorForm(ModelForm):
     nature_of_business_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control",
-                                                                        "hidden":"True"
+                                                                        "class":"form-control d-none",
+                                                                        
                                                                     }
                                                                 )
                                                 )
@@ -873,8 +890,8 @@ class VisitorForm(ModelForm):
     product_category_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control",
-                                                                        "hidden":"True"
+                                                                        "class":"form-control d-none",
+                                                                        
                                                                     }
                                                                 )
                                                 )                                                                                            
@@ -889,8 +906,8 @@ class VisitorForm(ModelForm):
     product_sub_category_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control",
-                                                                        "hidden":"True"
+                                                                        "class":"form-control d-none",
+                                                                        
                                                                     }
                                                                 )
                                                 )                                                                                            
@@ -905,8 +922,8 @@ class VisitorForm(ModelForm):
     brand_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control",
-                                                                        "hidden":"True"
+                                                                        "class":"form-control d-none",
+                                                                        
                                                                     }
                                                                 )
                                                 )                                                                                            
@@ -922,8 +939,8 @@ class VisitorForm(ModelForm):
     how_did_you_get_to_know_about_INTIMASIA_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control",
-                                                                        "hidden":"True"
+                                                                        "class":"form-control d-none",
+                                                                        
                                                                     }
                                                                 )
                                                 )                                                                                  
@@ -938,8 +955,8 @@ class VisitorForm(ModelForm):
     product_category_interest_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control",
-                                                                        "hidden":'True',
+                                                                        "class":"form-control d-none",
+                                                                        
                                                                     }
                                                                 )
                                                 )                                                                
@@ -954,8 +971,8 @@ class VisitorForm(ModelForm):
     product_sub_category_interest_others = forms.CharField(required=False,
                                                                 widget=forms.TextInput(
                                                                     attrs={
-                                                                        "class":"form-control",
-                                                                        "hidden":'True',
+                                                                        "class":"form-control d-none",
+                                                                        
                                                                     }
                                                                 )
                                                 )             
@@ -980,5 +997,5 @@ class VisitorForm(ModelForm):
     class Meta:
          model = Visitor
          fields = '__all__'
-         exclude = ['user']
+         exclude = ['user','type']
 

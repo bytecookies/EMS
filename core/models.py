@@ -7,6 +7,8 @@ from django.template.loader import get_template
 from django.core.mail import send_mail, EmailMultiAlternatives
 # from . import utility_func
 from phonenumber_field.modelfields import PhoneNumberField
+from django.db import  transaction
+
 
 from utility.models import *
 # from core.utility.constants import department, designation
@@ -22,6 +24,19 @@ def send_mail(email, password):
     html_content = htmly.render(d)
     msg = EmailMultiAlternatives(
         subject=subject, from_email=from_email, to=[email],cc=['intimasia.pr@gmail.com'])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()
+
+
+def visitor_welcome_mail(email,context):
+    print("mail sent")
+    htmly = get_template('pages/components/mail/visitor_welcome.html')
+    fname=context['fname']
+    lname=context['lname']
+    subject, from_email = f'Your Online Registration Confirmation - { fname } { lname }', 'Intimasia <no-reply@intimasia.in>'
+    html_content = htmly.render(context)
+    msg = EmailMultiAlternatives(
+        subject=subject, from_email=from_email, to=[email],cc=[context['cc']],bcc=['developer@peppermint.co.in'])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
@@ -190,7 +205,7 @@ class Visitor(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, primary_key=True)
 
-    type=models.CharField(max_length=255, choices=TYPE, default='NON-VIP')
+    type=models.CharField(max_length=255, choices=TYPE, default='NON-VIP', )
     
     parent_id=models.ForeignKey("self", on_delete=models.CASCADE, null=True,blank=True)
 
@@ -201,7 +216,7 @@ class Visitor(models.Model):
     last_name=models.CharField(max_length=255)
     gender=models.CharField(choices=GENDER_CHOICE,max_length=255,null=True,blank=True)
     nationality=models.ForeignKey(Nationality,on_delete=models.PROTECT,null=True,blank=True)
-    organization_name=models.ForeignKey(Organization,on_delete=models.PROTECT,null=True,blank=True)
+    organization_name=models.CharField(max_length=255,null=True,blank=True)
     department=models.ForeignKey(Department,on_delete=models.PROTECT,null=True,blank=True)
     job_title=models.CharField(max_length=255,null=True,blank=True)
     apartment_unit_building_floor_etc=models.TextField(null=True,blank=True)
@@ -211,9 +226,11 @@ class Visitor(models.Model):
     state=models.CharField(max_length=255,null=True,blank=True)
     town_city_district=models.CharField(max_length=255,null=True,blank=True)
     email=models.EmailField(unique=True)
-    cc_email=models.EmailField(unique=True,blank=True,null=True)
+    cc_email=models.EmailField(blank=True,null=True)
     mobile=PhoneNumberField(null=True,blank=True)
     whatsapp=PhoneNumberField(blank=True, null=True)
+    whatsapp_same_as_mobile_or_no_wp=models.BooleanField(blank=True, null=True)
+   
 
     #Second page of visitor form
     nature_of_business=models.ManyToManyField(NatureOfBusiness,null=True,blank=True)
@@ -235,20 +252,29 @@ class Visitor(models.Model):
     is_first_time_to_intimasia = models.CharField(choices=IS_FIRST_TIME_TO_INTIMASIA,null=True,blank=True, max_length=128)
 
     def save(self, *args, **kwargs):
-        
         if self._state.adding:
             print("adding new Visitor")
             email=self.email 
             password = customUserManager().make_random_password()
-           
+        
             print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
-            
+         
             user = User.objects.create_visitor(
-                email=email, password=password)
+                    email=email, password=password)
+            print("lksdfjldsk1----")
+           
 
             self.user = user
-            # send_mail(password=password, email=email)
-        super().save(*args, **kwargs)
+
+            print(user.registration_id)
+            print("lksdfjldsk2--")
+            context={'email':self.email , 'fname':self.first_name, 'registration_id':user.registration_id ,'lname':self.last_name,'cc':self.cc_email}
+            super().save(*args, **kwargs)
+            visitor_welcome_mail(email=email, context=context)
+            
+           
+       
+
 
 
 class Vender(models.Model):

@@ -65,6 +65,31 @@ $(document).ready(function() {
     }
     );
 
+
+    $("#visitor-registration-form").validate({
+        ignore: '*:not([name])',
+
+        debug: false,
+        
+        onfocusout: function(element) {$(element).valid()},
+        onchange:function(element) {$(element).valid()},
+        onkeyup:function(element) {$(element).valid()},
+
+        onsubmit: true,
+        submitHandler: function(form) {  
+        if ($(form).valid())
+        {
+            form.submit();
+        }
+        return false; // prevent normal form posting
+        }
+        
+
+     
+
+    }
+    );
+
     });
 
 

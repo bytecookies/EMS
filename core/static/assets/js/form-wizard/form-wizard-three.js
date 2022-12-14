@@ -36,8 +36,11 @@ function bar_progress(progress_line_object, direction) {
     	var next_step = true;
         var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+
     	parent_fieldset.find(' textarea, input[required],select[required]').each(function() {
-    		if( $(this).val() == "" ) {
+			console.log($(this))
+			if( !this.validity.valid ) {
+				console.log($(this))
     			$(this).addClass('input-error');
     			next_step = false;
     		}
@@ -66,7 +69,7 @@ function bar_progress(progress_line_object, direction) {
     });
     $('.f1').on('submit', function(e) {
     	$(this).find('textarea ,input[required],select[required]').each(function() {
-    		if( $(this).val() == "" ) {
+    		if( !this.validity.valid  ) {
     			e.preventDefault();
     			$(this).addClass('input-error');
     		}

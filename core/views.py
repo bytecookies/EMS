@@ -24,6 +24,15 @@ from django.contrib.auth.forms import PasswordChangeForm
 import hashlib
 from django.core.mail import EmailMessage
 
+import json
+import base64
+
+
+def getEncodedUrl(fname,lname,registration_id):
+    d={"register_id":registration_id,"fname":fname,"lname":lname}
+    j=json.dumps(d)
+    encoded = base64.b64encode(j.encode('utf-8'))
+    return encoded.decode('utf-8')
 # Create your views here.
 
 
@@ -98,8 +107,8 @@ def participation_form(request):
 
 @login_required(login_url="/login")
 def test(request):
-    
-    return render(request, 'pages/VisitorPages/auth/registration.html')
+    context={'barcodes':'IM00932','fname':'Piyush','lname':'Mishra'}
+    return render(request, 'pages/components/mail/visitor_welcome.html',context)
 
 @login_required(login_url="/login")
 def exhibitor_downloads(request):
@@ -114,9 +123,14 @@ def visitors_registration(request):
         form = forms.VisitorForm(request.POST)
 
         if form.is_valid():
-            print(form)
-            form.save()
-            return redirect('visitors_registration')
+            # print(form)
+            k=form.save()
+            print(k.user.registration_id)
+            print(k.first_name)
+            print(k.last_name)
+            url_str=getEncodedUrl(fname=k.first_name,lname=k.last_name,registration_id=k.user.registration_id)
+
+            return redirect(f'https://intimasia.in/visitor_registration_confirmationPage.php?id={url_str}')
     else:
         form = forms.VisitorForm()
     # return render(request,'pages/test.html',{'form':form})
