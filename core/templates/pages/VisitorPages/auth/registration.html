@@ -440,17 +440,24 @@ label.error {
                     <h5>Badge Preview</h5>
                     <div class="mb-2 col-md">
                         <P>Sometimes your name, organization or job title will not fit into the pre-printed badges. To avoid this problem, you can preview your badge below and change the way your details are printed on it. Please do not enter the details of somebody else, this is designed to customize how your badge will look</P>
-                        <input id='badgeNameInput' type="text" class="form-control mb-4" placeholder="Badge Name">
-                        <input id="badgejobTitleInput"type="text" class="form-control mb-4" placeholder="Badge Job Title">
-                        <input id="badgecompanyInput" type="text"class="form-control" placeholder="Badge Company">
+                        
+                        <span class="text-danger block"> {{ form.badge_name.errors }}</span>
+                        {{ form.badge_name }}
+                        <span class="text-danger block"> {{ form.badge_job_title.errors }}</span>
+                        {{ form.badge_job_title }}
+                        <span class="text-danger block"> {{ form.badge_company.errors }}</span>
+                        {{ form.badge_company }}
+
+                        
                         
                     </div>
 
                     <div class="col-md d-flex justify-content-center">
                         <div class="badge mt-3">
-                            <h6 id='badgeName' class="text-dark badgeName badgeStyle ">sdklfj lkdsjf</h6>
-                            <h6 id='badgejobTitle' class="text-dark badgejobTitle badgeStyle">lkdsj</h6>
-                            <h6 id='badgecompany' class="text-dark badgecompany badgeStyle">slkdjf</h6>
+
+                            <h6 id='badgeName' class="text-dark badgeName badgeStyle "></h6>
+                            <h6 id='badgejobTitle' class="text-dark badgejobTitle badgeStyle"></h6>
+                            <h6 id='badgecompany' class="text-dark badgecompany badgeStyle"></h6>
 
                             <div class="col-md d-flex flex-column align-items-center">
 
@@ -504,6 +511,8 @@ label.error {
 <script src="{% static 'assets/js/form-validation-custom.js'%}"></script>
 <!-- Plugins JS Ends-->
 
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCrm3QzMrbB5bvfUhd2iAOnAt5aKO4sEfk&address"></script>
 <script>
     const other_string='Others (Please specify)'
 
@@ -531,6 +540,35 @@ label.error {
         $(`#${id}_others`).addClass( "d-none" )
     }
 
+
+    function GetDetails(pzip, pcity, pstate,pcountry) {
+        var geocoder = new google.maps.Geocoder();
+        var postalCode = document.getElementById(`${pzip}`).value;
+        geocoder.geocode({ 'address': postalCode }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                console.log(results[0])
+                k=results[0]
+                var address = results[0].formatted_address;
+                var pin = results[0].address_components[results[0].address_components.length-4].long_name;
+               
+                var country = results[0].address_components[results[0].address_components.length - 1].long_name;
+                var state = results[0].address_components[results[0].address_components.length - 2].long_name;
+                var city = results[0].address_components[results[0].address_components.length - 3].long_name;
+                // var city = results[0].address_components[1].long_name
+                
+                document.getElementById(`${pcountry}`).value = country;
+                document.getElementById(`${pstate}`).value = state;
+                document.getElementById(`${pcity}`).value = city;
+            }
+        });
+    };
+
+
+    $("#id_zip_code").focusout(()=>{
+
+        GetDetails('id_zip_code','id_town_city_district','id_state','id_country')
+    })
+
     $("select[multiple]").change((e)=>{
         console.log(e.currentTarget.id)  
         if(is_others_selected(e.currentTarget.id)){
@@ -556,40 +594,40 @@ label.error {
 
 
         $('#id_first_name').on('input',(e)=>{
-            $('#badgeNameInput').val($('#id_first_name').val()+" "+$('#id_last_name').val())
+            $('#id_badge_name').val($('#id_first_name').val()+" "+$('#id_last_name').val())
             $('#badgeName').html($('#id_first_name').val()+" "+$('#id_last_name').val())
         })
 
         $('#id_last_name').on('input',(e)=>{
-            $('#badgeNameInput').val($('#id_first_name').val()+" "+$('#id_last_name').val())
+            $('#id_badge_name').val($('#id_first_name').val()+" "+$('#id_last_name').val())
             $('#badgeName').html($('#id_first_name').val()+" "+$('#id_last_name').val())
         })
         
         $('#id_job_title').on('input',(e)=>{
-            $('#badgejobTitleInput').val($('#id_job_title').val())
+            $('#id_badge_job_title').val($('#id_job_title').val())
             $('#badgejobTitle').html($('#id_job_title').val())
         })
 
 
         $('#id_organization_name').on('input',(e)=>{
-            $('#badgecompanyInput').val($('#id_organization_name').val())
+            $('#id_badge_company').val($('#id_organization_name').val())
             $('#badgecompany').html($('#id_organization_name').val())
         })
 
 
 
      
-        $('#badgeNameInput').on('input',(e)=>{
+        $('#id_badge_name').on('input',(e)=>{
             $('#badgeName').html($(e.currentTarget).val())
 
         })
 
-        $('#badgejobTitleInput').on('input',(e)=>{
+        $('#id_badge_job_title').on('input',(e)=>{
             $('#badgejobTitle').html($(e.currentTarget).val())
 
         })
 
-        $('#badgecompanyInput').on('input',(e)=>{
+        $('#id_badge_company').on('input',(e)=>{
             $('#badgecompany').html($(e.currentTarget).val())
 
         })

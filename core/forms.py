@@ -975,7 +975,8 @@ class VisitorForm(ModelForm):
                                                                         
                                                                     }
                                                                 )
-                                                )             
+                                                )   
+              
     SUBSCRIBE_TO_INNER_SECRETS=(
         ('Yes','Yes'),
         ('No','No'),
@@ -993,7 +994,36 @@ class VisitorForm(ModelForm):
                                                                         "class":"form-check-input"
                                                                     }))
                                                   
-                                                            
+    # Badge Details
+    badge_name = forms.CharField(required=False,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control mb-4",
+                     "placeholder":"Badge Name",
+                    "maxlength":"28",
+
+                }
+            ) 
+            )
+    badge_job_title = forms.CharField(required=False,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control mb-4",
+                    "placeholder":"Badge Job Title",
+                    "maxlength":"28"
+                }
+            ) 
+            )
+    badge_company = forms.CharField(required=False,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                   "placeholder":"Badge Company",
+                    "maxlength":"28"
+                }
+            ) 
+            )
+                                                         
     class Meta:
          model = Visitor
          fields = '__all__'

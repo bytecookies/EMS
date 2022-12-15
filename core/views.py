@@ -128,6 +128,7 @@ def visitors_registration(request):
             print(k.user.registration_id)
             print(k.first_name)
             print(k.last_name)
+            
             url_str=getEncodedUrl(fname=k.first_name,lname=k.last_name,registration_id=k.user.registration_id)
 
             return redirect(f'https://intimasia.in/visitor_registration_confirmationPage.php?id={url_str}')

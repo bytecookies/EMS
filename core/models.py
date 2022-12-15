@@ -9,6 +9,10 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from phonenumber_field.modelfields import PhoneNumberField
 from django.db import  transaction
 
+from django.core.exceptions import ValidationError 
+from django.core.validators import validate_email
+
+
 
 from utility.models import *
 # from core.utility.constants import department, designation
@@ -27,6 +31,17 @@ def send_mail(email, password):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
+
+def emailValidation(email):
+    print(type(email))
+    try:
+        validate_email(email)
+    except ValidationError as e:
+        raise ValidationError(e)
+    else:
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("User with this email already exists.")
+    
 
 def visitor_welcome_mail(email,context):
     print("mail sent")
@@ -252,20 +267,53 @@ class Visitor(models.Model):
     subscribe_to_inner_secrets = models.CharField(choices=SUBSCRIBE_TO_INNER_SECRETS,null=True,blank=True, max_length=128)
     is_first_time_to_intimasia = models.CharField(choices=IS_FIRST_TIME_TO_INTIMASIA,null=True,blank=True, max_length=128)
 
+    # badge
+    badge_name=models.CharField(max_length=30, blank=True, null=True)
+    badge_job_title=models.CharField(max_length=30, blank=True, null=True)
+    badge_company=models.CharField(max_length=30, blank=True, null=True)
+
+
+
+    def __str__(self):
+        return self.user.email
+    
+
+
+
+
+    def clean(self) -> None:
+        print(self)
+        if self._state.adding:
+            if User.objects.filter(email=self.email).exists():
+                raise ValidationError({'email': ["User with this email already exists.",]})
+
+        return super().clean()
+    
+
+
+   
+
     def save(self, *args, **kwargs):
         if self._state.adding:
             print("adding new Visitor")
             email=self.email 
             password = customUserManager().make_random_password()
-        
+
+         
+
             print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
             registration_id=unique_id()
+
             user = User.objects.create_visitor(
                     email=email, password=password,registration_id=registration_id)
             print("lksdfjldsk1----")
+            
+            
            
 
             self.user = user
+
+            VisitorIdPassword.objects.create(visitor=self.user,password=password)
 
             print(user.registration_id)
             print("lksdfjldsk2--")
@@ -315,6 +363,10 @@ class VenderContact(models.Model):
     email = models.EmailField(max_length=200)
 
 
+
+class VisitorIdPassword(models.Model):
+    visitor=models.OneToOneField(User,on_delete=models.CASCADE)
+    password=models.CharField(max_length=255,null=True, blank=True)
 
 
 

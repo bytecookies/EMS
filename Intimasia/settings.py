@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'core',
     'utility',
     'Exhibitor_utility',
+   
     'debug_toolbar',
     'sass_processor',
      'forms_fieldset',

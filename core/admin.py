@@ -154,22 +154,19 @@ class ExhibitorAdmin(admin.ModelAdmin):
 
     add_form = ExhibitorCreateForm
     view_form = ExhibitorChangeForm
+    
+
+
     def get_form(self, request, obj=None, **kwargs):
         defaults = {}
         if obj is None:
             defaults.update({
                 'form': self.add_form,
-                
             })
-           
         else:
             defaults.update({
                 'form': self.view_form
-                
             })
-
-            
-
         defaults.update(kwargs)
         return super(ExhibitorAdmin,self).get_form(request, obj, **defaults)
     
@@ -184,9 +181,19 @@ class ExhibitorAdmin(admin.ModelAdmin):
     def contact_person(self, exhibitor):
          return f" {exhibitor.senior_person_first_name} {exhibitor.senior_person_last_name}"
 
+
+
+
+
 @admin.register(models.Visitor)
-class ExhibitorAdmin(admin.ModelAdmin):
-    pass
+class VisitorAdmin(admin.ModelAdmin):
+      readonly_fields = ['email','user']
+      
+@admin.register(models.VisitorIdPassword)
+class VisitorIdPasswordAdmin(admin.ModelAdmin):
+    readonly_fields = ['visitor','password']
+    list_display=['visitor','password']
+    
     
 
 @admin.register(models.Vender)
