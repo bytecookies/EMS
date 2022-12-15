@@ -10,7 +10,7 @@ from .models import *
 from utility.models import *
 from . import forms
 from .models import User
-from Exhibitor_utility.models import  ExhibitorDownload
+from Exhibitor_utility.models import  ExhibitorDownload, StaticDownload
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -114,7 +114,16 @@ def test(request):
 def exhibitor_downloads(request):
    
     exhibitor_download=ExhibitorDownload.objects.filter(exhibitor=request.user.id)
+    print(exhibitor_download)
     return render(request, 'pages/ExhibitorPages/downloads/index.html',{'downloads':exhibitor_download})
+
+@login_required(login_url="/login")
+def exhibitor_static_downloads(request):
+   
+    static_download=StaticDownload.objects.all()
+    print(static_download)
+
+    return render(request, 'pages/ExhibitorPages/downloads/static_downloads.html',{'downloads':static_download})
 
 
 def visitors_registration(request):

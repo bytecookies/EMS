@@ -29,8 +29,12 @@ urlpatterns = [
 
     path('show_info/', views.show_info,
          name='show_info'),
+         
     path('exhibitor_downloads/', views.exhibitor_downloads,
          name='exhibitor_downloads'),
+   
+    path('static_downloads/', views.exhibitor_static_downloads,
+         name='exhibitor_static_downloads'),
 
     path('login/', views.loginview,
          name='login'),

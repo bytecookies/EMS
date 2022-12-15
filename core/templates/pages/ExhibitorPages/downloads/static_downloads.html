@@ -1,0 +1,65 @@
+
+
+
+
+
+{% extends 'layout/exhibitorBase/base.html' %} {% load static %} 
+{% load sass_tags %} {% block content %}
+<div class="page-body">
+    <div class="container-fluid">
+    
+
+
+<div class="row m-2">
+  {% if downloads is empty %}
+
+  {% for download in downloads %}
+
+    <div class="col-md">
+      <div class="card" style="width: 18rem;">
+    
+        <div class="card-body">
+          <h5 class="card-title">{{ download.title }}</h5>
+          <img src="{{ download.thumbnail_file.url }}" class="card-img-top" alt="thumbnail">
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          
+          <p>Download as:</p>
+          <div class="row">
+          
+    
+            <div class="col  my-0 mx-1   d-inline-block " >
+              <a download href="{{ download.pdf_file.url }}" class=" btn-primary p-2 rounded">
+              PDF
+              </a>
+            </div>
+            <div class="col my-0 mx-1  d-inline-block " >
+              <a download href="{{ download.jpg_file.url }}" class=" btn-primary p-2 rounded">
+              JPG
+              </a>
+            </div>
+            <div class="col my-0 mx-1  d-inline-block " >
+              <a download href="{{ download.ai_file.url }}" class=" btn-primary p-2 rounded">
+              AI
+              </a>
+            </div>
+          
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  {% endfor %}
+    
+  {% else %}  
+  <div class="container">
+    <h3 class='text-center m-4 card card-body'>No files to download </h3>
+  </div>
+  {% endif %}
+    
+  </div>
+  
+    </div>
+</div>
+
+{% endblock content %}
