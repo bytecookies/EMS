@@ -307,10 +307,6 @@ class Visitor(models.Model):
             user = User.objects.create_visitor(
                     email=email, password=password,registration_id=registration_id)
             print("lksdfjldsk1----")
-            
-            
-           
-
             self.user = user
 
             VisitorIdPassword.objects.create(visitor=self.user,password=password)
@@ -320,6 +316,9 @@ class Visitor(models.Model):
             context={'email':self.email , 'fname':self.first_name, 'registration_id':user.registration_id ,'lname':self.last_name,'cc':self.cc_email}
             super().save(*args, **kwargs)
             visitor_welcome_mail(email=email, context=context)
+        else:
+            super().save(*args, **kwargs)
+
             
            
        
