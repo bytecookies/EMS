@@ -25,6 +25,6 @@ django-forms-fieldset
 
 
 djangorestframework==3.14.0
-djoser==2.1.0
+
 djangorestframework_simplejwt==4.3.0
 PyJWT==v1.7.1
