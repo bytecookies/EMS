@@ -16,7 +16,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from core.utility import utility_func
 from django.core.mail import send_mail, EmailMultiAlternatives
-
+from .decorators import *
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -49,8 +49,22 @@ def send_mail(email, password):
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
+
 @login_required(login_url="/login")
 def index(request):
+      if request.user.is_superuser or request.user.is_staff:
+                # print("you are admin")
+                return HttpResponseRedirect('/admin/')
+
+      if request.user.isExhibitor or request.user.isExhibitor:
+                # print("you are admin")
+                return redirect('exhibitor_dashboard')
+
+
+
+
+@exhibitor_required()
+def exhibitor_dashboard(request):
     firstLogin = False
     print(request.user.id)
     welcome_message_details=None
@@ -70,7 +84,7 @@ def index(request):
     return render(request, 'pages/ExhibitorPages/index.html', {"firstLogin": firstLogin,"welcome_details":welcome_message_details})
 
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def participation_form(request):
     print(request.user)
     exhibitor = Exhibitor.objects.filter(pk=request.user).first()
@@ -110,14 +124,14 @@ def test(request):
     context={'barcodes':'IM00932','fname':'Piyush','lname':'Mishra'}
     return render(request, 'pages/components/mail/visitor_welcome.html',context)
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def exhibitor_downloads(request):
    
     exhibitor_download=ExhibitorDownload.objects.filter(exhibitor=request.user.id)
     print(exhibitor_download)
     return render(request, 'pages/ExhibitorPages/downloads/index.html',{'downloads':exhibitor_download})
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def exhibitor_static_downloads(request):
    
     static_download=StaticDownload.objects.all()
@@ -168,32 +182,32 @@ def change_password(request):
     })
 
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def stall_aminities(request):
     return render(request, 'pages/ExhibitorPages/general_info/stall_aminities.html')
 
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def move_in_move_out(request):
     return render(request, 'pages/ExhibitorPages/general_info/move_in_move_out.html')
 
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def rules_and_regulations(request):
     return render(request, 'pages/ExhibitorPages/general_info/rules_and_regulations.html')
 
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def show_info(request):
     return render(request, 'pages/ExhibitorPages/general_info/show_information.html')
 
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def key_contacts(request):
     return render(request, 'pages/ExhibitorPages/general_info/key_contact.html')
 
 
-@login_required(login_url="/login")
+@exhibitor_required()
 def venders(request):
     venders = VenderContact.objects.filter(type=1).select_related()
 
@@ -219,10 +233,7 @@ def loginview(request):
             request.session.set_expiry(0)
             print(user.is_superuser)
 
-            if user.is_superuser or user.is_staff:
-                # print("you are admin")
-                return HttpResponseRedirect('/admin/')
-
+          
             if 'next' in request.POST:
                 print("krupa", request.POST.get('next'))
                 return HttpResponseRedirect(request.POST.get('next'))

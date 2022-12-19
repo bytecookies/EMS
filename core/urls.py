@@ -6,34 +6,34 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('home/', views.index, name='index'),
+    path('exhibitor/', views.exhibitor_dashboard, name='exhibitor_dashboard'),
 
     # just leave these two above urls dont change
 
-    path('participation_form/', views.participation_form,
+    path('exhibitor/participation_form/', views.participation_form,
          name='participation_form'),
 
-    path('stall_aminities/', views.stall_aminities,
+    path('exhibitor/stall_aminities/', views.stall_aminities,
          name='stall_aminities'),
 
-    path('move_in_move_out/', views.move_in_move_out,
+    path('exhibitor/move_in_move_out/', views.move_in_move_out,
          name='move_in_move_out'),
-    path('key_contacts/', views.key_contacts,
+    path('exhibitor/key_contacts/', views.key_contacts,
          name='key_contacts'),
 
-    path('rules_and_regulations/', views.rules_and_regulations,
+    path('exhibitor/rules_and_regulations/', views.rules_and_regulations,
          name='rules_and_regulations'),
 
-    path('venders/', views.venders,
+    path('exhibitor/venders/', views.venders,
          name='venders'),
 
-    path('show_info/', views.show_info,
+    path('exhibitor/show_info/', views.show_info,
          name='show_info'),
          
-    path('exhibitor_downloads/', views.exhibitor_downloads,
+    path('exhibitor/exhibitor_downloads/', views.exhibitor_downloads,
          name='exhibitor_downloads'),
    
-    path('static_downloads/', views.exhibitor_static_downloads,
+    path('exhibitor/static_downloads/', views.exhibitor_static_downloads,
          name='exhibitor_static_downloads'),
 
     path('login/', views.loginview,
@@ -59,7 +59,8 @@ urlpatterns = [
          name='product_sub_catagories_Ajax'),
 
 
-    path('logout_view', views.logout_view, name="logout_view"),
-    path('change_password', views.change_password, name="change_password"),
+    path('logout_view/', views.logout_view, name="logout_view"),
+
+    path('change_password/', views.change_password, name="change_password"),
 
 ]

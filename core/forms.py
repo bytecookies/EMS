@@ -1027,5 +1027,5 @@ class VisitorForm(ModelForm):
     class Meta:
          model = Visitor
          fields = '__all__'
-         exclude = ['user','type']
+         exclude = ['user','type','password']
 

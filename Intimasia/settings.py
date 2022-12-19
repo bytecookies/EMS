@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -25,7 +26,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True   
 
 ALLOWED_HOSTS = ["ems.intimasia.in", 'localhost', '127.0.0.1']
 
@@ -40,10 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'djoser',
     'core',
     'utility',
     'Exhibitor_utility',
-   
+    'api',
+    
     'debug_toolbar',
     'sass_processor',
      'forms_fieldset',
@@ -180,3 +184,24 @@ EMAIL_HOST_USER='no-reply@intimasia.in'
 EMAIL_HOST_PASSWORD = 'pepcom@123'
 EMAIL_USE_TLS=False
 EMAIL_USE_SSL=True
+
+
+
+
+
+# rest freamwork
+
+
+REST_FRAMEWORK={
+    'COERCE_DECIMAL_TO_STRING':False,
+     'DEFAULT_AUTHENTICATION_CLASSES': (
+         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        
+    ),
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+   'ACCESS_TOKEN_LIFETIME':timedelta(days=1),
+   'REFRESH_TOKEN_LIFETIME':timedelta(days=1)
+}

@@ -178,6 +178,8 @@ class Exhibitor(models.Model):
 
     def __str__(self):
         return self.companyName
+    def user_email(self):
+        return self.user.email
     
   
 
@@ -273,6 +275,9 @@ class Visitor(models.Model):
     badge_company=models.CharField(max_length=30, blank=True, null=True)
 
 
+    #password field
+    password=models.CharField(max_length=128, blank=True, null=True)
+
 
     def __str__(self):
         return self.user.email
@@ -295,27 +300,31 @@ class Visitor(models.Model):
 
     def save(self, *args, **kwargs):
         if self._state.adding:
-            print("adding new Visitor")
+            print("ADDING NEW Visitor")
             email=self.email 
-            password = customUserManager().make_random_password()
+            if self.password is None:
+                password = customUserManager().make_random_password()
+            else:
+                password=self.password
 
          
 
-            print("this is password gfdgdfgdfgfdgffffffffffffffffffffffffffffffffffffffffffffff", password)
+            print(f"This is the PASSWORD {password}")
             registration_id=unique_id()
 
             user = User.objects.create_visitor(
                     email=email, password=password,registration_id=registration_id)
-            print("lksdfjldsk1----")
+
+            print("===========================================")
             self.user = user
 
             VisitorIdPassword.objects.create(visitor=self.user,password=password)
 
-            print(user.registration_id)
-            print("lksdfjldsk2--")
+            print(f'REGISTRATION ID IS {user.registration_id}')
+            print("============================================")
             context={'email':self.email , 'fname':self.first_name, 'registration_id':user.registration_id ,'lname':self.last_name,'cc':self.cc_email}
             super().save(*args, **kwargs)
-            visitor_welcome_mail(email=email, context=context)
+            # visitor_welcome_mail(email=email, context=context)
         else:
             super().save(*args, **kwargs)
 
