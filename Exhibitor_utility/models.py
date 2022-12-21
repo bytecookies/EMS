@@ -63,3 +63,7 @@ class StaticDownload(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    class Meta:
+        verbose_name='Event Creative'
+        verbose_name_plural='Event Creatives'

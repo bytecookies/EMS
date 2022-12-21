@@ -1,0 +1,68 @@
+{% extends 'layout/visitor_base/base.html' %} {% load static %} {% load sass_tags %}
+{% block content %}
+<div class="page-body">
+
+    
+ 
+
+    <div class='container'>
+        <div class="d-grid gap-2">
+        
+            <ul>
+                <li><strong>Company Name-></strong>{{ exhibitor.companyName }}</li>
+                <li><strong>City-></strong>{{ exhibitor.city }}</li>
+                <li><strong>State-></strong>{{ exhibitor.state }}</li>
+                <li><strong>Country-></strong>{{ exhibitor.country }}</li>
+                <li><strong>Contact Person Name-></strong>{{ exhibitor.contact_person_first_name }} {{ exhibitor.contact_person_last_name }}</li>
+                <li><strong>Designation-></strong>{{ exhibitor.designation }}</li>
+                <li><strong>Senior Person Name-></strong>{{ exhibitor.senior_person_first_name }} {{ exhibitor.senior_person_last_name }}</li>
+                <li><strong>Senior Designation-></strong>{{ exhibitor.senior_designation }}</li>
+                
+                
+                <li><strong>Nature of Business-></strong>
+                   {% for nature_of_business in exhibitor.nature_of_bussiness.all %}
+                        {{ nature_of_business.name }},
+                   {% endfor %}
+                </li>
+                <li><strong>Brands-></strong>
+                   {% for our_brand in exhibitor.our_brand.all %}
+                        {{ our_brand.name }},
+                   {% endfor %}
+                </li>
+                <li><strong>Product Catagory-></strong>
+                   {% for product_catogory in exhibitor.product_catogory.all %}
+                        {{ product_catogory.name }},
+                   {% endfor %}
+                </li>
+                <li><strong>Product Sub Catagory-></strong>
+                   {% for product_sub_catogory in exhibitor.product_sub_catogory.all %}
+                    {{ product_sub_catogory.name }},
+                   {% endfor %}
+                </li>
+
+
+            </ul>
+            
+            
+  
+            
+           
+           
+          </div>
+  
+    </div>
+
+
+
+
+</div>
+
+
+{% endblock content %}
+
+
+
+
+{% block scriptcontent %}
+
+{% endblock scriptcontent %}

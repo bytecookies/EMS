@@ -164,7 +164,7 @@ class Exhibitor(models.Model):
         max_length=255, choices=BOOTH_TYPE, default="0")
    
     # Business Classification Details
-    nature_of_bussiness=models.ManyToManyField(NatureOfBusiness, blank=True)
+    nature_of_bussiness=models.ManyToManyField(NatureOfBusiness, blank=True, related_name='nature_of_bussiness')
     product_catogory=models.ManyToManyField(ProductCatogory,  blank=True)
     product_sub_catogory = models.ManyToManyField(
         ProductSubCatogory, blank=True)
@@ -376,7 +376,9 @@ class VisitorIdPassword(models.Model):
     visitor=models.OneToOneField(User,on_delete=models.CASCADE)
     password=models.CharField(max_length=255,null=True, blank=True)
 
-
+    class Meta:
+        verbose_name='visitoridpassword'
+        verbose_name_plural='Visitor ID and Password'
 
 
 

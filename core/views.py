@@ -23,6 +23,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 import hashlib
 from django.core.mail import EmailMessage
+from django.core.paginator import Paginator
 
 import json
 import base64
@@ -56,9 +57,14 @@ def index(request):
                 # print("you are admin")
                 return HttpResponseRedirect('/admin/')
 
-      if request.user.isExhibitor or request.user.isExhibitor:
-                # print("you are admin")
+      if request.user.isExhibitor:
+                # print("you are Exhibitor")
                 return redirect('exhibitor_dashboard')
+
+      if request.user.isVisitor:
+                # print("you are Visitor")
+                return redirect('visitor_dashboard')
+
 
 
 
@@ -82,6 +88,8 @@ def exhibitor_dashboard(request):
     
 
     return render(request, 'pages/ExhibitorPages/index.html', {"firstLogin": firstLogin,"welcome_details":welcome_message_details})
+
+
 
 
 @exhibitor_required()
@@ -140,48 +148,6 @@ def exhibitor_static_downloads(request):
     return render(request, 'pages/ExhibitorPages/downloads/static_downloads.html',{'downloads':static_download})
 
 
-def visitors_registration(request):
-
-    if request.method == 'POST':
-        form = forms.VisitorForm(request.POST)
-
-        if form.is_valid():
-            # print(form)
-            k=form.save()
-            print(k.user.registration_id)
-            print(k.first_name)
-            print(k.last_name)
-            
-            url_str=getEncodedUrl(fname=k.first_name,lname=k.last_name,registration_id=k.user.registration_id)
-
-            return redirect(f'https://intimasia.in/visitor_registration_confirmationPage.php?id={url_str}')
-    else:
-        form = forms.VisitorForm()
-    # return render(request,'pages/test.html',{'form':form})
-    return render(request,'pages/VisitorPages/auth/registration.html',{'form':form})
-
-
-
-@login_required(login_url="/login")
-def change_password(request):
-    # send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
-    if request.method == 'POST':
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(
-                request, 'Your password was successfully updated!')
-            return redirect('home')
-        else:
-            messages.error(request, 'Please correct the error below.')
-    else:
-        form = PasswordChangeForm(request.user)
-    return render(request, 'pages/ExhibitorPages/reset-password/reset-password.html', {
-        'form': form
-    })
-
-
 @exhibitor_required()
 def stall_aminities(request):
     return render(request, 'pages/ExhibitorPages/general_info/stall_aminities.html')
@@ -214,12 +180,95 @@ def venders(request):
     return render(request, 'pages/ExhibitorPages/venders/vender.html', {"venders": venders})
 
 
+
+# visitors view
+
+def visitors_registration(request):
+
+    if request.method == 'POST':
+        form = forms.VisitorForm(request.POST)
+
+        if form.is_valid():
+            # print(form)
+            k=form.save()
+            print(k.user.registration_id)
+            print(k.first_name)
+            print(k.last_name)
+            
+            url_str=getEncodedUrl(fname=k.first_name,lname=k.last_name,registration_id=k.user.registration_id)
+
+            return redirect(f'https://intimasia.in/visitor_registration_confirmationPage.php?id={url_str}')
+    else:
+        form = forms.VisitorForm()
+    # return render(request,'pages/test.html',{'form':form})
+    return render(request,'pages/VisitorPages/auth/registration.html',{'form':form})
+
+@visitor_required()
+def visitor_dashboard(request):
+    return render(request, 'pages/VisitorPages/index.html')
+
+
+# @visitor_required()
+# def exhibitor_list(request):
+#     queryset=Exhibitor.objects.select_related('user','department','senior_department').all()
+#     return render(request, 'pages/VisitorPages/exhibitor_views/list.html',{'exhibitors':queryset})
+
+
+@visitor_required()
+def exhibitor_list(request):
+    queryset=Exhibitor.objects.select_related('user','department','senior_department').all().order_by('companyName')
+    paginator=Paginator(queryset,10)
+    page=request.GET.get('page')
+    page_exhibitor=paginator.get_page(page)
+    print(page_exhibitor.paginator.page_range)
+    exhibitor_count=queryset.count()
+    # print(exhibitor_count)
+    return render(request, 'pages/VisitorPages/exhibitor_views/list.html',{'exhibitors':page_exhibitor})
+
+
+
+@visitor_required()
+def exhibitor_detail(request,pk):
+    queryset=Exhibitor.objects.select_related('user','department','senior_department').get(pk=pk)
+    print(queryset.address1)
+    print(queryset)
+    return render(request, 'pages/VisitorPages/exhibitor_views/detail.html',{'exhibitor':queryset})
+ 
+
+
+
+
+
+# utilities
+
 def get_product_sub_catagory_ajax(request):
     if request.method == "GET":
         product_id = request.GET.get("product_id")
         product_sub_catagories = ProductSubCatogory.objects.filter(
             product=product_id).all()
     return render(request, 'pages/ExhibitorPages/components/Ajax/product_subcatagories.html', {"product_sub_catagories": product_sub_catagories})
+
+
+
+# auth
+@login_required(login_url="/login")
+def change_password(request):
+    # send_mail(email="piyushrmishra143@gmail.com",password="slkdfj")
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(
+                request, 'Your password was successfully updated!')
+            return redirect('home')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'pages/ExhibitorPages/reset-password/reset-password.html', {
+        'form': form
+    })
 
 
 def loginview(request):

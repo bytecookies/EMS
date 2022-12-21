@@ -3,6 +3,7 @@ from django.urls import path
 
 
 from . import views
+# from .views import AllKeywordsView
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -43,6 +44,16 @@ urlpatterns = [
     path('registration/', views.visitors_registration,
          name='visitors_registration'),
 
+    path('visitor/', views.visitor_dashboard,
+         name='visitor_dashboard'),
+
+   
+    path('visitor/exhibitors', views.exhibitor_list,
+         name='exhibitor_list'),
+    
+    path('visitor/exhibitors/<int:pk>', views.exhibitor_detail,
+         name='exhibitor_detail'),
+
 
 
 
@@ -52,15 +63,12 @@ urlpatterns = [
     path('test/', views.test,
          name='test'),
 
-
-
-
     path('product_sub_catagories/', views.get_product_sub_catagory_ajax,
          name='product_sub_catagories_Ajax'),
 
 
-    path('logout_view/', views.logout_view, name="logout_view"),
+    path('logout_view', views.logout_view, name="logout_view"),
 
-    path('change_password/', views.change_password, name="change_password"),
+    path('change_password', views.change_password, name="change_password"),
 
 ]

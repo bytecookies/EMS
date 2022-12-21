@@ -24,7 +24,9 @@ def user_passes_test(test_func, login_url=None, redirect_field_name=REDIRECT_FIE
         @wraps(view_func)
         def _wrapped_view(request, *args, **kwargs):
             if not test_func(request.user):
-                messages.add_message(request, messages.ERROR, message)
+                # messages.add_message(request, messages.ERROR, message)
+                messages.error(request, message)
+
             if test_func(request.user):
                 return view_func(request, *args, **kwargs)
             path = request.build_absolute_uri()
@@ -81,6 +83,21 @@ def exhibitor_required(view_func=None, redirect_field_name=REDIRECT_FIELD_NAME, 
     """
     actual_decorator = user_passes_test(
         lambda u: u.is_active and u.isExhibitor and u.is_authenticated,
+        login_url=login_url,
+        redirect_field_name=redirect_field_name,
+        message=message
+    )
+    if view_func:
+        return actual_decorator(view_func)
+    return actual_decorator
+
+def visitor_required(view_func=None, redirect_field_name=REDIRECT_FIELD_NAME, login_url='/login', message=default_message):
+    """
+    Decorator for views that checks that the user is logged in and is
+    staff, displaying message if provided.
+    """
+    actual_decorator = user_passes_test(
+        lambda u: u.is_active and u.isVisitor and u.is_authenticated,
         login_url=login_url,
         redirect_field_name=redirect_field_name,
         message=message

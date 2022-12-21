@@ -15,13 +15,21 @@
                     font-weight: 900;
                     color: #252a34;
                 ">
-              EXHIBITOR LOGIN
+               LOGIN
+             
+           
+             
           </div>
           
           <form method="post" class="theme-form login-form needs-validation" novalidate="">
-            <h4>Login</h4>
+            {% comment %} <h4>Login</h4> {% endcomment %}
             
             <h6>Welcome back! Log in to your account.</h6>
+            <p class='text-danger'>
+              {% for message in messages  %}
+              {{ message }}
+              {% endfor %} 
+            </p>
             {% csrf_token %}
     
             </ul>
