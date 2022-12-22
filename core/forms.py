@@ -67,7 +67,7 @@ class ExhibitorForm(ModelForm):
             ) 
             )
     
-    website = forms.URLField(required=True,
+    website = forms.URLField(required=False,
             widget=forms.URLInput(
                 attrs={
                     "class": "form-control",

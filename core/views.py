@@ -24,6 +24,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 import hashlib
 from django.core.mail import EmailMessage
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 import json
 import base64
@@ -216,8 +217,12 @@ def visitor_dashboard(request):
 
 @visitor_required()
 def exhibitor_list(request):
-    queryset=Exhibitor.objects.select_related('user','department','senior_department').all().order_by('companyName')
-    paginator=Paginator(queryset,10)
+    queryset=Exhibitor.objects.select_related('user','department','senior_department').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
+    q=request.GET.get('q')
+    if q is not None and q!='':
+        queryset=Exhibitor.objects.select_related('user','department','senior_department').filter(Q(our_brand__name__icontains=q)| Q(companyName__icontains=q)|Q(boothNumber__icontains=q) & Q(user__participation_form=True)).order_by('companyName').distinct()
+        # queryset=Exhibitor.objects.select_related('user','department','senior_department').filter(our_brand)
+    paginator=Paginator(queryset,10)    
     page=request.GET.get('page')
     page_exhibitor=paginator.get_page(page)
     print(page_exhibitor.paginator.page_range)

@@ -5,50 +5,64 @@
     
  
 
-    <div class='container'>
-        <div class="d-grid gap-2">
-        
-            <ul>
-                <li><strong>Company Name-></strong>{{ exhibitor.companyName }}</li>
-                <li><strong>City-></strong>{{ exhibitor.city }}</li>
-                <li><strong>State-></strong>{{ exhibitor.state }}</li>
-                <li><strong>Country-></strong>{{ exhibitor.country }}</li>
-                <li><strong>Contact Person Name-></strong>{{ exhibitor.contact_person_first_name }} {{ exhibitor.contact_person_last_name }}</li>
-                <li><strong>Designation-></strong>{{ exhibitor.designation }}</li>
-                <li><strong>Senior Person Name-></strong>{{ exhibitor.senior_person_first_name }} {{ exhibitor.senior_person_last_name }}</li>
-                <li><strong>Senior Designation-></strong>{{ exhibitor.senior_designation }}</li>
-                
-                
-                <li><strong>Nature of Business-></strong>
-                   {% for nature_of_business in exhibitor.nature_of_bussiness.all %}
-                        {{ nature_of_business.name }},
-                   {% endfor %}
-                </li>
-                <li><strong>Brands-></strong>
-                   {% for our_brand in exhibitor.our_brand.all %}
-                        {{ our_brand.name }},
-                   {% endfor %}
-                </li>
-                <li><strong>Product Catagory-></strong>
-                   {% for product_catogory in exhibitor.product_catogory.all %}
-                        {{ product_catogory.name }},
-                   {% endfor %}
-                </li>
-                <li><strong>Product Sub Catagory-></strong>
-                   {% for product_sub_catogory in exhibitor.product_sub_catogory.all %}
-                    {{ product_sub_catogory.name }},
-                   {% endfor %}
-                </li>
-
-
-            </ul>
+    <div class='container-fluid'>
+       
             
-            
+            <div class="card">
+               
+               <div class="card-body">
+                  <div >
+                     <h4 class="mb-0">{{ exhibitor.companyName }}</h4>
+                     <p class="mb-3">{{ exhibitor.city }}, {{ exhibitor.state }}, {{ exhibitor.country.upper }}</p>
+                  </div> 
+                  <div class="my-4">
+                     <h6>Exhibitor Representatives</h6>
+                     <div class="list-group mb-2">
+                        <li class="list-group-item"><b>{{ exhibitor.contact_person_first_name }} {{ exhibitor.contact_person_last_name }}</b> <div><small>{{ exhibitor.designation }}</small></div></li>
+                     </div>
+
+                     <div class="list-group">
+                        <li class="list-group-item"><b>{{ exhibitor.senior_person_first_name }} {{ exhibitor.senior_person_last_name }}</b> <div><small>{{ exhibitor.senior_designation }}</small></div></li>
+                     </div>
+                  </div>
+
+                  <div class="row my-4">
+                     <div class="col-md-12 mt-2 mb-3">
+                     <h6>Nature Of Business</h6>
+                     {% for list in exhibitor.nature_of_bussiness.all %}
+                     <span class='badge rounded-pill badge-primary'>{{ list.name }}</span>
+                     {% endfor %}
+                  </div>
+
+                     <div class="col-md-12 mt-2 mb-3">
+                     <h6>Brands</h6>
+                     {% for list in exhibitor.our_brand.all %}
+                     <span class='badge rounded-pill badge-primary'>{{ list.name }}</span>
+                     {% endfor %}
+                  </div>
+
+                     <div class="col-md-12 mt-2 mb-3">
+                     <h6>Product Catagory</h6>
+                     {% for list in exhibitor.product_catogory.all %}
+                     <span class='badge rounded-pill badge-primary'>{{ list.name }}</span>
+                     {% endfor %}
+                  </div>
+
+                     <div class="col-md-12 mt-2 mb-3">
+                     <h6>Product Sub Catagory</h6>
+                     {% for list in exhibitor.product_sub_catogory.all %}
+                     <span class='badge rounded-pill badge-primary'>{{ list.name }}</span>
+                     {% endfor %}
+                  </div>
+                  </div>
+                  
+               </div>
+            </div>
   
             
            
            
-          </div>
+         
   
     </div>
 

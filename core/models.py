@@ -97,7 +97,7 @@ class Exhibitor(models.Model):
         ("1", "BARE SPACE"),
         ("2", "SHELL SCHEME")
     )
-   
+    
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, primary_key=True)
 
@@ -127,15 +127,15 @@ class Exhibitor(models.Model):
     # Key contact person
     contact_person_first_name = models.CharField(max_length=255, blank=True, null=True)
     contact_person_last_name = models.CharField(max_length=255, blank=True, null=True)
-   
+    
     designation = models.CharField(max_length=200, blank=True, null=True,)
     department = models.ForeignKey(
         Department, on_delete=models.PROTECT, blank=True, null=True,)
-   
+    
     # phone = models.CharField(max_length=12, blank=True, null=True)
     phone = PhoneNumberField( blank=True, null=True)
     email = models.EmailField(blank=False, null=True)
-
+    
     # Senior Person Details
     senior_person_first_name = models.CharField(
         max_length=255, blank=True, null=True)
@@ -168,7 +168,7 @@ class Exhibitor(models.Model):
     product_catogory=models.ManyToManyField(ProductCatogory,  blank=True)
     product_sub_catogory = models.ManyToManyField(
         ProductSubCatogory, blank=True)
-    our_brand = models.ManyToManyField(Brand, blank=True)
+    our_brand = models.ManyToManyField(Brand, blank=True, related_name='brand')
 
 
 

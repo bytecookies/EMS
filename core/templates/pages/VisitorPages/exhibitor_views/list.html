@@ -1,20 +1,54 @@
 {% extends 'layout/visitor_base/base.html' %} {% load static %} {% load sass_tags %}
+
+{% block css %}
+<style>
+  .list{
+    /* border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05); */
+      transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+  padding: 14px 80px 18px 36px;
+  cursor: pointer;
+}
+
+.list:hover{
+     transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+</style>
+{% endblock css %}
 {% block content %}
 <div class="page-body">
 
     
  
 
-    <div class='container'>
-        <div class="d-grid gap-2">
+    <div class='container-fluid'>
+      <div class="card">
+      
+        <div class="card-header ">
+          <div class="row">
+          <div class="col-md">
+            <h4 class="text-center bg-primary p-2 rounded">Intimasia Exhibitors</h4>
+          </div>
+          <div class="col-md  d-flex justify-content-center align-items-center ">
+            <form class="form-inline my-2 my-lg-0 search-bg">
+              <input class="form-control" name="q" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-sm btn-primary ml-2"  type="submit"><span><i class="fa fa-search"></i></button>
+            </form>
+          </div>
+        </div>
+        </div>
+        <div class="d-grid gap-2 card-body">
         
             {% for exhibitor  in exhibitors %}
             <a
-              class="text-dark text-decoration-none shadow p-3 bg-body rounded text-start"
+              class="text-dark text-decoration-none shadow p-3 bg-body rounded text-start list"
               type="button"
               href='{% url 'exhibitor_detail' pk=exhibitor.user.id %}'> 
               <div class="d-flex justify-content-between"><div class="d-flex align-items-center">
-                <div class="ms-1"><h5>{{ exhibitor.companyName }}</h5>  
+                <div class="ms-1">
+                  <p class="font-weight-bold text-uppercase">{{ exhibitor.companyName }}</p>  
                   <div >
                   {% for our_brand in exhibitor.our_brand.all %}
                     <span class='badge rounded-pill badge-primary'>{{ our_brand.name }}</span>
@@ -24,6 +58,7 @@
                
               </div> <span class=" text-end">{{ exhibitor.boothNumber }}</span></div>
               </a>
+
             {% endfor %}
 
             <nav class="mt-4" aria-label="Page navigation sample">
@@ -61,6 +96,7 @@
            
            
           </div>
+        </div>
   
     </div>
 

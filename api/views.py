@@ -9,8 +9,10 @@ from rest_framework.response import Response
 from rest_framework import generics, mixins, views
 from rest_framework.decorators import action
 from core.models import Exhibitor, Visitor
+from utility.models import Brand, Nationality, NatureOfBusiness, Department, ProductCatogory, ProductSubCatogory
 from .serializers import *
 from .permissions import *
+from django.db.models import Q
 
 # Create your views here.
 
@@ -22,7 +24,7 @@ def index(request):
 
 
 class ExhibitorViewSet(ReadOnlyModelViewSet):
-    queryset= Exhibitor.objects.select_related('user').all()
+    queryset=Exhibitor.objects.select_related('user').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
     # serializer_class= ExhibitorSerializer
     permission_classes = [IsAuthenticated,IsVisitorUser]
 
@@ -41,7 +43,6 @@ class VisitorViewSet(ReadOnlyModelViewSet):
     queryset=Visitor.objects.all()
     serializer_class=VisitorListSerializer
     permission_classes = [IsAuthenticated,IsExhibitorUser]
-
 
 
 class VisitorProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,GenericViewSet):
@@ -111,5 +112,42 @@ class VisitorCreate(mixins.CreateModelMixin,GenericViewSet):
 #     return Response(serilizer.data)
 
  
+
+
+# utility ViewSet
+
+class BrandViewSet(ReadOnlyModelViewSet):
+    queryset=Brand.objects.all()
+    serializer_class=BrandSerializer
+    permission_classes = [IsAuthenticated]
+
+class DepartmentViewSet(ReadOnlyModelViewSet):
+    queryset=Department.objects.all()
+    serializer_class=DepartmentSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class NatureOfBusinessViewSet(ReadOnlyModelViewSet):
+    queryset=NatureOfBusiness.objects.all()
+    serializer_class=NatureOfBusinessSerializer
+    permission_classes = [IsAuthenticated]
+
+class ProductCatogoryViewSet(ReadOnlyModelViewSet):
+    queryset=ProductCatogory.objects.all()
+    serializer_class=ProductCatogorySerializer
+    permission_classes = [IsAuthenticated]
+
+class ProductSubCatogoryViewSet(ReadOnlyModelViewSet):
+    queryset=ProductSubCatogory.objects.all()
+    serializer_class=ProductSubCatogorySerializer
+    permission_classes = [IsAuthenticated]
+
+
+
+class NationalityViewSet(ReadOnlyModelViewSet):
+    queryset=Nationality.objects.all()
+    serializer_class=NationalitySerializer
+    permission_classes = [IsAuthenticated]
+
 
 
