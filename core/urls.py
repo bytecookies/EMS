@@ -36,6 +36,11 @@ urlpatterns = [
    
     path('exhibitor/static_downloads/', views.exhibitor_static_downloads,
          name='exhibitor_static_downloads'),
+    
+    path('exhibitor/event_promotion_download/', views.event_promotion_download,
+         name='event_promotion_download'),
+    path('exhibitor/floor_plan/', views.floor_plan,
+         name='floor_plan'),
 
     path('login/', views.loginview,
          name='login'),

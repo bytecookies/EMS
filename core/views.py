@@ -10,7 +10,7 @@ from .models import *
 from utility.models import *
 from . import forms
 from .models import User
-from Exhibitor_utility.models import  ExhibitorDownload, StaticDownload
+from Exhibitor_utility.models import  ExhibitorDownload, StaticDownload, PromotionalCreative, FloorPlan
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -147,6 +147,18 @@ def exhibitor_static_downloads(request):
     print(static_download)
 
     return render(request, 'pages/ExhibitorPages/downloads/static_downloads.html',{'downloads':static_download})
+
+@exhibitor_required()
+def event_promotion_download(request):
+    promotoin_download=PromotionalCreative.objects.filter(exhibitor=request.user.id)
+    print(promotoin_download.exists())
+    return render(request, 'pages/ExhibitorPages/downloads/event_promotion.html',{'downloads':promotoin_download})
+
+@exhibitor_required()
+def floor_plan(request):
+    floor_plan=FloorPlan.objects.all()
+    # print(promotoin_download)
+    return render(request, 'pages/ExhibitorPages/downloads/floor_plan.html',{'downloads':floor_plan})
 
 
 @exhibitor_required()

@@ -187,7 +187,7 @@ class ExhibitorAdmin(admin.ModelAdmin):
 
 @admin.register(models.Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-      readonly_fields = ['email','user']
+      readonly_fields = ['user']
       
 @admin.register(models.VisitorIdPassword)
 class VisitorIdPasswordAdmin(admin.ModelAdmin):

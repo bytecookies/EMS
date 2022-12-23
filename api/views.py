@@ -8,6 +8,7 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet, GenericV
 from rest_framework.response import Response
 from rest_framework import generics, mixins, views
 from rest_framework.decorators import action
+from rest_framework import filters
 from .pagination import *
 from core.models import Exhibitor, Visitor
 from utility.models import Brand, Nationality, NatureOfBusiness, Department, ProductCatogory, ProductSubCatogory
@@ -28,8 +29,10 @@ class ExhibitorViewSet(ReadOnlyModelViewSet):
     queryset=Exhibitor.objects.select_related('user').prefetch_related('our_brand','nature_of_bussiness','product_catogory','product_sub_catogory').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
     serializer_class= ExhibitorDetailSerializer
     permission_classes = [IsAuthenticated,IsVisitorUser]
-    # pagination_class= StandardResultsSetPagination
-
+    pagination_class= StandardResultsSetPagination
+    filter_backends=[filters.SearchFilter]
+    search_fields=['companyName','our_brand__name','nature_of_bussiness__name','product_catogory__name']
+    
     # def get_serializer_class(self):
     #     if self.action == 'retrieve':
     #         return ExhibitorDetailSerializer
@@ -122,27 +125,42 @@ class BrandViewSet(ReadOnlyModelViewSet):
     queryset=Brand.objects.all()
     serializer_class=BrandSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends=[filters.SearchFilter,filters.OrderingFilter]
+    search_fields=['name']
+    ordering_fields = ['name']
 
 class DepartmentViewSet(ReadOnlyModelViewSet):
     queryset=Department.objects.all()
     serializer_class=DepartmentSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends=[filters.SearchFilter,filters.OrderingFilter]
+    search_fields=['name']
+    ordering_fields = ['name']
 
 
 class NatureOfBusinessViewSet(ReadOnlyModelViewSet):
     queryset=NatureOfBusiness.objects.all()
     serializer_class=NatureOfBusinessSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends=[filters.SearchFilter,filters.OrderingFilter]
+    search_fields=['name']
+    ordering_fields = ['name']
 
 class ProductCatogoryViewSet(ReadOnlyModelViewSet):
     queryset=ProductCatogory.objects.all()
     serializer_class=ProductCatogorySerializer
     permission_classes = [IsAuthenticated]
+    filter_backends=[filters.SearchFilter,filters.OrderingFilter]
+    search_fields=['name']
+    ordering_fields = ['name']
 
 class ProductSubCatogoryViewSet(ReadOnlyModelViewSet):
     queryset=ProductSubCatogory.objects.all()
     serializer_class=ProductSubCatogorySerializer
     permission_classes = [IsAuthenticated]
+    filter_backends=[filters.SearchFilter,filters.OrderingFilter]
+    search_fields=['name']
+    ordering_fields = ['name']
 
 
 
@@ -150,6 +168,9 @@ class NationalityViewSet(ReadOnlyModelViewSet):
     queryset=Nationality.objects.all()
     serializer_class=NationalitySerializer
     permission_classes = [IsAuthenticated]
+    filter_backends=[filters.SearchFilter,filters.OrderingFilter]
+    search_fields=['name']
+    ordering_fields = ['name']
 
 
 
