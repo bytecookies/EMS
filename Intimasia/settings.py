@@ -26,7 +26,7 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True   
+DEBUG = False   
 
 ALLOWED_HOSTS = ["ems.intimasia.in", 'localhost', '127.0.0.1']
 
@@ -198,10 +198,13 @@ REST_FRAMEWORK={
          'rest_framework_simplejwt.authentication.JWTAuthentication',
         
     ),
+     
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 15
 }
 
 SIMPLE_JWT = {
    'AUTH_HEADER_TYPES': ('Bearer',),
-   'ACCESS_TOKEN_LIFETIME':timedelta(days=1),
-   'REFRESH_TOKEN_LIFETIME':timedelta(days=1)
+   'ACCESS_TOKEN_LIFETIME':timedelta(days=2),
+   'REFRESH_TOKEN_LIFETIME':timedelta(days=365)
 }

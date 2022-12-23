@@ -164,11 +164,11 @@ class Exhibitor(models.Model):
         max_length=255, choices=BOOTH_TYPE, default="0")
    
     # Business Classification Details
-    nature_of_bussiness=models.ManyToManyField(NatureOfBusiness, blank=True, related_name='nature_of_bussiness')
+    nature_of_bussiness=models.ManyToManyField(NatureOfBusiness, blank=True)
     product_catogory=models.ManyToManyField(ProductCatogory,  blank=True)
     product_sub_catogory = models.ManyToManyField(
         ProductSubCatogory, blank=True)
-    our_brand = models.ManyToManyField(Brand, blank=True, related_name='brand')
+    our_brand = models.ManyToManyField(Brand, blank=True)
 
 
 
@@ -381,5 +381,23 @@ class VisitorIdPassword(models.Model):
         verbose_name_plural='Visitor ID and Password'
 
 
+
+class Meeting(models.Model):
+    SENDER_TYPE=(
+        ('1','VISITOR'),
+        ('2','EXHIBITOR')
+    )
+    visitor=models.ForeignKey(Visitor, on_delete=models.PROTECT)
+    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT)
+    sender_type=models.SmallIntegerField(choices=SENDER_TYPE)
+    personal_message=models.TextField()
+    schedule_time=models.TimeField(_("Schedule Time"), auto_now=False, auto_now_add=False)
+    status=models.BooleanField(blank=True, null=True)
+    schedule_request_time=models.TimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
+    
+class MySchedule(models.Model):
+    visitor=models.ForeignKey(Visitor, on_delete=models.PROTECT, null=True, blank=True)
+    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT,null=True, blank=True)
+    admin=models.ForeignKey(User,on_delete=models.PROTECT,null=True, blank=True)
 
 

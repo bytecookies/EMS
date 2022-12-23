@@ -8,6 +8,7 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet, GenericV
 from rest_framework.response import Response
 from rest_framework import generics, mixins, views
 from rest_framework.decorators import action
+from .pagination import *
 from core.models import Exhibitor, Visitor
 from utility.models import Brand, Nationality, NatureOfBusiness, Department, ProductCatogory, ProductSubCatogory
 from .serializers import *
@@ -24,15 +25,16 @@ def index(request):
 
 
 class ExhibitorViewSet(ReadOnlyModelViewSet):
-    queryset=Exhibitor.objects.select_related('user').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
-    # serializer_class= ExhibitorSerializer
+    queryset=Exhibitor.objects.select_related('user').prefetch_related('our_brand','nature_of_bussiness','product_catogory','product_sub_catogory').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
+    serializer_class= ExhibitorDetailSerializer
     permission_classes = [IsAuthenticated,IsVisitorUser]
+    # pagination_class= StandardResultsSetPagination
 
-    def get_serializer_class(self):
-        if self.action == 'retrieve':
-            return ExhibitorDetailSerializer
+    # def get_serializer_class(self):
+    #     if self.action == 'retrieve':
+    #         return ExhibitorDetailSerializer
       
-        return ExhibitorListSerializer
+    #     return ExhibitorListSerializer
     
     
 

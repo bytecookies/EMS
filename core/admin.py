@@ -201,6 +201,12 @@ class VenderAdmin(admin.ModelAdmin):
     inlines = [venderContactInline]
 
 
+@admin.register(models.Meeting)
+class MeetingAdmin(admin.ModelAdmin):
+    # inlines = [venderContactInline]
+    pass
+
+
 
 
 
