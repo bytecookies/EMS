@@ -6,6 +6,7 @@ from . import models
 class ProductSubCatogoryINline(admin.TabularInline):
     model = models.ProductSubCatogory
     extra = 1
+    
 
 
 
@@ -32,12 +33,23 @@ class ProductSubCatogoryAdmin(admin.ModelAdmin):
 class VenderProductAndServiceAdmin(admin.ModelAdmin):
     search_fields = ["name"]
 
+class NationalityAdmin(admin.ModelAdmin):
+    search_fields = ["name"]
+class OrganizationAdmin(admin.ModelAdmin):
+    search_fields = ["name"]
+    
+class HowDidYouGetToKnowAboutINTIMASIAAdmin(admin.ModelAdmin):
+    search_fields = ["name"]
+    
+class DepartmentAdmin(admin.ModelAdmin):
+    search_fields = ["name"]
 
 
-admin.site.register(models.Nationality)
-admin.site.register(models.Organization)
-admin.site.register(models.HowDidYouGetToKnowAboutINTIMASIA)
-admin.site.register(models.Department)
+
+admin.site.register(models.Nationality,NationalityAdmin)
+admin.site.register(models.Organization, OrganizationAdmin)
+admin.site.register(models.HowDidYouGetToKnowAboutINTIMASIA,HowDidYouGetToKnowAboutINTIMASIAAdmin)
+admin.site.register(models.Department,DepartmentAdmin)
 admin.site.register(models.NatureOfBusiness, NatureOfBusinessAdmin)
 admin.site.register(models.Brand, BrandAdmin)
 admin.site.register(models.VenderProductAndService,

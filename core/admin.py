@@ -150,6 +150,7 @@ class ExhibitorAdmin(admin.ModelAdmin):
 
     list_display = ('companyName', 'user', 'contact_person','senior_person',
                     'boothSize',  'boothNumber')
+    list_per_page=10
 
 
     add_form = ExhibitorCreateForm
@@ -187,7 +188,20 @@ class ExhibitorAdmin(admin.ModelAdmin):
 
 @admin.register(models.Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-      readonly_fields = ['user']
+    search_fields=['user__email','organization_name','first_name']
+    readonly_fields = ['user']
+    list_display = ('user','name','organization_name','type')
+    list_editable=['type']
+    list_filter=['type']
+    autocomplete_fields = ["nationality",
+                           "department", "nature_of_business", "product_category","product_sub_category","brand","how_did_you_get_to_know_about_INTIMASIA","product_category_interest","product_sub_category_interest"]
+
+    list_per_page=10
+      
+    @admin.display(ordering='first_name')
+    def name(self, exhibitor):
+        return f" {exhibitor.first_name} {exhibitor.last_name}"
+    
       
 @admin.register(models.VisitorIdPassword)
 class VisitorIdPasswordAdmin(admin.ModelAdmin):

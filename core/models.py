@@ -306,8 +306,7 @@ class Visitor(models.Model):
                 password = customUserManager().make_random_password()
             else:
                 password=self.password
-
-         
+                self.password=None
 
             print(f"This is the PASSWORD {password}")
             registration_id=unique_id()
@@ -324,7 +323,7 @@ class Visitor(models.Model):
             print("============================================")
             context={'email':self.email , 'fname':self.first_name, 'registration_id':user.registration_id ,'lname':self.last_name,'cc':self.cc_email}
             super().save(*args, **kwargs)
-            # visitor_welcome_mail(email=email, context=context)
+            visitor_welcome_mail(email=email, context=context)
         else:
             super().save(*args, **kwargs)
 
