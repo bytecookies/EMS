@@ -18,6 +18,7 @@ from utility.models import *
 # from core.utility.constants import department, designation
 import random
 
+# exhibitor first save send mail
 def send_mail(email, password):
    
     htmly = get_template('pages/components/mail/exhibitor_credential.html')
@@ -42,7 +43,7 @@ def emailValidation(email):
         if User.objects.filter(email=email).exists():
             raise ValidationError("User with this email already exists.")
     
-
+# visitor first save send mail
 def visitor_welcome_mail(email,context):
     print("mail sent")
     htmly = get_template('pages/components/mail/visitor_welcome.html')
@@ -51,7 +52,7 @@ def visitor_welcome_mail(email,context):
     subject, from_email = f'Your Online Registration Confirmation - { fname } { lname }', 'Intimasia <no-reply@intimasia.in>'
     html_content = htmly.render(context)
     msg = EmailMultiAlternatives(
-        subject=subject, from_email=from_email, to=[email],cc=[context['cc']],bcc=['developer@peppermint.co.in'])
+        subject=subject, from_email=from_email, to=[email],cc=[context['cc']],bcc=['intimasia.visitor@gmail.com'])
     msg.attach_alternative(html_content, "text/html")
     msg.send()
 
@@ -111,6 +112,7 @@ class Exhibitor(models.Model):
     country = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(max_length=255, blank=True, null=True)
     company_email=models.EmailField(blank=True, null=True)
+    company_description=models.TextField(null=True, blank=True)
     
     # company billing detail
     billing_companyName = models.CharField(
@@ -381,22 +383,34 @@ class VisitorIdPassword(models.Model):
 
 
 
+
+
 class Meeting(models.Model):
     SENDER_TYPE=(
-        ('1','VISITOR'),
-        ('2','EXHIBITOR')
+        ('VISITOR','VISITOR'),
+        ('EXHIBITOR','EXHIBITOR')
     )
     visitor=models.ForeignKey(Visitor, on_delete=models.PROTECT)
     exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT)
-    sender_type=models.SmallIntegerField(choices=SENDER_TYPE)
-    personal_message=models.TextField()
-    schedule_time=models.TimeField(_("Schedule Time"), auto_now=False, auto_now_add=False)
+    sender_type=models.CharField(max_length=255,choices=SENDER_TYPE)
+    personal_message=models.TextField(null=True, blank=True)
+    schedule_time=models.DateTimeField(_("Schedule Time"), auto_now=False, auto_now_add=False,blank=True, null=True)
     status=models.BooleanField(blank=True, null=True)
-    schedule_request_time=models.TimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
+    schedule_request_time=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
+    
+    
     
 class MySchedule(models.Model):
-    visitor=models.ForeignKey(Visitor, on_delete=models.PROTECT, null=True, blank=True)
-    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT,null=True, blank=True)
+    TYPE=(("A-AL","A-AL")
+          ,("V-E","V-E"),
+          ("E-V","E-V"))
+    visitor=models.ForeignKey(Visitor, on_delete=models.PROTECT,null=True, blank=True)
+    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT, null=True, blank=True)
     admin=models.ForeignKey(User,on_delete=models.PROTECT,null=True, blank=True)
-
-
+    sender_to_receiver_type=models.CharField(max_length=255,choices=TYPE,null=True, blank=True)
+    message=models.TextField(null=True, blank=True)
+    time_from=models.DateTimeField(null=True, blank=True)
+    time_to=models.DateTimeField(null=True, blank=True)
+    add_time=models.DateField(auto_now=True)
+    
+    

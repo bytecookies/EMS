@@ -18,13 +18,28 @@
                   <div class="my-4">
                      <h6>Exhibitor Representatives</h6>
                      <div class="list-group mb-2">
-                        <li class="list-group-item"><b>{{ exhibitor.contact_person_first_name }} {{ exhibitor.contact_person_last_name }}</b> <div><small>{{ exhibitor.designation }}</small></div></li>
-                     </div>
+                        
+                              <li class="list-group-item row d-flex">
+                                 
+                                 <div class="col-md">
+                                    <b>{{ exhibitor.contact_person_first_name }} {{ exhibitor.contact_person_last_name }}</b> 
+                                    <div><small>{{ exhibitor.designation }}</small></div>
+                                 </div>
 
-                     <div class="list-group">
-                        <li class="list-group-item"><b>{{ exhibitor.senior_person_first_name }} {{ exhibitor.senior_person_last_name }}</b> <div><small>{{ exhibitor.senior_designation }}</small></div></li>
+                                 <div class='col-md-3  align-self-center align-self-end '>
+                                 <button id='request-meeting ' class='btn btn-primary mt-2 mt-md-0  '>Meeting <i class="fa fa-paper-plane"></i></button>
+                                 </div>
+                                 
+
+                              </li>
+
+                          
+
+                        
                      </div>
                   </div>
+                  
+               
 
                   <div class="row my-4">
                      <div class="col-md-12 mt-2 mb-3">
@@ -78,5 +93,9 @@
 
 
 {% block scriptcontent %}
+
+<script>
+   
+</script>
 
 {% endblock scriptcontent %}

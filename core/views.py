@@ -244,6 +244,7 @@ def exhibitor_list(request):
 
 
 
+
 @visitor_required()
 def exhibitor_detail(request,pk):
     queryset=Exhibitor.objects.select_related('user','department','senior_department').get(pk=pk)

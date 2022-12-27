@@ -5,7 +5,7 @@ from .models import *
 @admin.register(ExhibitorDownload)
 class ExhibitorDownloadAdmin(admin.ModelAdmin):
     autocomplete_fields=['exhibitor']
-    # pass
+    search_fields=['exhibitor__companyName']
     
 
 @admin.register(StaticDownload)
@@ -16,6 +16,7 @@ class StaticDownloadAdmin(admin.ModelAdmin):
 @admin.register(PromotionalCreative)
 class PromotionalCreativeAdmin(admin.ModelAdmin):
     autocomplete_fields=['exhibitor']
+    search_fields=['exhibitor__companyName']
     # pass
     
 @admin.register(FloorPlan)

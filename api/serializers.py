@@ -44,7 +44,7 @@ class ExhibitorDetailSerializer(serializers.ModelSerializer):
     # nature_of_bussiness=serializers.PrimaryKeyRelatedField(queryset=NatureOfBusiness.objects.select_related('nature_of_bussiness').all(),many=True)
     class Meta:
         model=Exhibitor
-        fields=['user_id','company_name','contact_person_first_name','contact_person_last_name','designation','city','state','country','our_brand','nature_of_bussiness','product_catogory','product_sub_catogory']
+        fields=['user_id','company_name','company_description','contact_person_first_name','contact_person_last_name','designation','city','state','country','our_brand','nature_of_bussiness','product_catogory','product_sub_catogory']
     
 class ExhibitorListSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(
@@ -67,10 +67,16 @@ class VisitorListSerializer(serializers.ModelSerializer):
 
 
 class VisitorDetailSerializer(serializers.ModelSerializer):
+    user_id=serializers.PrimaryKeyRelatedField( queryset=User.objects.all()
+        ,source='user')
+    nationality_id=serializers.PrimaryKeyRelatedField(queryset=Nationality.objects.all()
+        ,source='nationality')
+    department_id=serializers.PrimaryKeyRelatedField(queryset=Department.objects.all()
+        ,source='department')
     class Meta:
         model=Visitor
-        fields=['user','first_name','last_name','email','gender','nationality','organization_name','department','job_title','apartment_unit_building_floor_etc','street_address','zip_code','country','state','town_city_district','email','cc_email','mobile','mobile','whatsapp','whatsapp_same_as_mobile_or_no_wp','nature_of_business','nature_of_business_others','product_category','product_category_others','product_sub_category','product_sub_category_others','brand','brand_others','how_did_you_get_to_know_about_INTIMASIA','how_did_you_get_to_know_about_INTIMASIA_others','product_category_interest','product_category_interest_others','product_sub_category_interest','product_sub_category_interest_others','subscribe_to_inner_secrets','is_first_time_to_intimasia','badge_name','badge_job_title','badge_company']
-        read_only_fields=['user','email']
+        fields=['user_id','first_name','last_name','email','gender','nationality_id','organization_name','department_id','job_title','apartment_unit_building_floor_etc','street_address','zip_code','country','state','town_city_district','email','cc_email','mobile','mobile','whatsapp','whatsapp_same_as_mobile_or_no_wp','nature_of_business','nature_of_business_others','product_category','product_category_others','product_sub_category','product_sub_category_others','brand','brand_others','how_did_you_get_to_know_about_INTIMASIA','how_did_you_get_to_know_about_INTIMASIA_others','product_category_interest','product_category_interest_others','product_sub_category_interest','product_sub_category_interest_others','subscribe_to_inner_secrets','is_first_time_to_intimasia','badge_name','badge_job_title','badge_company']
+        read_only_fields=['user_id','email']
 
 
 
