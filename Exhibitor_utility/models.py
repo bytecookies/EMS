@@ -75,17 +75,39 @@ class StaticDownload(models.Model):
 def generate_jpg_file_name_for_PromotionalCreatives(instance, filename):
     extention=str(instance.jpg_file).split(".")[1]
     # Use the instance object to generate a unique file name
-    new_filename =str(instance.exhibitor.companyName).upper().replace(" ","-")+"-JPG."+extention
+    exhibitor_company_name=str(instance.exhibitor.companyName).upper()
+
+    splits=exhibitor_company_name.split()
+    filename_new=exhibitor_company_name
+    
+    if len(splits) == 1:
+        filename_new=splits[0]
+    else:
+        filename_new=splits[0]+"-"+splits[1]
+   
+  
+    new_filename =filename_new+"-JPG."+extention
+    
     print(new_filename+"======")
     return 'images/exhibitor/downloads/PromotionalCreatives/'+(new_filename)
 
 
 def generate_thumbnail_file_name_for_PromotionalCreatives(instance, filename):
-    extention=str(instance.thumbnail_file).split(".")[1]
-    
     # Use the instance object to generate a unique file name
+    extention=str(instance.thumbnail_file).split(".")[1]
+    exhibitor_company_name=str(instance.exhibitor.companyName).upper()
     
-    new_filename =str(instance.exhibitor.companyName).upper().replace(" ","-") +"-THUMBNAIL."+extention
+    splits=exhibitor_company_name.split()
+    filename_new=exhibitor_company_name
+    
+    if len(splits) == 1:
+        filename_new=splits[0]
+    else:
+        filename_new=splits[0]+"-"+splits[1]
+   
+  
+    
+    new_filename =filename_new +"-THUMBNAIL."+extention
     print(new_filename)
     return 'images/exhibitor/downloads/PromotionalCreatives/'+(new_filename)
 

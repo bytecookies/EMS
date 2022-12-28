@@ -220,6 +220,11 @@ class MeetingAdmin(admin.ModelAdmin):
     # inlines = [venderContactInline]
     pass
 
+@admin.register(models.MySchedule)
+class MyscheduleAdmin(admin.ModelAdmin):
+    # inlines = [venderContactInline]
+    pass
+
 
 
 

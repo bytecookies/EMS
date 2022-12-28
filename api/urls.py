@@ -23,7 +23,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 
-pprint.pprint(router.urls)
+# pprint.pprint(router.urls)
 
 urlpatterns = [
     path('', views.index, name='api_home'),

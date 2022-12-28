@@ -229,10 +229,10 @@ def visitor_dashboard(request):
 
 @visitor_required()
 def exhibitor_list(request):
-    queryset=Exhibitor.objects.select_related('user','department','senior_department').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
+    queryset=Exhibitor.objects.select_related('user','department','senior_department').prefetch_related('our_brand','nature_of_bussiness','product_catogory','product_sub_catogory').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
     q=request.GET.get('q')
     if q is not None and q!='':
-        queryset=Exhibitor.objects.select_related('user','department','senior_department').filter(Q(our_brand__name__icontains=q)| Q(companyName__icontains=q)|Q(boothNumber__icontains=q) & Q(user__participation_form=True)).order_by('companyName').distinct()
+        queryset=Exhibitor.objects.select_related('user','department','senior_department').prefetch_related('our_brand','nature_of_bussiness','product_catogory','product_sub_catogory').filter(Q(our_brand__name__icontains=q)| Q(companyName__icontains=q)|Q(boothNumber__icontains=q) & Q(user__participation_form=True)).order_by('companyName').distinct()
         # queryset=Exhibitor.objects.select_related('user','department','senior_department').filter(our_brand)
     paginator=Paginator(queryset,10)    
     page=request.GET.get('page')

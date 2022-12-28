@@ -253,20 +253,20 @@ class Visitor(models.Model):
    
 
     #Second page of visitor form
-    nature_of_business=models.ManyToManyField(NatureOfBusiness,null=True,blank=True)
+    nature_of_business=models.ManyToManyField(NatureOfBusiness,blank=True)
     nature_of_business_others=models.TextField(blank=True,null=True)
-    product_category=models.ManyToManyField(ProductCatogory,null=True,blank=True,related_name='product_category')
+    product_category=models.ManyToManyField(ProductCatogory,blank=True,related_name='product_category')
     product_category_others=models.TextField(blank=True,null=True)
-    product_sub_category=models.ManyToManyField(ProductSubCatogory,null=True,blank=True,related_name='product_sub_category')
+    product_sub_category=models.ManyToManyField(ProductSubCatogory,blank=True,related_name='product_sub_category')
     product_sub_category_others=models.TextField(blank=True,null=True)
-    brand=models.ManyToManyField(Brand,null=True,blank=True)
+    brand=models.ManyToManyField(Brand,blank=True)
     brand_others=models.TextField(blank=True,null=True)
-    how_did_you_get_to_know_about_INTIMASIA=models.ManyToManyField(HowDidYouGetToKnowAboutINTIMASIA,null=True,blank=True)
+    how_did_you_get_to_know_about_INTIMASIA=models.ManyToManyField(HowDidYouGetToKnowAboutINTIMASIA,blank=True)
     how_did_you_get_to_know_about_INTIMASIA_others=models.TextField(blank=True,null=True)
    
-    product_category_interest=models.ManyToManyField(ProductCatogory,null=True,blank=True, related_name='product_category_interest')
+    product_category_interest=models.ManyToManyField(ProductCatogory,blank=True, related_name='product_category_interest')
     product_category_interest_others=models.TextField(blank=True,null=True)
-    product_sub_category_interest=models.ManyToManyField(ProductSubCatogory,null=True,blank=True,related_name='product_sub_category_interest')
+    product_sub_category_interest=models.ManyToManyField(ProductSubCatogory,blank=True,related_name='product_sub_category_interest')
     product_sub_category_interest_others=models.TextField(blank=True,null=True)
     subscribe_to_inner_secrets = models.CharField(choices=SUBSCRIBE_TO_INNER_SECRETS,null=True,blank=True, max_length=128)
     is_first_time_to_intimasia = models.CharField(choices=IS_FIRST_TIME_TO_INTIMASIA,null=True,blank=True, max_length=128)
@@ -394,9 +394,15 @@ class Meeting(models.Model):
     exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT)
     sender_type=models.CharField(max_length=255,choices=SENDER_TYPE)
     personal_message=models.TextField(null=True, blank=True)
-    schedule_time=models.DateTimeField(_("Schedule Time"), auto_now=False, auto_now_add=False,blank=True, null=True)
+    
+    date=models.DateField(null=True, blank=True)
+    time_form=models.TimeField(null=True, blank=True)
+    time_to=models.TimeField(null=True, blank=True)
+    
+    
     status=models.BooleanField(blank=True, null=True)
-    schedule_request_time=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
+    
+    schedule_request_date=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
     
     
     
@@ -409,8 +415,11 @@ class MySchedule(models.Model):
     admin=models.ForeignKey(User,on_delete=models.PROTECT,null=True, blank=True)
     sender_to_receiver_type=models.CharField(max_length=255,choices=TYPE,null=True, blank=True)
     message=models.TextField(null=True, blank=True)
-    time_from=models.DateTimeField(null=True, blank=True)
-    time_to=models.DateTimeField(null=True, blank=True)
-    add_time=models.DateField(auto_now=True)
+    
+    date=models.DateField(null=True, blank=True)
+    time_from=models.TimeField(null=True, blank=True)
+    time_to=models.TimeField(null=True, blank=True)
+    
+    add_time=models.DateTimeField(auto_now=True)
     
     
