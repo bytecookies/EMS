@@ -14,6 +14,8 @@ from datetime import timedelta
 from pathlib import Path
 import os
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    
+
     'core',
     'utility',
     'Exhibitor_utility',
@@ -193,6 +195,7 @@ EMAIL_USE_SSL=True
 
 
 # rest freamwork
+
 
 
 REST_FRAMEWORK={

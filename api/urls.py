@@ -8,6 +8,7 @@ from . import views
 
 
 router= SimpleRouter()
+router.register('public/exhibitors', views.ExhibitorWithKey)
 router.register('exhibitors', views.ExhibitorViewSet)
 router.register('visitors', views.VisitorViewSet)
 router.register('visitor/register',views.VisitorCreate)

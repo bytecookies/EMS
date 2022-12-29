@@ -5,6 +5,7 @@ from utility.models import *
 from django.forms import modelformset_factory
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
+
 class ExhibitorForm(ModelForm):
     # Company Details
 
@@ -82,6 +83,14 @@ class ExhibitorForm(ModelForm):
                                  }
                              )
                              )
+    company_description= forms.CharField(required=True,
+                                       widget=forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows":2,
+                }
+            ) 
+            )
     # Company Billing Details
 
     billing_companyName = forms.CharField(required=True,
@@ -442,6 +451,16 @@ class ExhibitorFormDisabled(ModelForm):
                                  }
                              )
                              )
+
+    company_description= forms.CharField(required=True,disabled=True,
+                                  widget=forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                     "rows":2,
+                }
+            ) 
+            )
+    
     # Company Billing Details
 
     billing_companyName = forms.CharField(required=True, disabled=True,

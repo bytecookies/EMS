@@ -17,6 +17,7 @@ from .serializers import *
 from .permissions import *
 from django.db.models import Q
 
+
 # Create your views here.
 
 @api_view()
@@ -24,6 +25,14 @@ def index(request):
    
     return Response("ok")
 
+class ExhibitorWithKey(ReadOnlyModelViewSet):
+    
+    queryset=Exhibitor.objects.select_related('user').prefetch_related('our_brand','nature_of_bussiness','product_catogory','product_sub_catogory').filter(Q(user__participation_form=True)).order_by('companyName').distinct()
+    serializer_class= ExhibitorDetailSerializer
+    # filter_backends=[filters.SearchFilter]
+    # search_fields=['companyName','our_brand__name','nature_of_bussiness__name','product_catogory__name']
+    # permission_classes = [HasAPIKey]
+    
 
 
 class ExhibitorViewSet(ReadOnlyModelViewSet):

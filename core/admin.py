@@ -190,17 +190,21 @@ class ExhibitorAdmin(admin.ModelAdmin):
 class VisitorAdmin(admin.ModelAdmin):
     search_fields=['user__email','organization_name','first_name']
     readonly_fields = ['user']
-    list_display = ('user','name','organization_name','type')
+    list_display = ('user','name','organization_name','type','date')
     list_editable=['type']
-    list_filter=['type']
+    list_filter=['type','user__date_joined']
     autocomplete_fields = ["nationality",
                            "department", "nature_of_business", "product_category","product_sub_category","brand","how_did_you_get_to_know_about_INTIMASIA","product_category_interest","product_sub_category_interest"]
 
     list_per_page=10
+    
+    @admin.display(ordering='user__date_joined')
+    def date(self, Visitor):
+        return Visitor.user.date_joined
       
     @admin.display(ordering='first_name')
-    def name(self, exhibitor):
-        return f" {exhibitor.first_name} {exhibitor.last_name}"
+    def name(self, Visitor):
+        return f" {Visitor.first_name} {Visitor.last_name}"
     
       
 @admin.register(models.VisitorIdPassword)

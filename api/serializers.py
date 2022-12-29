@@ -32,7 +32,7 @@ class ExhibitorDetailSerializer(serializers.ModelSerializer):
     #     queryset=User.objects.all()
     # )
    
-    nature_of_bussiness=NatureOfBussinessSerializer(many=True)
+    nature_of_business=NatureOfBussinessSerializer(many=True,source='nature_of_bussiness')
     product_category=ProductCatogorySerializer(many=True,source='product_catogory')
     product_sub_category=ProductSubCatogorySerializer(many=True, source='product_sub_catogory')
     our_brand=OurBrandSerializer(many=True)
@@ -44,7 +44,7 @@ class ExhibitorDetailSerializer(serializers.ModelSerializer):
     # nature_of_bussiness=serializers.PrimaryKeyRelatedField(queryset=NatureOfBusiness.objects.select_related('nature_of_bussiness').all(),many=True)
     class Meta:
         model=Exhibitor
-        fields=['user_id','company_name','company_description','contact_person_first_name','contact_person_last_name','designation','city','state','country','our_brand','nature_of_bussiness','product_category','product_sub_category']
+        fields=['user_id','company_name','company_description','contact_person_first_name','contact_person_last_name','designation','city','state','country','our_brand','nature_of_business','product_category','product_sub_category']
     
 class ExhibitorListSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(

@@ -327,6 +327,18 @@ label.error {
                       </div>
                     </div>
 
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Company Description</label
+                        >
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.company_description.errors }}</span>
+                        {{ form.company_description }}
+                        
+                      </div>
+                    </div>
+
                     <button
                       class="btn btn-primary nextBtn pull-right"
                       type="button"
