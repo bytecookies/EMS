@@ -40,11 +40,11 @@ class ExhibitorDetailSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all()
         ,source='user')
-
+    booth_number=serializers.CharField(max_length=255, source='boothNumber')
     # nature_of_bussiness=serializers.PrimaryKeyRelatedField(queryset=NatureOfBusiness.objects.select_related('nature_of_bussiness').all(),many=True)
     class Meta:
         model=Exhibitor
-        fields=['user_id','company_name','company_description','contact_person_first_name','contact_person_last_name','designation','city','state','country','our_brand','nature_of_business','product_category','product_sub_category']
+        fields=['user_id','company_name','company_description','contact_person_first_name','contact_person_last_name','designation','city','state','country','booth_number','our_brand','nature_of_business','product_category','product_sub_category']
     
 class ExhibitorListSerializer(serializers.ModelSerializer):
     user_id = serializers.PrimaryKeyRelatedField(
