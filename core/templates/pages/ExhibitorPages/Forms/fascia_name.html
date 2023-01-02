@@ -1,0 +1,139 @@
+{% extends 'layout/exhibitorBase/base.html' %} {% load static %} {% load sass_tags %} {% block css %}
+<!-- Plugins css start-->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% sass_src 'assets/scss/select2.scss' %}"
+/>
+<!-- Plugins css Ends-->
+
+
+
+<!-- custom internal css-->
+<style>
+    
+</style>
+{% endblock %} {% block content %}
+
+<div class="page-body">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class='card-header pb-0'>
+            <h5>Exhibitor Fascia Name</h5>
+          </div>
+
+          <div class='card-body'>
+            
+            <div class='row'>
+              <div class='col-md '>
+                
+                <table class="table table-bordered  ">
+                  <tbody>
+                    <tr>
+                      <th class="">Applicable</th>
+                      <td class="">
+                        {% if exhibitor.boothType == '2' %}Yes{% else %}No{% endif %}
+                       
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="">Type</th>
+                      <td class="">Mandatory</td>
+                    </tr>
+                    <tr>
+                      <th class="">Deadline</th>
+                      <td class="">10th January 2023</td>
+                    </tr>
+                  </tbody>
+                  </table>
+
+                </div>
+
+              <div class='col  mt-4 mt-md-0'>
+                <table class="table table-bordered ">
+                  <tbody>
+                    <tr>
+                      <th class="">Company</th>
+                      <td class="">{{ exhibitor.companyName }}</td>
+                    </tr>
+                    <tr>
+                      <th class="">Booth No#</th>
+                      <td class="">{{ exhibitor.boothNumber }}</td>
+                    </tr>
+                    <tr>
+                      <th class="">Key Person</th>
+                      <td class="">{{ exhibitor.contact_person_first_name }} {{ exhibitor.contact_person_last_name }}</td>
+                    </tr>
+                  </tbody>
+                  </table>
+
+              </div>
+            </div>
+
+            <div class='row mt-2'>
+              <small class="small">Please enter below the Exhibitor’s name as you require on the fascia. This will be provided in upper case, standard English alphabets (Maximum 24 letters) cut in white vinyl and pasted on Name Fascia. </small>
+              
+            </div>
+
+            <div class='row mt-4'>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="">FASCIA NAME <span class="text-danger">*</span> (As it should appear on your stall) - Maximum 24 Characters</label>
+                    <!-- <input class="form-control" onkeyup="textUpper(this)" onkeydown="textUpper(this)"  onkeypress="textUpper(this)" type="text" maxlength="24" placeholder="INTIMASIA"> -->
+                    <span class="text-danger block"> {{ form.fascia_name.errors }}</span>
+                    {{ form.fascia_name }}
+                  </div>
+                  
+                  <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+   
+
+  </div>
+</div>
+
+{% endblock %} {% block scriptcontent %}
+
+<script type="text/javascript">
+
+
+
+
+  $("#id_fascia_name").bind('keyup', (e)=>{
+    //console.log(e.currentTarget.value)
+    e.currentTarget.value=e.currentTarget.value.toUpperCase()
+
+  })
+
+</script>
+
+
+
+
+<!-- Plugins JS start-->
+
+<script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+
+
+<script src="{% static 'assets/js/form-wizard/form-wizard-two.js' %}"></script>
+<script src="{% static 'assets/js/form-validation-custom.js'%}"></script>
+
+<script src="{% static 'assets/js/select2/select2.full.min.js'%}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js'%}"></script>
+
+<!-- Plugins JS Ends-->
+
+
+{% endblock %}

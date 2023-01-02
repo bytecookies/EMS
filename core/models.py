@@ -42,7 +42,26 @@ def emailValidation(email):
     else:
         if User.objects.filter(email=email).exists():
             raise ValidationError("User with this email already exists.")
+
+def company_or_brand_logo(value): #custom made by moin.sha55ikh 
+    split=value.name.split(".")[1]
+    print(value.name)
+    valid_extensions=['ai', 'eps', 'cdr', 'pdf', 'psd']
+    print(split.lower())
+    if split.lower() not in valid_extensions:
+        raise ValidationError('Only AI, EPS, CDR, PDF or PSD file extension is allowed.')
+
+
+
+def file_size(value): # add this to some file where you can import it from
+    limit = 1000000
+    if value.size > limit:
+        print(value.size)
+        raise ValidationError('File is large. It should not be more than 1MB')
+
     
+
+
 # visitor first save send mail
 def visitor_welcome_mail(email,context):
     print("mail sent")
@@ -98,6 +117,10 @@ class Exhibitor(models.Model):
         ("1", "BARE SPACE"),
         ("2", "SHELL SCHEME")
     )
+    INTERESTED_IN_OEM_OR_PRIVATE_LABEL_MFG=(
+            ('Yes','Yes'),
+            ('No','No'),
+        )
     
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1, primary_key=True)
@@ -112,6 +135,7 @@ class Exhibitor(models.Model):
     country = models.CharField(max_length=255, blank=True, null=True)
     website = models.URLField(max_length=255, blank=True, null=True)
     company_email=models.EmailField(blank=True, null=True)
+    company_telphone=PhoneNumberField(null=True,blank=True)
     company_description=models.TextField(null=True, blank=True)
     
     # company billing detail
@@ -171,6 +195,22 @@ class Exhibitor(models.Model):
     product_sub_catogory = models.ManyToManyField(
         ProductSubCatogory, blank=True)
     our_brand = models.ManyToManyField(Brand, blank=True)
+    
+    # Fascia Name
+    fascia_name=models.CharField(max_length=24,blank=True,null=True)
+    
+    # show Directory
+    interested_in_oem_or_private_label_mfg = models.CharField(choices=INTERESTED_IN_OEM_OR_PRIVATE_LABEL_MFG,null=True,blank=True, max_length=128)
+    # show Directory key persons
+    sd_key_person_first_name=models.CharField(max_length=255,null=True,blank=True)
+    sd_key_person_last_name=models.CharField(max_length=255,null=True,blank=True)
+    sd_key_person_designation = models.CharField(max_length=200,null=True,blank=True)
+    sd_key_person_department = models.ForeignKey(
+        Department, on_delete=models.PROTECT, blank=True, null=True, related_name='sd_key_person_department')
+    sd_key_person_mobile=PhoneNumberField(null=True,blank=True)
+    sd_key_person_email=models.EmailField(null=True,blank=True)
+    upload_company_or_brand_logo=models.FileField(upload_to='images/exhibitor/downloads/company-brand-logo/',validators=[company_or_brand_logo,file_size],null=True,blank=True)
+    
 
 
 

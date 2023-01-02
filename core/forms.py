@@ -1048,3 +1048,214 @@ class VisitorForm(ModelForm):
          fields = '__all__'
          exclude = ['user','type','password']
 
+
+
+
+class FasciaForm(ModelForm):
+    
+    fascia_name=forms.CharField(required=True, max_length=24,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder":"INTIMASIA",      
+                }
+            ) 
+            )
+    class Meta:
+        
+        model = Exhibitor
+        fields = ['fascia_name']
+        
+class ShowDirectory(ModelForm):
+    
+    companyName=forms.CharField(required=True, disabled=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    
+                }
+            ) 
+            )
+    address1 = forms.CharField(required=True,disabled=True,
+            widget=forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": "2",
+                }
+            ) 
+            )
+    address2 = forms.CharField(required=True,disabled=True,
+            widget=forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows": "2",
+                }
+            ) 
+            )
+    zip = forms.CharField(required=True,disabled=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ) 
+            )
+    city = forms.CharField(required=True,disabled=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ) 
+            )
+    state = forms.CharField(required=True,disabled=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ) 
+            )
+    country = forms.CharField(required=True,disabled=True,
+            widget=forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                }
+            ) 
+            )
+    website = forms.URLField(required=False,
+            widget=forms.URLInput(
+                attrs={
+                    "class": "form-control",
+                    "pattern":"[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                }
+            ) 
+            )
+    company_email = forms.EmailField(required=True,disabled=True,
+                             widget=forms.EmailInput(
+                                 attrs={
+                                     "class": "form-control",
+                                 }
+                             )
+                             )
+    company_description= forms.CharField(required=True,
+                                       widget=forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "rows":2,
+                }
+            ) 
+            )
+    company_telphone= PhoneNumberField(required=False,
+                             widget=PhoneNumberPrefixWidget(initial="IN", 
+                                                   attrs={
+                                                       "class": "form-control",
+                                                   }
+                                               )
+                                               )
+    INTERESTED_IN_OEM_OR_PRIVATE_LABEL_MFG=(
+            ('Yes','Yes'),
+            ('No','No'),
+        )
+    
+    
+    interested_in_oem_or_private_label_mfg=  forms.ChoiceField(choices=INTERESTED_IN_OEM_OR_PRIVATE_LABEL_MFG, widget=forms.RadioSelect(attrs={
+                                                                        "class":"form-check-input"
+                                                                    }))
+    
+    
+    nature_of_bussiness = forms.ModelMultipleChoiceField(required=True,disabled=True,
+                                                         queryset=NatureOfBusiness.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    product_catogory = forms.ModelMultipleChoiceField(required=True,disabled=True,
+                                                      queryset=ProductCatogory.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+    product_sub_catogory = forms.ModelMultipleChoiceField(required=True,disabled=True,
+                                                           queryset=ProductSubCatogory.objects.all().order_by('name'),
+                                                                 widget=forms.SelectMultiple(
+                                                                     attrs={
+                                                                         "class":"js-example-basic-multiple form-control"
+                                                                     }
+                                                                 )
+                                                        )
+    our_brand = forms.ModelMultipleChoiceField(required=False, disabled=True,
+                                               queryset=Brand.objects.all().order_by('name'),
+                                                                widget=forms.SelectMultiple(
+                                                                    attrs={
+                                                                        "class":"js-example-basic-multiple form-control"
+                                                                    }
+                                                                )
+                                                )
+
+    sd_key_person_first_name = forms.CharField(required=True,
+                                                widget=forms.TextInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                    }
+                                                )
+                                                )
+    sd_key_person_last_name = forms.CharField(required=True, 
+                                                widget=forms.TextInput(
+                                                    attrs={
+                                                        "class": "form-control",
+                                                    }
+                                                )
+                                                )
+
+    sd_key_person_designation = forms.CharField(required=True, 
+                                  widget=forms.TextInput(
+                                      attrs={
+                                          "class": "form-control",
+                                      }
+                                  )
+                                  )
+    sd_key_person_department = forms.ModelChoiceField(required=True, 
+                                        queryset=Department.objects.all(),
+                                            #    queryset=None,
+
+                                                widget=forms.Select(
+                                                    attrs={
+                                                        "class": "js-example-basic-single form-control",
+                                                    }
+                                                )
+                                                )
+
+    
+    sd_key_person_mobile = PhoneNumberField(required=False,
+                             widget=PhoneNumberPrefixWidget(initial="IN", 
+                                                   attrs={
+                                                       "class": "form-control",
+                                                   }
+                                               )
+                                               )
+    
+    sd_key_person_email = forms.EmailField(required=True, 
+                                               widget=forms.EmailInput(
+                                                   attrs={
+                                                       "class": "form-control",
+                                                   }
+                                               )
+                                               )
+    
+    upload_company_or_brand_logo = forms.FileField(required=True, 
+                                               widget=forms.ClearableFileInput(
+                                                   attrs={
+                                                       "class": "form-control",
+                                                   }
+                                               )
+                                               )
+    
+    
+  
+    
+    
+    class Meta:
+        model=Exhibitor
+        fields=['companyName','our_brand','address1','address2','zip','city','state','country','website','company_email','company_telphone','nature_of_bussiness','interested_in_oem_or_private_label_mfg','product_catogory','product_sub_catogory','sd_key_person_first_name','sd_key_person_last_name','sd_key_person_designation','sd_key_person_department','sd_key_person_mobile','sd_key_person_email','company_description','upload_company_or_brand_logo']

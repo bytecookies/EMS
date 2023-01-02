@@ -13,6 +13,11 @@ urlpatterns = [
 
     path('exhibitor/participation_form/', views.participation_form,
          name='participation_form'),
+    
+    path('exhibitor/fascia_form/', views.fascia_form,
+         name='fascia_form'),
+    path('exhibitor/showdirectory/', views.showdirectory_form,
+         name='show_directory'),
 
     path('exhibitor/stall_aminities/', views.stall_aminities,
          name='stall_aminities'),

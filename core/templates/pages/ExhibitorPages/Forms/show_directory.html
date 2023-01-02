@@ -1,0 +1,559 @@
+{% extends 'layout/exhibitorBase/base.html' %} {% load static %} {% load sass_tags %} {% block css %}
+<!-- Plugins css start-->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% sass_src 'assets/scss/select2.scss' %}"
+/>
+<!-- Plugins css Ends-->
+
+
+
+<!-- custom internal css-->
+<style>
+  #id_senior_phone_0 , #id_phone_0, #id_company_telphone_0,#id_sd_key_person_mobile_0{
+    position: absolute;
+    width: 20%;
+  }
+  
+  #id_senior_phone_1 , #id_phone_1,#id_company_telphone_1,#id_sd_key_person_mobile_1{
+       padding-left: 23%;
+  }
+  .error ~ .select2-container--default .select2-selection--single {
+    border-color: red !important ;
+}
+.valid ~ .select2-container--default .select2-selection--single {
+  border-color: green !important;
+}
+  .error ~ .select2-container--default .select2-selection--multiple {
+    border-color: red !important;
+}
+  .valid ~ .select2-container--default .select2-selection--multiple {
+    border-color: green !important;
+}
+
+
+label.error {
+  color: red;
+  font-size: 0.6rem;
+  display: block;
+  margin-top: 5px;
+}
+
+.form-control.valid{
+  border:1px solid green !important;
+}
+
+.form-control.error{
+  border:1px solid red !important;
+}
+
+</style>
+{% endblock %} {% block content %}
+
+<div class="page-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-header pb-0">
+            <h5>Exhibitor Show Directory Form</h5>
+
+
+            <div class='row mt-4'>
+              <div class='col-md '>
+                
+                <table class="table table-bordered  ">
+                  <tbody>
+                    <tr>
+                      <th class="">Applicable</th>
+                      <td class="">
+                        {% if exhibitor.boothType == '2' %}Yes{% else %}No{% endif %}
+                       
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="">Type</th>
+                      <td class="">Mandatory</td>
+                    </tr>
+                    <tr>
+                      <th class="">Deadline</th>
+                      <td class="">10th January 2023</td>
+                    </tr>
+                  </tbody>
+                  </table>
+
+                </div>
+
+              <div class='col  mt-4 mt-md-0'>
+                <table class="table table-bordered ">
+                  <tbody>
+                    <tr>
+                      <th class="">Company</th>
+                      <td class="">{{ exhibitor.companyName }}</td>
+                    </tr>
+                    <tr>
+                      <th class="">Booth No#</th>
+                      <td class="">{{ exhibitor.boothNumber }}</td>
+                    </tr>
+                    <tr>
+                      <th class="">Key Person</th>
+                      <td class="">{{ exhibitor.contact_person_first_name }} {{ exhibitor.contact_person_last_name }}</td>
+                    </tr>
+                  </tbody>
+                  </table>
+
+              </div>
+            </div>
+
+            <div class='mt-2'>
+              <span class="text-primary">NOTE:</span>
+              <span >Once submitted, you will not be able to make any alterations. Details in Show Directory shall
+                be printed as submitted by you in this form.</span>
+              
+              <br>
+              <span  class="text-danger pt-4 disabled-form-msg"></span>
+               {% if form.errors %}
+            <p  class="text-danger pt-4 disabled-form-msg">Something is Wrong Please check all Entries.</p>
+            {% endif %}
+
+            
+            </div>
+
+          </div>
+          <div class="card-body">
+          
+            <div class="stepwizard">
+              <div class="stepwizard-row setup-panel">
+                <div class="stepwizard-step">
+                  <a class="btn btn-primary" href="#step-1">1</a>
+                  <p>Company Profile</p>
+                </div>
+                <div class="stepwizard-step">
+                  <a class="btn btn-light" href="#step-2">2</a>
+                  <p>Company Details</p>
+                </div>
+                <div class="stepwizard-step">
+                  <a class="btn btn-light" href="#step-3">3</a>
+                  <p>Key Person</p>
+                </div>
+                
+              </div>
+            </div>
+            <form class="needs-validation" action="#" method="POST" id="participation_form" enctype="multipart/form-data" data-product-subcatogory-url="{% url 'product_sub_catagories_Ajax' %}" novalidate>
+              {% csrf_token %}
+             
+            
+
+              <div class="setup-content" id="step-1">
+                <div class="col-xs-12">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label class="control-label">Company Name</label>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.companyName.errors }}</span>
+                        {{ form.companyName }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label">Apartment, Unit, Building, Floor, etc.</label>
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.address1.errors }}</span>
+                        {{ form.address1 }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label">Street Address </label>
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.address2.errors }}</span>
+                        {{ form.address2 }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3 mb-3 form-group">
+                        <label for="" class="control-label">Pin</label>
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.zip.errors }}</span>
+                        {{ form.zip }}
+                      </div>
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label">City</label>
+                        <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.city.errors }}</span>
+                         {{ form.city }}
+                      </div>
+                      <div class="col-md-2 mb-3 form-group">
+                        <label for="" class="control-label">State</label>
+                              <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.state.errors }}</span>
+                        {{ form.state }}
+                      </div>
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label">Country</label>
+                             <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.country.errors }}</span>
+                        {{ form.country }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label">Website (eg: 'https://intimasia.in')</label>
+                          
+                          <span class="text-danger block"> {{  form.website.errors }}</span>
+                        {{ form.website }}
+                      </div>
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label">Email</label>
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.company_email.errors }}</span>
+                        {{ form.company_email }}
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Mobile</label
+                        >
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.company_telphone.errors }}</span>
+                        {{ form.company_telphone }}
+                        
+                      </div>
+                      <div class="col-md mb-3 ">
+                        <div class="row">
+                            <label>Interested in OEM / Private Label Mfg.:<span class="text-danger">*</span></label>
+                            {% for choices in form.interested_in_oem_or_private_label_mfg %}
+                            
+                            <div class='col'>
+                                
+                               {{ choices }}
+                         
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                      </div>
+                     
+                    </div>
+                    <div class='row'>
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Company Description</label
+                        >
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.company_description.errors }}</span>
+                        {{ form.company_description }}
+                        
+                      </div>
+                    </div>
+
+                    <div class='row'>
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Upload Company / Brand Logo</label
+                        ><span class="text-danger">*</span>
+                        <p>(Please provide your company / brand logos in open format such as AI, EPS, CDR, PDF or PSD format. File size should not
+                          exceed 1MB)</p>
+                          
+                          <span class="text-danger block"> {{ form.upload_company_or_brand_logo.errors }}</span>
+                        {{ form.upload_company_or_brand_logo }}
+                        
+                      </div>
+                    </div>
+
+                    <button
+                      class="btn btn-primary nextBtn pull-right"
+                      type="button"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="setup-content" id="step-2">
+                <div class="col-xs-12">
+                  <div class="col-md-12">
+                    <div class="row">
+                      
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Nature Of Business</label
+                        >
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.nature_of_bussiness.errors }}</span>
+                        {{ form.nature_of_bussiness }}
+                        
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Our Brand (If Any)</label
+                        >
+                          <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.our_brand.errors }}</span>
+                       {{ form.our_brand }}
+                      </div>
+                    </div>
+                    
+                  
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Primary Product & Services</label
+                        >
+                         <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.product_catogory.errors }}</span>
+                        {{ form.product_catogory }}
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label for="" class="control-label"
+                          >Secondory Product & Services</label
+                        >
+                             <span class="text-danger">*</span>
+                          <span class="text-danger block"> {{ form.product_sub_catogory.errors }}</span>
+                        {{ form.product_sub_catogory }}
+                      </div>
+                    </div>
+                    <button
+                      class="btn btn-primary nextBtn pull-right"
+                      type="button"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="setup-content" id="step-3">
+                <div class="col-xs-12">
+                  <div class="col-md-12">
+                   
+                    <div class="row">
+                      <div class="col-md mb-3 form-group form-group">
+                        
+                        <label class="control-label">First Name</label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block"> {{ form.sd_key_person_first_name.errors }}</span>
+                         {{ form.sd_key_person_first_name }}
+                        
+                      </div>
+
+                      <div class="col-md mb-3 form-group">
+                        <label class="control-label">Last Name</label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block"> {{ form.sd_key_person_last_name.errors }}</span>
+                        {{ form.sd_key_person_last_name }}
+                        
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label class="control-label">Designation</label>
+                         <span class="text-danger">*</span>
+                        <span class="text-danger block"> {{ form.sd_key_person_designation.errors }}</span>
+                        {{ form.sd_key_person_designation }}
+                      </div>
+
+                      <div class="col-md mb-3 form-group">
+                        <label class="control-label">Department</label>
+                        <span class="text-danger">*</span>
+                        <span class="text-danger block"> {{ form.sd_key_person_department.errors }}</span>
+                        {{ form.sd_key_person_department }}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md mb-3 form-group">
+                        <label class="control-label">Mobile</label>
+                         <span class="text-danger">*</span>
+                        <span class="text-danger block"> {{ form.sd_key_person_mobile.errors }}</span>
+                        {{ form.sd_key_person_mobile }}
+                      </div>
+
+                      <div class="col-md mb-3 form-group">
+                        <label class="control-label">Email</label>
+                          <span class="text-danger">*</span>
+                        <span class="text-danger block"> {{ form.sd_key_person_email.errors }}</span>
+                        {{ form.sd_key_person_email }}
+                      </div>
+                    </div>
+
+
+                    <p class="text-danger front-error pt-4 disabled-form-msg"> </p>
+                    <input class="btn btn-success pull-right m-2" name="finish" value="Submit" type="submit">
+                      
+                    <input class="btn btn-primary pull-right m-2"  name="save_and_edit" value="Save" type="submit">
+                    
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block scriptcontent %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyCrm3QzMrbB5bvfUhd2iAOnAt5aKO4sEfk&address"></script>
+<script type="text/javascript">
+
+{% comment %} const city=$('#id_city')
+const state=$('#id_state')
+const country=$('#id_country') {% endcomment %}
+
+  let k;
+  function GetDetails(pzip, pcity, pstate,pcountry) {
+      var geocoder = new google.maps.Geocoder();
+      var postalCode = document.getElementById(`${pzip}`).value;
+      geocoder.geocode({ 'address': postalCode }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+              console.log(results[0])
+              k=results[0]
+              var address = results[0].formatted_address;
+              var pin = results[0].address_components[results[0].address_components.length-4].long_name;
+             
+              var country = results[0].address_components[results[0].address_components.length - 1].long_name;
+              var state = results[0].address_components[results[0].address_components.length - 2].long_name;
+              var city = results[0].address_components[results[0].address_components.length - 3].long_name;
+              // var city = results[0].address_components[1].long_name
+              
+              document.getElementById(`${pcountry}`).value = country;
+              document.getElementById(`${pstate}`).value = state;
+              document.getElementById(`${pcity}`).value = city;
+          }
+      });
+  };
+
+  
+
+
+
+  
+  $("#id_zip").focusout(function(){
+    let zip=$("#id_zip").val()
+    GetDetails('id_zip','id_city','id_state','id_country')
+      
+    {% comment %} $.ajax({                       // initialize an AJAX request
+                url: "https://app.zipcodebase.com/api/v1/search",                    // set the url of the request (= /persons/ajax/load-cities/ )
+                data: {
+                    'apikey': "a63fca90-6a80-11ed-8d10-e70b8d42005b" ,      // add the country id to the GET parameters
+                    'codes': zip,      // add the country id to the GET parameters
+                },
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                  
+                  console.log(data.results[zip][0])
+                  zip_info=data.results[zip][0]
+                  $('#id_city').val(zip_info.city)
+                  $('#id_state').val(zip_info.state)
+                  $('#id_country').val(zip_info.country_code)
+                  }
+        }); {% endcomment %}
+  });
+  
+  $("#id_billing_zip").focusout(function(){
+    let zip=$("#id_billing_zip").val()
+    GetDetails('id_billing_zip','id_billing_city','id_billing_state','id_billing_country')
+    {% comment %} $.ajax({                       // initialize an AJAX request
+              url: "https://app.zipcodebase.com/api/v1/search",                    // set the url of the request (= /persons/ajax/load-cities/ )
+              data: {
+                  'apikey': "a63fca90-6a80-11ed-8d10-e70b8d42005b" ,      // add the country id to the GET parameters
+                  'codes': zip,      // add the country id to the GET parameters
+              },
+              success: function (data) {   // `data` is the return of the `load_cities` view function
+                
+                console.log(data.results[zip][0])
+                zip_info=data.results[zip][0]
+                $('#id_billing_city').val(zip_info.city)
+                $('#id_billing_state').val(zip_info.state)
+                $('#id_billing_country').val(zip_info.country_code)
+                }
+              }); {% endcomment %}
+  });
+
+
+
+  $( document ).ready(function() {
+    
+    if ({{ status }}==0){
+    $("input[name='finish']").attr("disabled", true)
+    $("input[name='save_and_edit']").attr("disabled", true)
+    $(".disabled-form-msg")[0].innerHTML="This form has been submitted by you to the Organisor and hence cannot be edited."
+      }
+
+
+
+      // Auto generated dropdown for sub product catogary
+
+      $("#id_product_catogory").change(function(){
+        const url=$("#participation_form").attr("data-product-subcatogory-url");
+        const product_id=$(this).val();
+        console.log(product_id)
+        console.log(url)
+        
+        $("#id_product_sub_catogory").html("<option value=''>-------</option>")
+        product_id.forEach(element => {
+          $.ajax({                       // initialize an AJAX request
+              url: url,                    // set the url of the request (= /persons/ajax/load-cities/ )
+              data: {
+                  'product_id': element       // add the country id to the GET parameters
+              },
+              success: function (data) {   // `data` is the return of the `load_cities` view function
+                  //$("#id_city").html(data);  // replace the contents of the city input with the data that came from the server
+              
+                  {% comment %} console.log(data)
+                  console.log(k) {% endcomment %}
+                  $("#id_product_sub_catogory").append(data)
+
+                }
+          });
+
+          //console.log(typeof element)
+          //console.log(element)
+          //k=k+"<option>"+element+"</option>"
+        });
+        
+
+      })
+
+
+
+  });
+
+
+
+</script>
+
+
+
+
+<!-- Plugins JS start-->
+
+<script src="{% static 'assets/js/jquery.validate.min.js' %}"></script>
+
+
+<script src="{% static 'assets/js/form-wizard/form-wizard-two.js' %}"></script>
+<script src="{% static 'assets/js/form-validation-custom.js'%}"></script>
+
+<script src="{% static 'assets/js/select2/select2.full.min.js'%}"></script>
+<script src="{% static 'assets/js/select2/select2-custom.js'%}"></script>
+
+<!-- Plugins JS Ends-->
+
+
+{% endblock %}

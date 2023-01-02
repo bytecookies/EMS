@@ -127,6 +127,43 @@ def participation_form(request):
 
     return render(request, 'pages/ExhibitorPages/Forms/participatin_form.html',  {'form': form, "status": disable_form})
 
+@exhibitor_required()
+def showdirectory_form(request):
+    
+    exhibitor = Exhibitor.objects.filter(pk=request.user).first()
+    if request.method == 'POST':
+  
+        form = forms.ShowDirectory(request.POST, request.FILES, instance=exhibitor)
+        if form.is_valid():
+            form.save() 
+    else: form = forms.ShowDirectory(instance=exhibitor) 
+    if exhibitor.boothType=='1':
+        for fields in form.fields:form.fields[fields].disabled=True
+    
+
+        
+
+    return render(request, 'pages/ExhibitorPages/Forms/show_directory.html',  {'form': form, "exhibitor": exhibitor})
+
+@exhibitor_required()
+def fascia_form(request):
+    exhibitor = Exhibitor.objects.filter(pk=request.user).first()
+    
+    if request.method == 'POST':
+        print("this is post")
+        form = forms.FasciaForm(request.POST, instance=exhibitor)
+        
+        if form.is_valid():
+            form.save()
+         
+    else:
+        form = forms.FasciaForm(instance=exhibitor) 
+    if exhibitor.boothType=='1':
+        for fields in form.fields:form.fields[fields].disabled=True
+    
+    return render(request, 'pages/ExhibitorPages/Forms/fascia_name.html',  {'form': form, "exhibitor": exhibitor})
+
+
 
 @login_required(login_url="/login")
 def test(request):
