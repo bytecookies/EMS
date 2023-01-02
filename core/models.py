@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.template.loader import get_template
 from django.core.mail import send_mail, EmailMultiAlternatives
 # from . import utility_func
-from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.modelfields import PhoneNumberField, PhoneNumberDescriptor
 from django.db import  transaction
 
 from django.core.exceptions import ValidationError 

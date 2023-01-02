@@ -135,7 +135,8 @@ def showdirectory_form(request):
   
         form = forms.ShowDirectory(request.POST, request.FILES, instance=exhibitor)
         if form.is_valid():
-            form.save() 
+            form.save()
+    
     else: form = forms.ShowDirectory(instance=exhibitor) 
     if exhibitor.boothType=='1':
         for fields in form.fields:form.fields[fields].disabled=True

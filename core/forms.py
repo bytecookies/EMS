@@ -1120,7 +1120,7 @@ class ShowDirectory(ModelForm):
                 }
             ) 
             )
-    website = forms.URLField(required=False,
+    website = forms.URLField(required=False,disabled=True,
             widget=forms.URLInput(
                 attrs={
                     "class": "form-control",
@@ -1248,6 +1248,7 @@ class ShowDirectory(ModelForm):
                                                widget=forms.ClearableFileInput(
                                                    attrs={
                                                        "class": "form-control",
+                                                       "multiple":True,
                                                    }
                                                )
                                                )
