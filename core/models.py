@@ -211,7 +211,10 @@ class Exhibitor(models.Model):
     sd_key_person_email=models.EmailField(null=True,blank=True)
     upload_company_or_brand_logo=models.FileField(upload_to='images/exhibitor/downloads/company-brand-logo/',validators=[company_or_brand_logo,file_size],null=True,blank=True)
     
-
+    
+    # form status
+    fascia_form_status=models.BooleanField(default=False)
+    showdirectory_form_status=models.BooleanField(default=False)
 
 
     last_updated=models.DateTimeField(auto_now=True, null=True, blank=True)

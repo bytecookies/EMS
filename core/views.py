@@ -107,13 +107,11 @@ def participation_form(request):
             
             form.save()
 
-            print(request.POST.get('finish'),
-                  'dslkjflksdjflksdjflkdsjfjldsjlkfjdsjljfljds')
-            print(request.POST.get('save_and_edit'),
-                  'dslkjflksdjflksdjflkdsjfjldsjlkfjdsjljfljds')
-            if request.POST.get('finish') == "submit":
+        
+            if request.POST.get('finish'):
                 User.objects.filter(pk=request.user.id).update(
                     participation_form=True)
+                
             return redirect('participation_form')
         # return render(request, 'pages/ExhibitorPages/Forms/participatin_form.html',  {'form': form})
 
@@ -136,9 +134,13 @@ def showdirectory_form(request):
         form = forms.ShowDirectory(request.POST, request.FILES, instance=exhibitor)
         if form.is_valid():
             form.save()
+            if request.POST.get('finish'):
+                Exhibitor.objects.filter(user=request.user).update(
+                    showdirectory_form_status=True)
+            return redirect('show_directory')
     
     else: form = forms.ShowDirectory(instance=exhibitor) 
-    if exhibitor.boothType=='1':
+    if exhibitor.boothType=='1' or exhibitor.showdirectory_form_status:
         for fields in form.fields:form.fields[fields].disabled=True
     
 
@@ -156,11 +158,16 @@ def fascia_form(request):
         
         if form.is_valid():
             form.save()
+            if request.POST.get('finish'):
+                Exhibitor.objects.filter(user=request.user).update(
+                    fascia_form_status=True)
+            return redirect('fascia_form')
          
     else:
         form = forms.FasciaForm(instance=exhibitor) 
-    if exhibitor.boothType=='1':
+    if exhibitor.boothType=='1' or exhibitor.fascia_form_status:
         for fields in form.fields:form.fields[fields].disabled=True
+    
     
     return render(request, 'pages/ExhibitorPages/Forms/fascia_name.html',  {'form': form, "exhibitor": exhibitor})
 
