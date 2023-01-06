@@ -16,6 +16,8 @@ urlpatterns = [
     
     path('exhibitor/fascia_form/', views.fascia_form,
          name='fascia_form'),
+    
+
     path('exhibitor/showdirectory/', views.showdirectory_form,
          name='show_directory'),
 
@@ -24,6 +26,7 @@ urlpatterns = [
 
     path('exhibitor/move_in_move_out/', views.move_in_move_out,
          name='move_in_move_out'),
+    
     path('exhibitor/key_contacts/', views.key_contacts,
          name='key_contacts'),
 

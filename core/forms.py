@@ -6,6 +6,7 @@ from django.forms import modelformset_factory
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 
+
 class ExhibitorForm(ModelForm):
     # Company Details
 
@@ -1228,7 +1229,7 @@ class ShowDirectory(ModelForm):
                                                 )
 
     
-    sd_key_person_mobile = PhoneNumberField(required=False,
+    sd_key_person_mobile = PhoneNumberField(required=True,
                              widget=PhoneNumberPrefixWidget(initial="IN", 
                                                    attrs={
                                                        "class": "form-control",
@@ -1244,14 +1245,7 @@ class ShowDirectory(ModelForm):
                                                )
                                                )
     
-    upload_company_or_brand_logo = forms.FileField(required=True, 
-                                               widget=forms.ClearableFileInput(
-                                                   attrs={
-                                                       "class": "form-control",
-                                                       "multiple":True,
-                                                   }
-                                               )
-                                               )
+  
     
     
   
@@ -1259,4 +1253,20 @@ class ShowDirectory(ModelForm):
     
     class Meta:
         model=Exhibitor
-        fields=['companyName','our_brand','address1','address2','zip','city','state','country','website','company_email','company_telphone','nature_of_bussiness','interested_in_oem_or_private_label_mfg','product_catogory','product_sub_catogory','sd_key_person_first_name','sd_key_person_last_name','sd_key_person_designation','sd_key_person_department','sd_key_person_mobile','sd_key_person_email','company_description','upload_company_or_brand_logo']
+        fields=['companyName','our_brand','address1','address2','zip','city','state','country','website','company_email','company_telphone','nature_of_bussiness','interested_in_oem_or_private_label_mfg','product_catogory','product_sub_catogory','sd_key_person_first_name','sd_key_person_last_name','sd_key_person_designation','sd_key_person_department','sd_key_person_mobile','sd_key_person_email','company_description']
+
+
+
+class ExhibitorCopanyBrandLogoForm(ModelForm):
+    
+    file = forms.FileField(
+                                               widget=forms.ClearableFileInput(
+                                                   attrs={
+                                                       "class": "form-control   ",
+                                    
+                                                   }
+                                               )
+                                               )
+    class Meta:
+        model=ExhibitorBrandOrCompanyLogo
+        fields=('file',)

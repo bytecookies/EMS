@@ -11,7 +11,7 @@ from rest_framework.decorators import action
 
 from rest_framework import filters
 from .pagination import *
-from core.models import Exhibitor, Visitor
+from core.models import Exhibitor, Visitor, Meeting
 from utility.models import Brand, Nationality, NatureOfBusiness, Department, ProductCatogory, ProductSubCatogory
 from .serializers import *
 from .permissions import *
@@ -48,6 +48,18 @@ class ExhibitorViewSet(ReadOnlyModelViewSet):
     #         return ExhibitorDetailSerializer
       
     #     return ExhibitorListSerializer
+    
+
+class CreatMeetingViewSet(ModelViewSet):
+    
+    queryset=Meeting.objects.all()
+    serializer_class=MeetingSerializer
+    permission_classes = [IsAuthenticated,IsVisitorUser]
+    
+
+        
+
+       
     
     
 

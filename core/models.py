@@ -93,7 +93,7 @@ class User(AbstractUser):
     first_name = None
     last_name = None
     username = None
-    email = models.EmailField(unique=True)
+    email = models.CharField(unique=True, max_length=255)
     USERNAME_FIELD = 'email'
     isExhibitor = models.BooleanField(
         _("Exhibitor status"),
@@ -209,7 +209,7 @@ class Exhibitor(models.Model):
         Department, on_delete=models.PROTECT, blank=True, null=True, related_name='sd_key_person_department')
     sd_key_person_mobile=PhoneNumberField(null=True,blank=True)
     sd_key_person_email=models.EmailField(null=True,blank=True)
-    upload_company_or_brand_logo=models.FileField(upload_to='images/exhibitor/downloads/company-brand-logo/',validators=[company_or_brand_logo,file_size],null=True,blank=True)
+    # upload_company_or_brand_logo=models.FileField(upload_to='images/exhibitor/downloads/company-brand-logo/',validators=[company_or_brand_logo,file_size],null=True,blank=True)
     
     
     # form status
@@ -243,6 +243,17 @@ class Exhibitor(models.Model):
             send_mail(password=password, email=email)
         super().save(*args, **kwargs)
 
+
+
+
+class ExhibitorBrandOrCompanyLogo(models.Model):
+    Exhibitor=models.ForeignKey(Exhibitor, on_delete=models.CASCADE)
+    file=models.FileField(upload_to='images/exhibitor/downloads/company-brand-logo/',validators=[company_or_brand_logo,file_size],null=True,blank=True)
+    
+    
+    def __str__(self):
+        name=self.file.name.split('/').pop()
+        return name
 
 class Visitor(models.Model):
     GENDER_CHOICE=(
@@ -429,12 +440,13 @@ class VisitorIdPassword(models.Model):
 
 
 class Meeting(models.Model):
+    
     SENDER_TYPE=(
         ('VISITOR','VISITOR'),
         ('EXHIBITOR','EXHIBITOR')
     )
-    visitor=models.ForeignKey(Visitor, on_delete=models.PROTECT)
-    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT)
+    visitor=models.ForeignKey(Visitor, on_delete=models.CASCADE)
+    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.CASCADE)
     sender_type=models.CharField(max_length=255,choices=SENDER_TYPE)
     personal_message=models.TextField(null=True, blank=True)
     

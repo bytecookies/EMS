@@ -20,6 +20,10 @@ class venderContactInline(admin.TabularInline):
     model = models.VenderContact
     extra = 1
 
+class ExhibitorBrnadOrLogoInline(admin.TabularInline):
+    model = models.ExhibitorBrandOrCompanyLogo
+    extra = 1
+
 
 
 
@@ -138,7 +142,7 @@ class ExhibitorChangeForm(ModelForm):
 
 @admin.register(models.Exhibitor)
 class ExhibitorAdmin(admin.ModelAdmin):
-    
+    inlines = [ExhibitorBrnadOrLogoInline]
     readonly_fields = ['user','last_updated','date_created']
 
     search_fields=['user__email','companyName']

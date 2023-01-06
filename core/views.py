@@ -6,6 +6,8 @@ from django.http import HttpResponseRedirect
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
+from django.views.generic import ListView, TemplateView, CreateView, DeleteView, UpdateView, FormView
+from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory, InlineFormSetView
 from .models import *
 from utility.models import *
 from . import forms
@@ -17,7 +19,8 @@ from django.contrib.auth.decorators import login_required
 from core.utility import utility_func
 from django.core.mail import send_mail, EmailMultiAlternatives
 from .decorators import *
-
+from django.forms.formsets import formset_factory
+from django.forms import modelformset_factory, inlineformset_factory
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -125,21 +128,33 @@ def participation_form(request):
 
     return render(request, 'pages/ExhibitorPages/Forms/participatin_form.html',  {'form': form, "status": disable_form})
 
+
+
+
+
 @exhibitor_required()
 def showdirectory_form(request):
     
     exhibitor = Exhibitor.objects.filter(pk=request.user).first()
+    
     if request.method == 'POST':
-  
+        
         form = forms.ShowDirectory(request.POST, request.FILES, instance=exhibitor)
+       
         if form.is_valid():
             form.save()
+            
+            
             if request.POST.get('finish'):
                 Exhibitor.objects.filter(user=request.user).update(
                     showdirectory_form_status=True)
+                
             return redirect('show_directory')
-    
-    else: form = forms.ShowDirectory(instance=exhibitor) 
+    else: 
+        form = forms.ShowDirectory(instance=exhibitor) 
+      
+        
+        
     if exhibitor.boothType=='1' or exhibitor.showdirectory_form_status:
         for fields in form.fields:form.fields[fields].disabled=True
     

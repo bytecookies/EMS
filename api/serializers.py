@@ -1,12 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
-from core.models import Exhibitor, Visitor
+from core.models import Exhibitor, Visitor, Meeting
 
 from utility.models import NatureOfBusiness, Brand, ProductCatogory, ProductSubCatogory, Department, Nationality
 
 class UserSerializer(serializers.Serializer):
     id=serializers.IntegerField()
+
 
 class NatureOfBussinessSerializer(serializers.Serializer):
     id=serializers.IntegerField()
@@ -87,6 +88,12 @@ class VisitorCreateSerializer(serializers.ModelSerializer):
         model=Visitor
         fields=['user','first_name','last_name','email','password']
         read_only_fields=['user']
+
+
+class MeetingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Meeting
+        fields=['visitor','exhibitor','sender_type','personal_message','date','time_form','time_to']
 
 
 

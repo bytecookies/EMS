@@ -255,7 +255,7 @@ label.error {
                       </div>
                     </div>
 
-                    <div class='row'>
+                    {% comment %} <div class='row'>
                       <div class="col-md mb-3 form-group">
                         <label for="" class="control-label"
                           >Upload Company / Brand Logo</label
@@ -263,11 +263,15 @@ label.error {
                         <p>(Please provide your company / brand logos in open format such as AI, EPS, CDR, PDF or PSD format. File size should not
                           exceed 1MB)</p>
                           
-                          <span class="text-danger block"> {{ form.upload_company_or_brand_logo.errors }}</span>
-                        {{ form.upload_company_or_brand_logo }}
+                          
+
+                           {{ formset }}
+                           
+                        
+                       
                         
                       </div>
-                    </div>
+                    </div> {% endcomment %}
 
                     <button
                       class="btn btn-primary nextBtn pull-right"
