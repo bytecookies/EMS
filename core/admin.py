@@ -233,6 +233,11 @@ class MyscheduleAdmin(admin.ModelAdmin):
     # inlines = [venderContactInline]
     pass
 
+@admin.register(models.EventAgenda)
+class MyscheduleAdmin(admin.ModelAdmin):
+    # inlines = [venderContactInline]
+    pass
+
 
 
 

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+
 User = get_user_model()
 from core.models import Exhibitor, Visitor, Meeting
 
@@ -68,16 +69,28 @@ class VisitorListSerializer(serializers.ModelSerializer):
 
 
 class VisitorDetailSerializer(serializers.ModelSerializer):
-    user_id=serializers.PrimaryKeyRelatedField( queryset=User.objects.all()
+    user_id=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()
         ,source='user')
+    
+    registration_id=serializers.CharField(read_only=True,source='user.registration_id')
+    
     nationality_id=serializers.PrimaryKeyRelatedField(queryset=Nationality.objects.all()
         ,source='nationality')
     department_id=serializers.PrimaryKeyRelatedField(queryset=Department.objects.all()
         ,source='department')
+    
+    # nationality_id=serializers.IntegerField(source='nationality.pk')
+    # department_id=serializers.IntegerField(source='department.pk')
+    
     class Meta:
         model=Visitor
-        fields=['user_id','first_name','last_name','email','gender','nationality_id','organization_name','department_id','job_title','apartment_unit_building_floor_etc','street_address','zip_code','country','state','town_city_district','email','cc_email','mobile','mobile','whatsapp','whatsapp_same_as_mobile_or_no_wp','nature_of_business','nature_of_business_others','product_category','product_category_others','product_sub_category','product_sub_category_others','brand','brand_others','how_did_you_get_to_know_about_INTIMASIA','how_did_you_get_to_know_about_INTIMASIA_others','product_category_interest','product_category_interest_others','product_sub_category_interest','product_sub_category_interest_others','subscribe_to_inner_secrets','is_first_time_to_intimasia','badge_name','badge_job_title','badge_company']
+        fields=['user_id','registration_id','first_name','last_name','email','gender','nationality_id','organization_name','department_id','job_title','apartment_unit_building_floor_etc','street_address','zip_code','country','state','town_city_district','email','cc_email','mobile','mobile','whatsapp','whatsapp_same_as_mobile_or_no_wp','nature_of_business','nature_of_business_others','product_category','product_category_others','product_sub_category','product_sub_category_others','brand','brand_others','how_did_you_get_to_know_about_INTIMASIA','how_did_you_get_to_know_about_INTIMASIA_others','product_category_interest','product_category_interest_others','product_sub_category_interest','product_sub_category_interest_others','subscribe_to_inner_secrets','is_first_time_to_intimasia','badge_name','badge_job_title','badge_company']
+        
         read_only_fields=['user_id','email']
+        
+        def create(self, validated_data):
+            return Visitor.objects.create(**validated_data)
+        
 
 
 
@@ -90,10 +103,18 @@ class VisitorCreateSerializer(serializers.ModelSerializer):
         read_only_fields=['user']
 
 
+
+# meetings
+
+
 class MeetingSerializer(serializers.ModelSerializer):
+    sender_id=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()
+        ,source='sender')
+    receiver_id=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()
+        ,source='receiver')
     class Meta:
         model=Meeting
-        fields=['visitor','exhibitor','sender_type','personal_message','date','time_form','time_to']
+        fields=['id','sender_id','receiver_id','sender_type','personal_message','date','time_form','time_to']
 
 
 

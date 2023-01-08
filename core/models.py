@@ -442,11 +442,13 @@ class VisitorIdPassword(models.Model):
 class Meeting(models.Model):
     
     SENDER_TYPE=(
+        ('0','---'),
         ('VISITOR','VISITOR'),
         ('EXHIBITOR','EXHIBITOR')
     )
-    visitor=models.ForeignKey(Visitor, on_delete=models.CASCADE)
-    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.CASCADE)
+    sender=models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
+    receiver=models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+    
     sender_type=models.CharField(max_length=255,choices=SENDER_TYPE)
     personal_message=models.TextField(null=True, blank=True)
     
@@ -454,27 +456,26 @@ class Meeting(models.Model):
     time_form=models.TimeField(null=True, blank=True)
     time_to=models.TimeField(null=True, blank=True)
     
-    
     status=models.BooleanField(blank=True, null=True)
     
     schedule_request_date=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
     
+
+class EventAgenda(models.Model):
+    
+    date=models.DateField(null=True, blank=True)
+    time_form=models.TimeField(null=True, blank=True)
+    time_to=models.TimeField(null=True, blank=True)
+    
+    add_date_time=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
+    
+    
     
     
 class MySchedule(models.Model):
-    TYPE=(("A-AL","A-AL")
-          ,("V-E","V-E"),
-          ("E-V","E-V"))
-    visitor=models.ForeignKey(Visitor, on_delete=models.PROTECT,null=True, blank=True)
-    exhibitor=models.ForeignKey(Exhibitor, on_delete=models.PROTECT, null=True, blank=True)
-    admin=models.ForeignKey(User,on_delete=models.PROTECT,null=True, blank=True)
-    sender_to_receiver_type=models.CharField(max_length=255,choices=TYPE,null=True, blank=True)
-    message=models.TextField(null=True, blank=True)
-    
-    date=models.DateField(null=True, blank=True)
-    time_from=models.TimeField(null=True, blank=True)
-    time_to=models.TimeField(null=True, blank=True)
-    
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    meetings=models.ManyToManyField(Meeting, blank=True)
+    event_agendas=models.ManyToManyField(EventAgenda, blank=True)
     add_time=models.DateTimeField(auto_now=True)
     
     

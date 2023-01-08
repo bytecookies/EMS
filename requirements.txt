@@ -30,3 +30,5 @@ djangorestframework_simplejwt==4.3.0
 PyJWT==v1.7.1
 
 djangorestframework-api-key==2.*
+
+django-extra-views

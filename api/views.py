@@ -56,14 +56,26 @@ class CreatMeetingViewSet(ModelViewSet):
     serializer_class=MeetingSerializer
     permission_classes = [IsAuthenticated,IsVisitorUser]
     
-
+    def get_queryset(self):
+    
+        queryset=Meeting.objects.select_related('sender').filter(sender=self.request.user)
+        return queryset
+    
+    # def create(self, request, *args, **kwargs):
+    #     user = request.user
+    #     # data = {
+    #     #     "title": request.POST.get('title', None),
+    #     #     }
+    #     print(request.data)
+    #     serializer = self.serializer_class(data=request.data,
+    #                                        context={'author': user})
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+    #     else:
+    #         return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
         
-
-       
-    
-    
-
-    
    
 
 class VisitorViewSet(ReadOnlyModelViewSet):
@@ -73,14 +85,18 @@ class VisitorViewSet(ReadOnlyModelViewSet):
 
 
 class VisitorProfileViewSet(mixins.RetrieveModelMixin, mixins.UpdateModelMixin,GenericViewSet):
-    queryset=Visitor.objects.all()
+    queryset=Visitor.objects.select_related('user').select_related('nationality').select_related('department').prefetch_related('nature_of_business').prefetch_related('product_category').prefetch_related('product_sub_category').prefetch_related('brand').prefetch_related('product_category_interest').prefetch_related('product_sub_category_interest').prefetch_related('how_did_you_get_to_know_about_INTIMASIA').all()
     serializer_class=VisitorDetailSerializer
     permission_classes = [IsAuthenticated,IsVisitorUser]
+    
+    
     
 
     @action(detail=False, methods=['GET','PUT'])
     def me(self, request):
-        visitor=Visitor.objects.get(user_id=request.user.id)
+        
+        visitor=Visitor.objects.select_related('user').select_related('nationality').select_related('department').prefetch_related('nature_of_business').prefetch_related('product_category').prefetch_related('product_sub_category').prefetch_related('brand').prefetch_related('product_category_interest').prefetch_related('product_sub_category_interest').prefetch_related('how_did_you_get_to_know_about_INTIMASIA').get(user_id=request.user.id)
+        
         if request.method=='GET':
             serializer=VisitorDetailSerializer(visitor)
             return Response(serializer.data)

@@ -1136,7 +1136,7 @@ class ShowDirectory(ModelForm):
                                  }
                              )
                              )
-    company_description= forms.CharField(required=True,
+    company_description= forms.CharField(required=True, max_length=850,
                                        widget=forms.Textarea(
                 attrs={
                     "class": "form-control",
