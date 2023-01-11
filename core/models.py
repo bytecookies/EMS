@@ -458,7 +458,7 @@ class Meeting(models.Model):
     time_form=models.TimeField(null=True, blank=True)
     time_to=models.TimeField(null=True, blank=True)
     
-    status=models.BooleanField(blank=True, null=True)
+    status=models.BooleanField(blank=True, null=True, default=False)
     
     schedule_request_date=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
     
