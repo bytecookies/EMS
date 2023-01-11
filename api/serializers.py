@@ -130,8 +130,8 @@ class MeetingSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=Meeting
-        fields=['id','sender_id','receiver_id','receiver_name','sender_type','personal_message','date','time_form','time_to']
-        read_only=['receiver_name']
+        fields=['id','sender_id','receiver_id','receiver_name','sender_type','personal_message','date','time_form','time_to','status']
+        read_only=['receiver_name','status']
 
 
 class EventSerializer(serializers.ModelSerializer):

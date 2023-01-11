@@ -349,6 +349,9 @@ def change_password(request):
     })
 
 
+def general_info(request):
+    return render(request, 'pages/VenderPages/generalInformation.html')
+
 def loginview(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
