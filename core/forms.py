@@ -1058,7 +1058,7 @@ class FasciaForm(ModelForm):
             widget=forms.TextInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder":"INTIMASIA",      
+                    "placeholder":"Enter Your Fascia Name",      
                 }
             ) 
             )

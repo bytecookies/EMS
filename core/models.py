@@ -446,8 +446,10 @@ class Meeting(models.Model):
         ('VISITOR','VISITOR'),
         ('EXHIBITOR','EXHIBITOR')
     )
+    
     sender=models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')
     receiver=models.ForeignKey(User, on_delete=models.CASCADE, related_name='receiver')
+   
     
     sender_type=models.CharField(max_length=255,choices=SENDER_TYPE)
     personal_message=models.TextField(null=True, blank=True)
@@ -460,14 +462,27 @@ class Meeting(models.Model):
     
     schedule_request_date=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
     
+    def __str__(self) -> str:
+        return str(self.sender) + " - "+ str(self.receiver)
+    
 
+        
+    
 class EventAgenda(models.Model):
+    
+    
+    topic=models.CharField(max_length=255)
+    speaker=models.TextField(null=True, blank=True)
+    description=models.TextField(null=True, blank=True)
     
     date=models.DateField(null=True, blank=True)
     time_form=models.TimeField(null=True, blank=True)
     time_to=models.TimeField(null=True, blank=True)
     
     add_date_time=models.DateTimeField(_("Schedule Request Time"), auto_now=True, auto_now_add=False)
+    
+    def __str__(self) -> str:
+        return self.topic
     
     
     

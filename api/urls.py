@@ -19,7 +19,8 @@ router.register('business_nature',views.NatureOfBusinessViewSet)
 router.register('product_category',views.ProductCatogoryViewSet)
 router.register('product_sub_category',views.ProductSubCatogoryViewSet)
 router.register('nationality',views.NationalityViewSet)
-router.register('meetings',views.CreatMeetingViewSet)
+router.register('meetings',views.MeetingViewSet)
+router.register('events',views.EventViewSet)
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,

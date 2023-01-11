@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
-from core.models import Exhibitor, Visitor, Meeting
+from core.models import Exhibitor, Visitor, Meeting, EventAgenda
 
 from utility.models import NatureOfBusiness, Brand, ProductCatogory, ProductSubCatogory, Department, Nationality
 
@@ -108,13 +108,37 @@ class VisitorCreateSerializer(serializers.ModelSerializer):
 
 
 class MeetingSerializer(serializers.ModelSerializer):
+    
+    
     sender_id=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()
         ,source='sender')
+    
     receiver_id=serializers.PrimaryKeyRelatedField(queryset=User.objects.all()
         ,source='receiver')
+    
+    receiver_name=serializers.SerializerMethodField('get_receiver_name')
+    
+
+    @classmethod
+    def get_receiver_name(self, obj):
+        try:
+            k=User.objects.prefetch_related('exhibitor').get(pk=obj.receiver_id)
+            k=str(k.exhibitor.contact_person_first_name) + " -" + str(k.exhibitor)
+        except Exception:
+            k=None
+        return k
+    
     class Meta:
         model=Meeting
-        fields=['id','sender_id','receiver_id','sender_type','personal_message','date','time_form','time_to']
+        fields=['id','sender_id','receiver_id','receiver_name','sender_type','personal_message','date','time_form','time_to']
+        read_only=['receiver_name']
+
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=EventAgenda
+        fields=['id','topic','speaker','description','date','time_form','time_to']
+    
 
 
 

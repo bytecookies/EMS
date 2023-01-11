@@ -50,7 +50,7 @@ class ExhibitorViewSet(ReadOnlyModelViewSet):
     #     return ExhibitorListSerializer
     
 
-class CreatMeetingViewSet(ModelViewSet):
+class MeetingViewSet(ModelViewSet):
     
     queryset=Meeting.objects.all()
     serializer_class=MeetingSerializer
@@ -77,6 +77,11 @@ class CreatMeetingViewSet(ModelViewSet):
     
         
    
+class EventViewSet(ReadOnlyModelViewSet):
+    queryset=EventAgenda.objects.all()
+    serializer_class=EventSerializer
+    permission_classes=[IsAuthenticated]
+    
 
 class VisitorViewSet(ReadOnlyModelViewSet):
     queryset=Visitor.objects.all()

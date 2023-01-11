@@ -154,8 +154,8 @@ def showdirectory_form(request):
         form = forms.ShowDirectory(instance=exhibitor) 
       
         
-        
-    if exhibitor.boothType=='1' or exhibitor.showdirectory_form_status:
+        # exhibitor.boothType=='1' or 
+    if exhibitor.showdirectory_form_status:
         for fields in form.fields:form.fields[fields].disabled=True
     
 

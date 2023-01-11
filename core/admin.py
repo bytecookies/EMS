@@ -225,7 +225,7 @@ class VenderAdmin(admin.ModelAdmin):
 
 @admin.register(models.Meeting)
 class MeetingAdmin(admin.ModelAdmin):
-    # inlines = [venderContactInline]
+    # list_display=['recevier_name']
     pass
 
 @admin.register(models.MySchedule)
