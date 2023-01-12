@@ -834,7 +834,7 @@ class VisitorForm(ModelForm):
                 }
             ) 
             )
-    email = forms.EmailField(required=True,
+    email = forms.EmailField(required=False,
                                                 widget=forms.EmailInput(
                                                     attrs={
                                                         "class": "form-control",

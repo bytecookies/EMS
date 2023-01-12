@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 from core.models import Exhibitor, Visitor, Meeting, EventAgenda
 
+from phonenumber_field.serializerfields import PhoneNumberField
+
 from utility.models import NatureOfBusiness, Brand, ProductCatogory, ProductSubCatogory, Department, Nationality
 
 class UserSerializer(serializers.Serializer):
@@ -96,11 +98,36 @@ class VisitorDetailSerializer(serializers.ModelSerializer):
 
 
 class VisitorCreateSerializer(serializers.ModelSerializer):
-    password=serializers.CharField(max_length=255)
+    password=serializers.CharField(max_length=255, write_only=True)
+    
+    # mobile=PhoneNumberField(required=False)
+    
+
+
+    def validate(self, data):
+        """
+        Check that the start is before the stop.
+        """
+        print(data)
+        # if data['email']  == "" :
+        #     raise serializers.ValidationError({"email": "This field may required or mobile"})
+        
+        if data['mobile']  == "" and data['email']  == ""  :
+            raise serializers.ValidationError({"mobile": "This field may required or email field ","email": "This field may required or mobile field"} )
+        
+        if data['mobile']  == None and data['email']  == None  :
+            raise serializers.ValidationError({"mobile": "This field may required or email field ","email": "This field may required or mobile field"} )
+        
+        return data
+    
+    
     class Meta:
         model=Visitor
-        fields=['user','first_name','last_name','email','password']
+        fields=['user','first_name','last_name','email','mobile','password']
         read_only_fields=['user']
+        
+
+        
 
 
 

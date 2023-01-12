@@ -93,7 +93,7 @@ class User(AbstractUser):
     first_name = None
     last_name = None
     username = None
-    email = models.CharField(unique=True, max_length=255)
+    email = models.CharField( _('username'), unique=True, max_length=255)
     USERNAME_FIELD = 'email'
     isExhibitor = models.BooleanField(
         _("Exhibitor status"),
@@ -299,7 +299,7 @@ class Visitor(models.Model):
     country=models.CharField(max_length=255,null=True,blank=True)
     state=models.CharField(max_length=255,null=True,blank=True)
     town_city_district=models.CharField(max_length=255,null=True,blank=True)
-    email=models.EmailField(unique=True)
+    email=models.EmailField(null=True,blank=True)
     cc_email=models.EmailField(blank=True,null=True)
     mobile=PhoneNumberField(null=True,blank=True)
     whatsapp=PhoneNumberField(blank=True, null=True)
@@ -347,6 +347,11 @@ class Visitor(models.Model):
         if self._state.adding:
             if User.objects.filter(email=self.email).exists():
                 raise ValidationError({'email': ["User with this email already exists.",]})
+            
+            if self.email==None  and self.email==""  and self.mobile==None and self.mobile=="":
+                raise ValidationError({'email': ["This Field or mobile no Field should filled.",],'mobile': ["This Field or Email  Field should filled",]})
+                # raise ValidationError({'mobile': ["User with this email already exists.",]})
+                
 
         return super().clean()
     
@@ -355,20 +360,26 @@ class Visitor(models.Model):
    
 
     def save(self, *args, **kwargs):
+        
         if self._state.adding:
             print("ADDING NEW Visitor")
             email=self.email 
+            print(self.mobile)
+            
+            id=self.email or str(self.mobile.national_number)
+            
             if self.password is None:
                 password = customUserManager().make_random_password()
             else:
                 password=self.password
                 self.password=None
+                
 
             print(f"This is the PASSWORD {password}")
             registration_id=unique_id()
 
             user = User.objects.create_visitor(
-                    email=email, password=password,registration_id=registration_id)
+                    email=id, password=password,registration_id=registration_id)
 
             print("===========================================")
             self.user = user
