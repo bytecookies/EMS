@@ -100,7 +100,7 @@ class VisitorDetailSerializer(serializers.ModelSerializer):
 class VisitorCreateSerializer(serializers.ModelSerializer):
     password=serializers.CharField(max_length=255, write_only=True)
     
-    # mobile=PhoneNumberField(required=False)
+    mobile=PhoneNumberField(required=False)
     
 
 
@@ -111,6 +111,16 @@ class VisitorCreateSerializer(serializers.ModelSerializer):
         print(data)
         # if data['email']  == "" :
         #     raise serializers.ValidationError({"email": "This field may required or mobile"})
+        
+        if data['mobile'] and data['email']=="" or  data['email']== None:
+            print(data['mobile'])
+            if User.objects.filter(email=data['mobile'].national_number).exists():
+                raise serializers.ValidationError({'mobile': ["User with this mobile already exists.",]})
+            
+        if data['email']:
+            if User.objects.filter(email=data['email']).exists():
+                raise serializers.ValidationError({'email': ["User with this Email already exists.",]})
+            
         
         if data['mobile']  == "" and data['email']  == ""  :
             raise serializers.ValidationError({"mobile": "This field may required or email field ","email": "This field may required or mobile field"} )

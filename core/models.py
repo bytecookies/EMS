@@ -348,6 +348,9 @@ class Visitor(models.Model):
             if User.objects.filter(email=self.email).exists():
                 raise ValidationError({'email': ["User with this email already exists.",]})
             
+            if User.objects.filter(email=str(self.mobile.national_number)).exists():
+                raise ValidationError({'email': ["User with this mobile already exists.",]})
+            
             if self.email==None  and self.email==""  and self.mobile==None and self.mobile=="":
                 raise ValidationError({'email': ["This Field or mobile no Field should filled.",],'mobile': ["This Field or Email  Field should filled",]})
                 # raise ValidationError({'mobile': ["User with this email already exists.",]})
@@ -390,7 +393,8 @@ class Visitor(models.Model):
             print("============================================")
             context={'email':self.email , 'fname':self.first_name, 'registration_id':user.registration_id ,'lname':self.last_name,'cc':self.cc_email}
             super().save(*args, **kwargs)
-            visitor_welcome_mail(email=email, context=context)
+            if email:
+                visitor_welcome_mail(email=email, context=context)
         else:
             super().save(*args, **kwargs)
 
